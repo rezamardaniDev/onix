@@ -21,4 +21,10 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("UPDATE `tb_users` SET `step` = ? WHERE `chat_id` = ?");
         $stmt->execute([$input , $chat_id]);
     }
+
+    public function setAiType($chat_id , $input)
+    {
+        $stmt = $this->db->prepare("UPDATE `tb_users` SET `ai_type` = ? WHERE `chat_id` = ?");
+        $stmt->execute([$input , $chat_id]);
+    }
 }
