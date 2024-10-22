@@ -11,6 +11,8 @@ if (isset($update->message)) {
     $message_id  = $update->message->message_id;
 }
 
+$user = $userConnect->getUser($from_id);
+
 # -------------- Callback Updates -------------- #
 
 // if (isset($update->callback_query)) {
