@@ -1,5 +1,7 @@
 <?php
 
+# -------------- Bot class for Request To Telegram -------------- #
+
 class Bot
 {
     private $apiKey;
