@@ -5,7 +5,7 @@ class UserConnection extends Connection
 {
     public function addNewUser($chat_id)
     {
-        $stmt = $this->db->prepare("INSERT INTO `tb_users` (`chat_id`) VALUES (? , ?)");
+        $stmt = $this->db->prepare("INSERT INTO `tb_users` (`chat_id`, `step`) VALUES (? , ?)");
         $stmt->execute([$chat_id, 'home']);
     }
 
@@ -16,10 +16,9 @@ class UserConnection extends Connection
         return $stmt->fetch();
     }
 
-    public function getStep($chat_id)
+    public function setStep($chat_id , $input)
     {
-        $stmt = $this->db->prepare("SELECT `step` FROM `tb_users` WHERE `chat_id` = ? ");
-        $stmt->execute([$chat_id]);
-        return $stmt->fetch()->step;
+        $stmt = $this->db->prepare("UPDATE `tb_users` SET `step` = ? WHERE `chat_id` = ?");
+        $stmt->execute([$input , $chat_id]);
     }
 }

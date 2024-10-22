@@ -33,10 +33,12 @@ if ($text == '/start' || $text == 'بازگشت') {
     }
     $botMessage = "سلام, به ربات هوش مصنوعی اونیکس خوش آمدید.\n\nجهت ادامه روی یکی از دکمه های زیر کلیک کنید.\n\nساخته شده توسط : *𝗢𝗻𝘆𝘅𝗧𝗲𝗮𝗺* 🦜";
     $bot->sendMessage($chat_id, $botMessage, $mainKeyboard);
+    $userCursor->setStep($from_id, 'home');
     die;
 }
 
 if ($text == '「 👨‍💻 چت با هوش مصنوعی 」') {
     $bot->sendMessage($from_id, 'لطفا یکی از نسخه های زیر را انتخاب کنید: ', $aiKeyboard);
+    $userCursor->setStep($from_id, 'ai-select-category');
     die;
 }
