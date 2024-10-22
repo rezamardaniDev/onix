@@ -1,6 +1,6 @@
 <?php
 
-// Main update
+# -------------- Message Updates -------------- #
 if (isset($update->message)) {
     $message     = $update->message;
     $text        = $message->text;
@@ -11,7 +11,7 @@ if (isset($update->message)) {
     $message_id  = $update->message->message_id;
 }
 
-// callback data for when using inline keyboards
+# -------------- Callback Updates -------------- #
 
 // if (isset($update->callback_query)) {
 //     $callback_id = $update->callback_query->id;
