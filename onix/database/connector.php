@@ -5,7 +5,7 @@ class Connection
     public $hostname = 'localhost';
     public $username = 'faraitir_root';
     public $password = 'mardani80';
-    public $database = 'faraitir_moderator';
+    public $database = 'faraitir_onix';
     public $db;
 
     public $options = [
@@ -15,5 +15,6 @@ class Connection
     public function __construct()
     {
         $this->db = new PDO("mysql:host={$this->hostname};dbname={$this->database};charset=UTF8", $this->username, $this->password, $this->options);
+        echo 'Db Connected!';
     }
 }

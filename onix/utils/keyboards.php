@@ -46,6 +46,8 @@ $userSectionKeyboard = json_encode([
     ]
 ]);
 
+# -------------- Back button keyboard -------------- #
+
 $backButton = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
