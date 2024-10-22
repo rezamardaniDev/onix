@@ -20,7 +20,7 @@ require 'utils/keyboards.php';
 # -------------- Create Objects -------------- #
 
 $bot = new Bot(API_KEY);
-$userConnect = new UserConnection();
+$userCursor = new UserConnection();
 
 # -------------- Include variables -------------- #
 
@@ -28,7 +28,11 @@ require 'utils/variables.php';
 
 # -------------- Main Codes -------------- #
 if ($text == '/start' || $text == 'بازگشت') {
-    $bot->sendMessage($chat_id, 'سلام دوست عزیز', $mainKeyboard);
+    if (!$user) {
+        $userCursor->addNewUser($from_id);
+    }
+    $botMessage = "سلام, به ربات هوش مصنوعی اونیکس خوش آمدید.\n\nجهت ادامه روی یکی از دکمه های زیر کلیک کنید.\n\nساخته شده توسط : *𝗢𝗻𝘆𝘅𝗧𝗲𝗮𝗺* 🦜";
+    $bot->sendMessage($chat_id, $botMessage, $mainKeyboard);
     die;
 }
 
