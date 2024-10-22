@@ -42,3 +42,25 @@ if ($text == '「 👨‍💻 چت با هوش مصنوعی 」') {
     $userCursor->setStep($from_id, 'ai-select-category');
     die;
 }
+
+if ($user->step == 'ai-select-category') {
+    if ($text == 'GPT 3.5') {
+        $userCursor->setAiType($from_id, 'gpt-3');
+    } elseif ($text == 'GPT 4.O') {
+        $userCursor->setAiType($from_id, 'gpt-4');
+    } else {
+        die;
+    }
+    $bot->sendMessage($from_id, 'ورژن شما انتخاب شد، هم اکنون میتوانید چت کنید: ', $backButton);
+    die;
+}
+
+if ($user->ai_type == 'gpt-3') {
+    $bot->sendMessage($from_id, 'درسته 3 هست');
+    die;
+}
+
+if ($user->ai_type == 'gpt-4') {
+    $bot->sendMessage($from_id, 'درسته 4 هست');
+    die;
+}
