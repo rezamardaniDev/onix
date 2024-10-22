@@ -22,7 +22,12 @@ $bot = new Bot(API_KEY);
 
 # -------------- Main Codes -------------- #
 
-if ($text == '/start') {
+if ($text == '/start' || $text == 'بازگشت') {
     $bot->sendMessage($chat_id, 'سلام دوست عزیز', $mainKeyboard);
+    die;
+}
+
+if ($text == '「 👨‍💻 چت با هوش مصنوعی 」') {
+    $bot->sendMessage($from_id, 'لطفا یکی از نسخه های زیر را انتخاب کنید: ', $aiKeyboard);
     die;
 }
