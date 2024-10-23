@@ -46,6 +46,15 @@ if ($user->step == 'chating') {
 
     $bot->sendChatAction($chat_id, 'typing');
     $chatResponse = $apiRequest->sendTextToGpt($text, $user->ai_type);
+
+    if ($user->ai_type == 'gpt-4'){
+        $string = "\n\n تعداد درخواست های باقی مانده امروز : $userLimits->gpt_4_limit";
+    }else{
+        $string = "\n\n تعداد درخواست های باقی مانده امروز : $userLimits->gpt_3_limit";
+    }
+
+
+    $chatResponse = $chatResponse . $string;
     $bot->sendMessage($from_id, $chatResponse);
 
     if ($user->ai_type == 'gpt-3') {
