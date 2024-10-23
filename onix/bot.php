@@ -16,11 +16,13 @@ require 'utils/methods.php';
 require 'database/connector.php';
 require 'database/usersMethods.php';
 require 'utils/keyboards.php';
+require 'database/oneApi.php';
 
 # -------------- Create Objects -------------- #
 
 $bot = new Bot(API_KEY);
 $userCursor = new UserConnection();
+$apiRequest = new OneApi(RAMZINE);
 
 # -------------- Include variables -------------- #
 
@@ -56,15 +58,12 @@ if ($user->step == 'ai-select-category') {
         die;
     }
     $bot->sendMessage($from_id, 'ورژن شما انتخاب شد، هم اکنون میتوانید چت کنید: ', $backButton);
+    $userCursor->setStep($from_id, 'chating');
     die;
 }
 
-if ($user->ai_type == 'gpt-3') {
-    $bot->sendMessage($from_id, 'درسته 3 هست');
-    die;
-}
-
-if ($user->ai_type == 'gpt-4') {
-    $bot->sendMessage($from_id, 'درسته 4 هست');
+if ($user->step == 'chating') {
+    $chatResponse = $apiRequest->sendTextToGpt($text, $user->ai_type);
+    $bot->sendMessage($from_id, $chatResponse);
     die;
 }
