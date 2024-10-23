@@ -44,9 +44,7 @@ class OneApi
     public function sendTextToGpt($text, $type)
     {
         $ai_version = ($type === 'gpt-3') ? $this->gpt3 : (($type === 'gpt-4') ? $this->gpt4 : null);
-        $data = [["role" => "user", "content" => $text]];
-        $headers = ["one-api-token: {$this->token}"];
-        $response = $this->postRequest($ai_version, $data, $headers);
+        $response = $this->postRequest($ai_version, [["role" => "user", "content" => $text]], ["one-api-token: {$this->token}"]);
         return json_decode($response, true)['result'][0] ?? null;
     }
 }
