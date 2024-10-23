@@ -68,3 +68,12 @@ if ($user->step == 'chating') {
     $bot->sendMessage($from_id, $chatResponse);
     die;
 }
+
+if ($text == '「 📡 اخبار روز 」') {
+    $news = json_decode(file_get_contents('https://one-api.ir/rss/?token=947925:670026b59af4f&action=irinn'));
+
+    if ($news->status == 200) {
+        $bot->sendMessage($from_id, '200');
+    }
+    die;
+}
