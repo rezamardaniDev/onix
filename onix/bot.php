@@ -32,7 +32,7 @@ require 'utils/variables.php';
 
 if ($text == '/start' || $text == 'بازگشت') {
     if (!$user) {
-        $userCursor->addNewUser($from_id); 
+        $userCursor->addNewUser($from_id);
     }
     if (!$userLimits) {
         $userCursor->addNewUserLimits($from_id);
@@ -50,10 +50,6 @@ include 'partial/chatBotSection.php';
 # -------------- include news section -------------- #
 
 if ($text == '「 📡 اخبار روز 」') {
-    $news = json_decode(file_get_contents('https://one-api.ir/rss/?token=947925:670026b59af4f&action=irinn'));
-
-    if ($news->status == 200) {
-        $bot->sendMessage($from_id, '200');
-    }
+    
     die;
 }

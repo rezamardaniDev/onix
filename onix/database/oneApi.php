@@ -47,4 +47,24 @@ class OneApi
         $response = $this->postRequest($ai_version, [["role" => "user", "content" => $text]], ["one-api-token: {$this->token}"]);
         return json_decode($response, true)['result'][0] ?? null;
     }
+
+    public function getRequest($url, $action, $parametr = null)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://one-api.ir/{$url}/?token={$this->token}&action={$action}",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = json_decode(curl_exec($curl));
+
+        curl_close($curl);
+        return $response;
+    }
 }
