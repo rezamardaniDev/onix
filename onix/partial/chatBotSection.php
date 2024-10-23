@@ -32,6 +32,7 @@ if ($user->step == 'ai-select-category') {
 }
 
 # -------------- recive and send requests to chat bot -------------- #
+
 if ($user->step == 'chating') {
     if ($user->ai_type == 'gpt-3' && !$userLimits->gpt_3_limit >= 1) {
         $bot->sendMessage($from_id, 'اعتبار امروز شما برای استفاده از چت بات 3.5 به پایان رسید.', $aiKeyboard);
