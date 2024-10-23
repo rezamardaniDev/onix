@@ -11,13 +11,13 @@ if ($text == '「 👨‍💻 چت با هوش مصنوعی 」') {
 # -------------- change the AI type in database -------------- #
 
 if ($user->step == 'ai-select-category') {
-    if ($text == 'GPT 3.5') {
+    if ($text == 'GPT-3.5') {
         if (!$userLimits->gpt_3_limit >= 1) {
             $bot->sendMessage($from_id, 'شما اعتبار کافی برای این بخش را ندارید.');
             die;
         }
         $userCursor->setAiType($from_id, 'gpt-3');
-    } elseif ($text == 'GPT 4.O') {
+    } elseif ($text == 'GPT-4.o') {
         if (!$userLimits->gpt_4_limit >= 1) {
             $bot->sendMessage($from_id, 'شما اعتبار کافی برای این بخش را ندارید.');
             die;

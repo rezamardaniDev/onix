@@ -18,7 +18,7 @@ $mainKeyboard = json_encode([
 $aiKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
-        [['text' => 'GPT 3.5'], ['text' => 'GPT 4.O']],
+        [['text' => 'GPT-3.5'], ['text' => 'GPT-4.o']],
         [['text' => 'بازگشت']]
     ]
 ]);
