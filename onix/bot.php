@@ -63,6 +63,7 @@ if ($user->step == 'ai-select-category') {
 }
 
 if ($user->step == 'chating') {
+    $bot->sendChatAction($chat_id, 'typing');
     $chatResponse = $apiRequest->sendTextToGpt($text, $user->ai_type);
     $bot->sendMessage($from_id, $chatResponse);
     die;

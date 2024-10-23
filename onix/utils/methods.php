@@ -48,10 +48,11 @@ class Bot
         ]);
     }
 
-    public function getChatAdmins($chat_id)
+    public function sendChatAction($chat_id, $action)
     {
-        return $this->TelegramRequest('getChatAdministrators', [
-            'chat_id'     => $chat_id
+        return $this->TelegramRequest('sendChatAction', [
+            'chat_id' => $chat_id,
+            'action'  => $action
         ]);
     }
 
