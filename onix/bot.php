@@ -32,7 +32,7 @@ require 'utils/variables.php';
 
 if ($text == '/start' || $text == 'بازگشت') {
     if (!$user) {
-        $userCursor->addNewUser($from_id);
+        $userCursor->addNewUser($from_id); 
     }
     if (!$userLimits) {
         $userCursor->addNewUserLimits($from_id);
