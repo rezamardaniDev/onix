@@ -19,17 +19,17 @@ class UserConnection extends Connection
     }
 
     # ----------------- method for setting step of user in database ------------------ #
-    public function setStep($chat_id , $input)
+    public function setStep($chat_id, $input)
     {
         $stmt = $this->db->prepare("UPDATE `tb_users` SET `step` = ? WHERE `chat_id` = ?");
-        $stmt->execute([$input , $chat_id]);
+        $stmt->execute([$input, $chat_id]);
     }
 
     # ----------------- method for setting the Ai type in database ------------------ #
-    public function setAiType($chat_id , $input)
+    public function setAiType($chat_id, $input)
     {
         $stmt = $this->db->prepare("UPDATE `tb_users` SET `ai_type` = ? WHERE `chat_id` = ?");
-        $stmt->execute([$input , $chat_id]);
+        $stmt->execute([$input, $chat_id]);
     }
 
     # ----------------- method for adding new userLimits to database ------------------ #
@@ -48,16 +48,9 @@ class UserConnection extends Connection
     }
 
     # ----------------- method for setting GPT 3 in database ------------------ #
-    public function setGpt3Limit($chat_id , $number)
+    public function setLimit($chat_id, $filed, $number)
     {
-        $stmt = $this->db->prepare("UPDATE `tb_limits` SET `gpt_3_limit` = ? WHERE `chat_id` = ? ");
-        $stmt->execute([$number , $chat_id]);
-    }
-
-    # ----------------- method for setting GPT 4 in database ------------------ #
-    public function setGpt4Limit($chat_id , $number)
-    {
-        $stmt = $this->db->prepare("UPDATE `tb_limits` SET `gpt_4_limit` = ? WHERE `chat_id` = ? ");
-        $stmt->execute([$number , $chat_id]);
+        $stmt = $this->db->prepare("UPDATE `tb_limits` SET $filed = ? WHERE `chat_id` = ? ");
+        $stmt->execute([$number, $chat_id]);
     }
 }

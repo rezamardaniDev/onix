@@ -29,6 +29,7 @@ $apiRequest = new OneApi(RAMZINE);
 require 'utils/variables.php';
 
 # -------------- Main Codes -------------- #
+
 if ($text == '/start' || $text == 'بازگشت') {
     if (!$user) {
         $userCursor->addNewUser($from_id);
@@ -42,35 +43,11 @@ if ($text == '/start' || $text == 'بازگشت') {
     die;
 }
 
-# -------------- response for first button -------------- #
+# -------------- include ai section -------------- #
 
-if ($text == '「 👨‍💻 چت با هوش مصنوعی 」') {
-    $bot->sendMessage($from_id, 'لطفا یکی از نسخه های زیر را انتخاب کنید: ', $aiKeyboard);
-    $userCursor->setStep($from_id, 'ai-select-category');
-    die;
-}
+include 'partial/chatBotSection.php';
 
-# -------------- change the AI type in database -------------- #
-
-if ($user->step == 'ai-select-category') {
-    if ($text == 'GPT 3.5') {
-        $userCursor->setAiType($from_id, 'gpt-3');
-    } elseif ($text == 'GPT 4.O') {
-        $userCursor->setAiType($from_id, 'gpt-4');
-    } else {
-        die;
-    }
-    $bot->sendMessage($from_id, 'ورژن شما انتخاب شد، هم اکنون میتوانید چت کنید: ', $backButton);
-    $userCursor->setStep($from_id, 'chating');
-    die;
-}
-
-if ($user->step == 'chating') {
-    $bot->sendChatAction($chat_id, 'typing');
-    $chatResponse = $apiRequest->sendTextToGpt($text, $user->ai_type);
-    $bot->sendMessage($from_id, $chatResponse);
-    die;
-}
+# -------------- include news section -------------- #
 
 if ($text == '「 📡 اخبار روز 」') {
     $news = json_decode(file_get_contents('https://one-api.ir/rss/?token=947925:670026b59af4f&action=irinn'));
