@@ -12,6 +12,7 @@ if (isset($update->message)) {
 }
 
 $user = $userCursor->getUser($from_id);
+$userLimits = $userCursor->getLimits($from_id);
 
 # -------------- Callback Updates -------------- #
 
