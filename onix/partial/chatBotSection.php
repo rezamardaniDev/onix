@@ -46,12 +46,21 @@ if ($user->step == 'chating') {
 
     $bot->sendChatAction($chat_id, 'typing');
     $chatResponse = $apiRequest->sendTextToGpt($text, $user->ai_type);
-    $bot->sendMessage($from_id, $chatResponse);
 
     if ($user->ai_type == 'gpt-3') {
         $userCursor->setLimit($from_id, 'gpt_3_limit', $userLimits->gpt_3_limit - 1);
     } else {
         $userCursor->setLimit($from_id, 'gpt_4_limit', $userLimits->gpt_4_limit - 1);
     }
+
+    if ($user->ai_type == 'gpt-4') {
+        $string = "\n\n 🔰 *تعداد درخواست های باقی مانده امروز : * " . $userLimits->gpt_4_limit - 1;
+    } else {
+        $string = "\n\n 🔰 *تعداد درخواست های باقی مانده امروز : * " . $userLimits->gpt_3_limit - 1;
+    }
+
+    $chatResponse = $chatResponse . $string;
+    $bot->sendMessage($from_id, $chatResponse);
+
     die;
 }
