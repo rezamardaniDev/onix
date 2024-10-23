@@ -27,4 +27,23 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("UPDATE `tb_users` SET `ai_type` = ? WHERE `chat_id` = ?");
         $stmt->execute([$input , $chat_id]);
     }
+
+    public function getLimits($chat_id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM `tb_limits` WHERE `chat_id` = ? ");
+        $stmt->execute([$chat_id]);
+        return $stmt->fetch();
+    }
+
+    public function setGpt3Limit($chat_id)
+    {
+        $stmt = $this->db->prepare("UPDATE `tb_limits` SET `gpt_3_limit` = 20 WHERE `chat_id` = ? ");
+        $stmt->execute([$chat_id]);
+    }
+
+    public function setGpt4Limit($chat_id)
+    {
+        $stmt = $this->db->prepare("UPDATE `tb_limits` SET `gpt_4_limit` = 10 WHERE `chat_id` = ? ");
+        $stmt->execute([$chat_id]);
+    }
 }
