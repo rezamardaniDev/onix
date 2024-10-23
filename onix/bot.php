@@ -37,11 +37,15 @@ if ($text == '/start' || $text == 'بازگشت') {
     die;
 }
 
+# -------------- response for first button -------------- #
+
 if ($text == '「 👨‍💻 چت با هوش مصنوعی 」') {
     $bot->sendMessage($from_id, 'لطفا یکی از نسخه های زیر را انتخاب کنید: ', $aiKeyboard);
     $userCursor->setStep($from_id, 'ai-select-category');
     die;
 }
+
+# -------------- change the AI type in database -------------- #
 
 if ($user->step == 'ai-select-category') {
     if ($text == 'GPT 3.5') {
