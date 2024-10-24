@@ -28,7 +28,7 @@ class Bot
         return json_decode($response);
     }
 
-    public function sendMessage($chat_id, $text, $keyboard = null, $mrk = 'Markdown')
+    public function sendMessage($chat_id, $text, $keyboard = null, $mrk = 'HTML')
     {
         $params = [
             'chat_id' => $chat_id,

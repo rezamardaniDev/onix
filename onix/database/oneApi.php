@@ -48,23 +48,33 @@ class OneApi
         return json_decode($response, true)['result'][0] ?? null;
     }
 
-    public function getRequest($url, $action, $parametr = null)
+    public function getRequest($url)
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://one-api.ir/{$url}/?token={$this->token}&action={$action}",
+
+        curl_setopt_array($curl, [
+
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-        ));
-
-        $response = json_decode(curl_exec($curl));
-
+            CURLOPT_CUSTOMREQUEST => 'GET'
+        ]);
+        $response = curl_exec($curl);
         curl_close($curl);
         return $response;
+    }
+
+    public function getNews(){
+        $url = "https://one-api.ir/rss/?token={$this->token}&action=irinn";
+        $news = $this->getRequest($url);
+
+        $botText = "اخبار روز : \n\n";
+        for ($i = 0; $i < 10; $i++) {
+            $botText = $botText . $i + 1 . ' :  <a href="' . json_decode($news)->result->item[$i]->link . '">' . json_decode($news)->result->item[$i]->title . '</a>' . "\n\n";
+        }
+        return $botText;
     }
 }

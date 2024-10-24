@@ -50,6 +50,7 @@ include 'partial/chatBotSection.php';
 # -------------- include news section -------------- #
 
 if ($text == '「 📡 اخبار روز 」') {
-    
-    die;
+    $bot->sendChatAction($chat_id, 'typing');
+    $response = $apiRequest->getNews();
+    $bot->sendMessage($from_id, $response);
 }
