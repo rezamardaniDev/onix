@@ -67,14 +67,22 @@ class OneApi
         return $response;
     }
 
-    public function getNews(){
+    public function getNews()
+    {
         $url = "https://one-api.ir/rss/?token={$this->token}&action=irinn";
-        $news = $this->getRequest($url);
+        $response = $this->getRequest($url);
 
         $botText = "اخبار روز : \n\n";
         for ($i = 0; $i < 10; $i++) {
-            $botText = $botText . $i + 1 . ' :  <a href="' . json_decode($news)->result->item[$i]->link . '">' . json_decode($news)->result->item[$i]->title . '</a>' . "\n\n";
+            $botText = $botText . $i + 1 . ' :  <a href="' . json_decode($response)->result->item[$i]->link . '">' . json_decode($response)->result->item[$i]->title . '</a>' . "\n\n";
         }
         return $botText;
+    }
+
+    public function getCurrency()
+    {
+        $url  = "https://one-api.ir/price/?token={$this->token}&action=tgju";
+        $response = $this->getRequest($url);
+        return json_decode($response);
     }
 }

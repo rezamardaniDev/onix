@@ -54,3 +54,12 @@ if ($text == '「 📡 اخبار روز 」') {
     $response = $apiRequest->getNews();
     $bot->sendMessage($from_id, $response);
 }
+
+if ($text == '「 💵 نرخ ارز و طلا 」') {
+    $bot->sendChatAction($chat_id, 'typing');
+    $response = $apiRequest->getCurrency();
+    require 'partial/currencyPrice.php';
+    $pricesKeyboard['inline_keyboard'] = $sample;
+    $bot->sendMessage($from_id, print_r("🔴 نرخ بازار ارز به صورت لحظه ای به شرح زیر می باشد:", true), json_encode($pricesKeyboard));
+    die;
+}
