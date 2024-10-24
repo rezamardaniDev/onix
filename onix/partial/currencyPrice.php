@@ -20,7 +20,7 @@ $sample = [];
 $sample[] = [['text' => "{$dollar} تومان ", 'callback_data' => '0'], ['text' => "دلار آمریکا 🇺🇸", 'callback_data' => '0']];
 $sample[] = [['text' => "{$euro} تومان ", 'callback_data' => '0'], ['text' => "یورو اروپا 🇪🇺", 'callback_data' => '0']];
 $sample[] = [['text' => "{$derham} تومان ", 'callback_data' => '0'], ['text' => "درهم امارات 🇦🇪", 'callback_data' => '0']];
-$sample[] = [['text' => "{$pond} تومان ", 'callback_data' => '0'], ['text' => "پوند انگلیس 󠁧󠁢󠁥󠁮󠁧󠁿", 'callback_data' => '0']];
+$sample[] = [['text' => "{$pond} تومان ", 'callback_data' => '0'], ['text' => "پوند انگلیس 🏴󠁧󠁢󠁥󠁮󠁧󠁿󠁧󠁢󠁥󠁮󠁧󠁿", 'callback_data' => '0']];
 $sample[] = [['text' => "{$lir} تومان ", 'callback_data' => '0'], ['text' => "لیر ترکیه 🇹🇷", 'callback_data' => '0']];
 $sample[] = [['text' => "{$caDollar} تومان ", 'callback_data' => '0'], ['text' => "دلار کانادا 🇨🇦", 'callback_data' => '0']];
 
@@ -31,3 +31,5 @@ $sample[] = [['text' => "{$rob} تومان ", 'callback_data' => '0'], ['text' =
 $sample[] = [['text' => "{$nim} تومان ", 'callback_data' => '0'], ['text' => "نیم سکه", 'callback_data' => '0']];
 $sample[] = [['text' => "{$sekeb} تومان ", 'callback_data' => '0'], ['text' => "سکه بهار آزادی", 'callback_data' => '0']];
 $sample[] = [['text' => "{$sekee} تومان ", 'callback_data' => '0'], ['text' => "سکه امامی", 'callback_data' => '0']];
+
+$pricesKeyboard['inline_keyboard'] = $sample;
