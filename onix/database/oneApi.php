@@ -14,6 +14,8 @@ class OneApi
         $this->gpt4  = 'https://api.one-api.ir/chatbot/v1/gpt4o/';
     }
 
+    # -------------- method for all post requests -------------- #
+
     public function postRequest($url, $data, $headers = [])
     {
         $curl = curl_init();
@@ -40,6 +42,7 @@ class OneApi
         return $response;
     }
 
+    # -------------- method for calling the post request method and using the chat bot -------------- #
 
     public function sendTextToGpt($text, $type)
     {
@@ -47,6 +50,8 @@ class OneApi
         $response = $this->postRequest($ai_version, [["role" => "user", "content" => $text]], ["one-api-token: {$this->token}"]);
         return json_decode($response, true)['result'][0] ?? null;
     }
+
+    # -------------- method for all get requests -------------- #
 
     public function getRequest($url)
     {
@@ -67,6 +72,8 @@ class OneApi
         return $response;
     }
 
+    # -------------- method for getting news from get request method -------------- #
+
     public function getNews()
     {
         $url = "https://one-api.ir/rss/?token={$this->token}&action=irinn";
@@ -78,6 +85,8 @@ class OneApi
         }
         return $botText;
     }
+
+    # -------------- method for getting all currency prices -------------- #
 
     public function getCurrency()
     {

@@ -2,6 +2,8 @@
 
 $name = $response->result;
 
+# -------------- price variables -------------- #
+
 $dollar = number_format(intval(str_replace(",", "", $name->currencies->dollar->p)) / 10, 0, '.', ',');
 $euro = number_format(intval(str_replace(",", "", $name->currencies->eur->p)) / 10, 0, '.', ',');
 $derham = number_format(intval(str_replace(",", "", $name->currencies->aed->p)) / 10, 0, '.', ',');
@@ -15,6 +17,7 @@ $nim = number_format(intval(str_replace(",", "", $name->coin->nim->p)) / 10, 0, 
 $sekeb = number_format(intval(str_replace(",", "", $name->coin->sekeb->p)) / 10, 0, '.', ',');
 $sekee = number_format(intval(str_replace(",", "", $name->coin->sekee->p)) / 10, 0, '.', ',');
 
+# -------------- creating inline keyboards for price section -------------- #
 
 $sample = [];
 $sample[] = [['text' => "{$dollar} تومان ", 'callback_data' => '0'], ['text' => "دلار آمریکا 🇺🇸", 'callback_data' => '0']];
