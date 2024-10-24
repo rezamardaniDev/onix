@@ -95,16 +95,9 @@ class OneApi
         return json_decode($response);
     }
 
-    public function falHafez()
+    public function funnyBase($parametr)
     {
-        $url = "https://one-api.ir/hafez/?token={$this->token}";
-        $response = $this->getRequest($url);
-        return json_decode($response);
-    }
-
-    public function danestani()
-    {
-        $url = "https://one-api.ir/danestani/?token={$this->token}";
+        $url = "https://one-api.ir/{$parametr}/?token={$this->token}";
         $response = $this->getRequest($url);
         return json_decode($response);
     }

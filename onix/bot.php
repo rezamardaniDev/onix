@@ -67,7 +67,7 @@ if ($text == '「 💵 نرخ ارز و طلا 」') {
 
 if ($text == '「 ✉️ فال حافظ 」' || $data == 'fal') {
     $bot->sendChatAction($chat_id, 'typing');
-    $response = $apiRequest->falHafez();
+    $response = $apiRequest->funnyBase('hafez');
     $botMessage = '<b>' . "{$response->result->TITLE}" . '</b>' . "\n\n {$response->result->RHYME}\n\n {$response->result->MEANING}\n\nشماره: {$response->result->SHOMARE}";
 
     if ($text) {
@@ -78,15 +78,28 @@ if ($text == '「 ✉️ فال حافظ 」' || $data == 'fal') {
     die;
 }
 
-if ($text == 'دانستنی' || $data == 'danestani') {
+if ($text == '「 ⁉️ دانستنی 」' || $data == 'danestani') {
     $bot->sendChatAction($chat_id, 'typing');
-    $response = $apiRequest->danestani();
+    $response = $apiRequest->funnyBase('danestani');
     $botMessage = $response->result->Content;
 
     if ($text) {
         $bot->sendMessage($from_id, $botMessage, $danestaniKeyboard);
     } else {
         $bot->editMessage($from_id, $botMessage, $message_id, $danestaniKeyboard);
+    }
+    die;
+}
+
+if ($text == '「 🤡 جوکستان 」' || $data == 'joke') {
+    $bot->sendChatAction($chat_id, 'typing');
+    $response = $apiRequest->funnyBase('joke');
+    $botMessage = $response->result;
+
+    if ($text) {
+        $bot->sendMessage($from_id, $botMessage, $jokeKeyboard);
+    } else {
+        $bot->editMessage($from_id, $botMessage, $message_id, $jokeKeyboard);
     }
     die;
 }
