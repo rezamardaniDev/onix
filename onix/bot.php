@@ -37,7 +37,7 @@ if ($text == '/start' || $text == 'بازگشت') {
     if (!$userLimits) {
         $userCursor->addNewUserLimits($from_id);
     }
-    $botMessage = "سلام, به ربات هوش مصنوعی اونیکس خوش آمدید.\n\nجهت ادامه روی یکی از دکمه های زیر کلیک کنید.\n\nساخته شده توسط : *𝗢𝗻𝘆𝘅𝗧𝗲𝗮𝗺* 🦜";
+    $botMessage = "سلام, به ربات هوش مصنوعی اونیکس خوش آمدید.\n\nجهت ادامه روی یکی از دکمه های زیر کلیک کنید.\n\n" . '<b>' . "ساخته شده توسط : " . '<a href="' . 'https://t.me/OnyxAiTeam' . '">*𝗢𝗻𝘆𝘅𝗧𝗲𝗮𝗺* 🦜</a>' . '</b>';
     $bot->sendMessage($chat_id, $botMessage, $mainKeyboard);
     $userCursor->setStep($from_id, 'home');
     die;
@@ -60,7 +60,15 @@ if ($text == '「 📡 اخبار روز 」') {
 if ($text == '「 💵 نرخ ارز و طلا 」') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->getCurrency();
-    require 'partial/currencyPrice.php';
-    $bot->sendMessage($from_id,"🔴 نرخ بازار ارز به صورت لحظه ای به شرح زیر می باشد:", json_encode($pricesKeyboard));
+    require 'partial/currencyPrice.php'; 
+    $bot->sendMessage($from_id, "🔴 نرخ بازار ارز به صورت لحظه ای به شرح زیر می باشد:", json_encode($pricesKeyboard));
+    die;
+}
+
+if ($text == '「 ✉️ فال حافظ 」' || $text == 'فال مجدد') {
+    $bot->sendChatAction($chat_id, 'typing');
+    $response = $apiRequest->falHafez();
+    $botMessage = '<b>' . "{$response->result->TITLE}" . '</b>' . "\n\n {$response->result->RHYME}\n\n {$response->result->MEANING}\n\nشماره: {$response->result->SHOMARE}";
+    $bot->sendMessage($from_id, $botMessage, $falKeyboard);
     die;
 }

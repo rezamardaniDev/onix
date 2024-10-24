@@ -9,6 +9,7 @@ $mainKeyboard = json_encode([
         [['text' => '「 📡 اخبار روز 」'], ['text' => '「 💵 نرخ ارز و طلا 」']],
         [['text' => '「 📥 دانلودر ها」']],
         [['text' => '「 👤 حساب کاربری 」'], ['text' => '「 🆘 راهنما 」']],
+        [['text' => '「 ✉️ فال حافظ 」']],
         [['text' => 'پنل ادمین']]
     ]
 ]);
@@ -51,6 +52,16 @@ $userSectionKeyboard = json_encode([
 $backButton = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
+        [['text' => 'بازگشت']]
+    ]
+]);
+
+# -------------- Keyboard for random fal -------------- #
+
+$falKeyboard = json_encode([
+    'resize_keyboard' => true,
+    'keyboard' => [
+        [['text' => 'فال مجدد']],
         [['text' => 'بازگشت']]
     ]
 ]);

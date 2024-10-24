@@ -94,4 +94,11 @@ class OneApi
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    public function falHafez()
+    {
+        $url = "https://one-api.ir/hafez/?token={$this->token}";
+        $response = $this->getRequest($url);
+        return json_decode($response);
+    }
 }
