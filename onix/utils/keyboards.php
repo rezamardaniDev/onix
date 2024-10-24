@@ -55,6 +55,8 @@ $backButton = json_encode([
     ]
 ]);
 
+# -------------- base for prices and inline keyboards -------------- #
+
 $pricesKeyboard = [
     'inline_keyboard' => []
 ];

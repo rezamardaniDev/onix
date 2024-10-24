@@ -55,6 +55,8 @@ if ($text == '「 📡 اخبار روز 」') {
     $bot->sendMessage($from_id, $response);
 }
 
+# -------------- completing prices section -------------- #
+
 if ($text == '「 💵 نرخ ارز و طلا 」') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->getCurrency();
