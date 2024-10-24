@@ -40,6 +40,18 @@ class Bot
         return $this->TelegramRequest('sendMessage', $params);
     }
 
+    public function editMessage($chat_id, $text, $message_id, $keyboard = null, $mrk = 'html')
+    {
+        $params = [
+            'chat_id' => $chat_id,
+            'message_id' => $message_id,
+            'text' => $text,
+            'parse_mode' => $mrk,
+            'reply_markup' => $keyboard
+        ];
+        return $this->TelegramRequest('editMessageText', $params);
+    }
+
     public function deleteMessages($chat_id, $message_id)
     {
         return $this->TelegramRequest('deleteMessage', [

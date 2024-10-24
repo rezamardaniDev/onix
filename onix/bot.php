@@ -60,15 +60,33 @@ if ($text == '「 📡 اخبار روز 」') {
 if ($text == '「 💵 نرخ ارز و طلا 」') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->getCurrency();
-    require 'partial/currencyPrice.php'; 
+    require 'partial/currencyPrice.php';
     $bot->sendMessage($from_id, "🔴 نرخ بازار ارز به صورت لحظه ای به شرح زیر می باشد:", json_encode($pricesKeyboard));
     die;
 }
 
-if ($text == '「 ✉️ فال حافظ 」' || $text == 'فال مجدد') {
+if ($text == '「 ✉️ فال حافظ 」' || $data == 'fal') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->falHafez();
     $botMessage = '<b>' . "{$response->result->TITLE}" . '</b>' . "\n\n {$response->result->RHYME}\n\n {$response->result->MEANING}\n\nشماره: {$response->result->SHOMARE}";
-    $bot->sendMessage($from_id, $botMessage, $falKeyboard);
+
+    if ($text) {
+        $bot->sendMessage($from_id, $botMessage, $falKeyboard);
+    } else {
+        $bot->editMessage($from_id, $botMessage, $message_id, $falKeyboard);
+    }
+    die;
+}
+
+if ($text == 'دانستنی' || $data == 'danestani') {
+    $bot->sendChatAction($chat_id, 'typing');
+    $response = $apiRequest->danestani();
+    $botMessage = $response->result->Content;
+
+    if ($text) {
+        $bot->sendMessage($from_id, $botMessage, $danestaniKeyboard);
+    } else {
+        $bot->editMessage($from_id, $botMessage, $message_id, $danestaniKeyboard);
+    }
     die;
 }

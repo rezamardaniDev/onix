@@ -59,10 +59,16 @@ $backButton = json_encode([
 # -------------- Keyboard for random fal -------------- #
 
 $falKeyboard = json_encode([
-    'resize_keyboard' => true,
-    'keyboard' => [
-        [['text' => 'فال مجدد']],
-        [['text' => 'بازگشت']]
+    'inline_keyboard' => [
+        [['text' => '🔄 | فال مجدد', 'callback_data' => 'fal']]
+    ]
+]);
+
+# -------------- Keyboard for random danestani -------------- #
+
+$danestaniKeyboard = json_encode([
+    'inline_keyboard' => [
+        [['text' => '➡️ | بعدی', 'callback_data' => 'danestani']]
     ]
 ]);
 

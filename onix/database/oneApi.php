@@ -101,4 +101,11 @@ class OneApi
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    public function danestani()
+    {
+        $url = "https://one-api.ir/danestani/?token={$this->token}";
+        $response = $this->getRequest($url);
+        return json_decode($response);
+    }
 }
