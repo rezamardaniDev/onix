@@ -4,13 +4,13 @@ $name = $response->result;
 
 # -------------- price variables -------------- #
 
-$dollar = number_format($name->usd1);
-$euro = number_format($name->eur1);
-$pond = number_format($name->gbp1);
-$lir = number_format($name->try1);
+$dollar  = number_format($name->usd1);
+$euro    = number_format($name->eur1);
+$pond    = number_format($name->gbp1);
+$lir     = number_format($name->try1);
 
-$gerami = number_format($name->gol18);
-$sekee = number_format($name->emami1);
+$gerami  = number_format($name->gol18);
+$sekee   = number_format($name->emami1);
 
 // # -------------- creating inline keyboards for price section -------------- #
 
