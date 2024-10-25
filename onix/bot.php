@@ -112,7 +112,7 @@ if ($text == '「 🤡 جوکستان 」' || $data == 'joke') {
 
 # -------------- get city oghat -------------- #
 
-if ($text == 'اوقات شرعی') {
+if ($text == '「 🕌 اوقات شرعی 」') {
     $bot->sendMessage($from_id, 'لطفا نام شهر مورد نظر خود را وارد کنید: ', $backButton);
     $userCursor->setStep($from_id, 'get-oghat');
     die;

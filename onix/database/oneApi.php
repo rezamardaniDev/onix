@@ -90,7 +90,7 @@ class OneApi
 
     public function getCurrency()
     {
-        $url  = "https://one-api.ir/price/?token={$this->token}&action=tgju";
+        $url  = "https://one-api.ir/price/?token={$this->token}&action=bonbast";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
