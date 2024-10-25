@@ -130,8 +130,13 @@ if ($user->step == 'get-oghat') {
     require 'partial/oghatVariables.php';
 
     $botMessage = $shahr . $sob . $tloe . $zohr . $ghrob . $mghreb . $nimeShab . "برای جستجوی مجدد نام شهر را ارسال کنید";
-
-    // $botMessage = "شهر انتخاب شده: {$city}\n\nاذان صبح🌑: \n\nطلوع آفتاب {$azan_zohre} :اذان ظهر: \nاذان مغرب: {$azan_maghreb}\nغروب آفتاب: {$ghorob_aftab}\n\nبرای جستجوی مجدد نام شهر را ارسال کنید";
     $bot->sendMessage($from_id, $botMessage, $backButton);
+    die;
+}
+
+if ($text) {
+    $formatter = explode(' ', $text, 2);
+    $price = $bot->convertFaToEn($formatter[0]);
+    require 'partial/crypto.php';
     die;
 }

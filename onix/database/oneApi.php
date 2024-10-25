@@ -110,4 +110,11 @@ class OneApi
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    public function crypto()
+    {
+        $url = "https://api.fast-creat.ir/nobitex/v2?apikey=6317851077:XblkuwZFLCgMayI@Api_ManagerRoBot";
+        $response = $this->getRequest($url);
+        return json_decode($response);
+    }
 }
