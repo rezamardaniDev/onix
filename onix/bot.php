@@ -55,7 +55,7 @@ if ($text == '「 📡 اخبار روز 」') {
     $bot->sendMessage($from_id, $response);
 }
 
-# -------------- completing prices section -------------- #
+# -------------- prices of gold and money -------------- #
 
 if ($text == '「 💵 نرخ ارز و طلا 」') {
     $bot->sendChatAction($chat_id, 'typing');
@@ -65,9 +65,11 @@ if ($text == '「 💵 نرخ ارز و طلا 」') {
     die;
 }
 
+# -------------- get hafez fal -------------- #
+
 if ($text == '「 ✉️ فال حافظ 」' || $data == 'fal') {
     $bot->sendChatAction($chat_id, 'typing');
-    $response = $apiRequest->funnyBase('hafez');
+    $response = $apiRequest->funnyService('hafez');
     $botMessage = '<b>' . "{$response->result->TITLE}" . '</b>' . "\n\n {$response->result->RHYME}\n\n {$response->result->MEANING}\n\nشماره: {$response->result->SHOMARE}";
 
     if ($text) {
@@ -78,9 +80,11 @@ if ($text == '「 ✉️ فال حافظ 」' || $data == 'fal') {
     die;
 }
 
+# -------------- get danestani -------------- #
+
 if ($text == '「 ⁉️ دانستنی 」' || $data == 'danestani') {
     $bot->sendChatAction($chat_id, 'typing');
-    $response = $apiRequest->funnyBase('danestani');
+    $response = $apiRequest->funnyService('danestani');
     $botMessage = $response->result->Content;
 
     if ($text) {
@@ -91,9 +95,11 @@ if ($text == '「 ⁉️ دانستنی 」' || $data == 'danestani') {
     die;
 }
 
+# -------------- get random joke -------------- #
+
 if ($text == '「 🤡 جوکستان 」' || $data == 'joke') {
     $bot->sendChatAction($chat_id, 'typing');
-    $response = $apiRequest->funnyBase('joke');
+    $response = $apiRequest->funnyService('joke');
     $botMessage = $response->result;
 
     if ($text) {
@@ -101,5 +107,28 @@ if ($text == '「 🤡 جوکستان 」' || $data == 'joke') {
     } else {
         $bot->editMessage($from_id, $botMessage, $message_id, $jokeKeyboard);
     }
+    die;
+}
+
+# -------------- get city oghat -------------- #
+
+if ($text == 'اوقات شرعی') {
+    $bot->sendMessage($from_id, 'لطفا نام شهر مورد نظر خود را وارد کنید: ', $backButton);
+    $userCursor->setStep($from_id, 'get-oghat');
+    die;
+}
+
+if ($user->step == 'get-oghat') {
+    $bot->sendChatAction($chat_id, 'typing');
+    $response = $apiRequest->oghatSharie($text);
+
+    if ($response->status != 200) {
+        $bot->sendMessage($from_id,  'خطایی در جستجوی شهر مورد نظر رخ داد!', $mainKeyboard);
+        die;
+    }
+
+    require 'partial/oghatVariables.php';
+    $botMessage = "شهر انتخاب شده: {$city}\n\nاذان صبح: {$azan_sobh}\nاذان ظهر: {$azan_zohre}\nاذان مغرب: {$azan_maghreb}\nغروب آفتاب: {$ghorob_aftab}\n\nبرای جستجوی مجدد نام شهر را ارسال کنید";
+    $bot->sendMessage($from_id, $botMessage, $backButton);
     die;
 }

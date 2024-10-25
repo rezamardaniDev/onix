@@ -95,9 +95,18 @@ class OneApi
         return json_decode($response);
     }
 
-    public function funnyBase($parametr)
+    # -------------- method for getting all funny text  -------------- #
+
+    public function funnyService($parametr)
     {
         $url = "https://one-api.ir/{$parametr}/?token={$this->token}";
+        $response = $this->getRequest($url);
+        return json_decode($response);
+    }
+
+    public function oghatSharie($city)
+    {
+        $url = "https://one-api.ir/owghat/?token={$this->token}&city={$city}&en_num=true";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
