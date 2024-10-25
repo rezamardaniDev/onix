@@ -54,9 +54,9 @@ if ($user->step == 'chating') {
     }
 
     if ($user->ai_type == 'gpt-4') {
-        $string = "\n\n 🔰 *تعداد درخواست های باقی مانده امروز : * " . $userLimits->gpt_4_limit - 1;
+        $string = "\n\n <b>🔰 تعداد درخواست های باقی مانده امروز :</b> " . $userLimits->gpt_4_limit - 1;
     } else {
-        $string = "\n\n 🔰 *تعداد درخواست های باقی مانده امروز : * " . $userLimits->gpt_3_limit - 1;
+        $string = "\n\n <b>🔰 تعداد درخواست های باقی مانده امروز :</b> " . $userLimits->gpt_3_limit - 1;
     }
 
     $chatResponse = $chatResponse . $string;

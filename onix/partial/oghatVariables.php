@@ -1,7 +1,7 @@
 <?php
 
 $city         = $response->result->city;
-$shahr        = "شهر انتخاب شده :  <b>{$city}</b>   {$response->result->month}/{$response->result->day}\n\n";
+$shahr        = "شهر انتخاب شده :  <b>{$city}</b>\n\n";
 
 $azan_sobh    = $response->result->azan_sobh;
 $sob          = "🌑  اذان صبح : <b>{$azan_sobh}</b>\n\n";
