@@ -1,22 +1,23 @@
 <?php
 
 $city         = $response->result->city;
-$shahr        = "شهر انتخاب شده : {$city}\n\n";
+$shahr        = "شهر انتخاب شده :  <b>{$city}</b>   {$response->result->month}/{$response->result->day}\n\n";
 
 $azan_sobh    = $response->result->azan_sobh;
-$sob          = "🌑 اذان صبح : {$azan_sobh}\n\n";
+$sob          = "🌑  اذان صبح : <b>{$azan_sobh}</b>\n\n";
 
 $toloe_aftab  = $response->result->toloe_aftab;
-$tloe         = "🌓 طلوع آفتاب : {$toloe_aftab}\n\n";
+$tloe         = "🌓  طلوع آفتاب : <b>{$toloe_aftab}</b>\n\n";
 
 $azan_zohre   = $response->result->azan_zohre;
-$zohr         = "🌕 اذان ظهر : {$azan_zohre}\n\n";
+$zohr         = "🌕  اذان ظهر : <b>{$azan_zohre}</b>\n\n";
 
 $ghorob_aftab = $response->result->ghorob_aftab;
-$ghrob        = "🌗 غروب آفتاب : {$ghorob_aftab}\n\n";
+$ghrob        = "🌗  غروب آفتاب : <b>{$ghorob_aftab}</b>\n\n";
 
 $azan_maghreb = $response->result->azan_maghreb;
-$mghreb       = "🌑 اذان مغرب : {$azan_maghreb}\n\n";
+$mghreb       = "🌑  اذان مغرب : <b>{$azan_maghreb}</b>\n\n";
 
 $nime_shabe_sharie = $response->result->nime_shabe_sharie;
-$nimeShab     = "🌙 نیمه شب شرعی : {$nime_shabe_sharie}\n\n";
+$nimeShab     = "🌙  نیمه شب شرعی : <b>{$nime_shabe_sharie}</b>\n\n";
+
