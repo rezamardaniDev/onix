@@ -1,7 +1,7 @@
 <?php
 
 $city         = $response->result->city;
-$shahr        = "شهر انتخاب شده :  <b>{$city}</b>\n\n";
+$shahr        = "شهر انتخاب شده :  <b>{$city}</b>   {$response->result->month}/{$response->result->day}\n\n";
 
 $azan_sobh    = $response->result->azan_sobh;
 $sob          = "🌑  اذان صبح : <b>{$azan_sobh}</b>\n\n";
@@ -20,3 +20,4 @@ $mghreb       = "🌑  اذان مغرب : <b>{$azan_maghreb}</b>\n\n";
 
 $nime_shabe_sharie = $response->result->nime_shabe_sharie;
 $nimeShab     = "🌙  نیمه شب شرعی : <b>{$nime_shabe_sharie}</b>\n\n";
+
