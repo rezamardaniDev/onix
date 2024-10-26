@@ -17,6 +17,7 @@ require 'database/connector.php';
 require 'database/usersMethods.php';
 require 'utils/keyboards.php';
 require 'database/oneApi.php';
+require 'partial/botMessages.php';
 
 # -------------- Create Objects -------------- #
 
@@ -135,26 +136,7 @@ if ($user->step == 'get-oghat') {
 }
 
 if ($text == '「 📊 ارز دیجیتال 」') {
-    $botMessage = "
-✅ لیست ارز های دیجیتالی که در حال حاضر در ربات پشتیبانی میشود :
-             
- Btc / بیت کوین
- Dogs / داگز
- Trx / ترون
- Ton / تون
- Not / نات کوین
- Tether / تتر / Usdt
- Hmstr / همستر
- FTM /فانتوم
- ETH / اتریوم
- 
- 💰 همچنین با ارسال تعداد و نام ارز مانند نمونه زیر می توانید از مبدل ارزدیجیتال ربات استفاده نمایید.
- 1/56 Btc
- 
-💡برای استفاده، نام ارز دیجیتال خود را در ربات ارسال کنید.
-
-در صورت درخواست افزودن ارز دیجیتال به بخش پشتیبانی در بیو چنل [ @OnyxAiTeam ] مراجعه کنید !
-    ";
+    $botMessage = $crypto_text;
     $bot->sendMessage($from_id, $botMessage, $backButton);
 }
 
@@ -176,6 +158,6 @@ if (in_array($text, $crypto_list) || in_array(explode(' ', $text, 2)[1], $crypto
 
 if ($text == '「 👤 حساب کاربری 」') {
     $bot->sendChatAction($chat_id, 'typing');
-    $bot->sendMessage($from_id, 'وضعیت حساب کاربری شما');
+    $bot->sendMessage($from_id, "وضعیت حساب کاربر شما\n\nشناسه کاربری شما: {$user->chat_id}\n\nمحدودیت GPT-3.5 امروز : {$userLimits->gpt_3_limit} پیام\nمحدودیت GPT-4.o امروز : {$userLimits->gpt_4_limit} پیام");
     die;
 }
