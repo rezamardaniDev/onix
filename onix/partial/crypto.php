@@ -1,5 +1,6 @@
 <?php
 
+# -------------- response for crypto button -------------- #
 
 $bot->sendChatAction($chat_id, 'typing');
 $response = $apiRequest->crypto();

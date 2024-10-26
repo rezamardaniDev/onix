@@ -135,6 +135,8 @@ if ($user->step == 'get-oghat') {
     die;
 }
 
+# -------------- get crypto price -------------- #
+
 if ($text == '「 📊 ارز دیجیتال 」') {
     $botMessage = $crypto_text;
     $bot->sendMessage($from_id, $botMessage, $backButton);
@@ -156,8 +158,10 @@ if (in_array($text, $crypto_list) || in_array(explode(' ', $text, 2)[1], $crypto
     die;
 }
 
+# -------------- get user area -------------- #
+
 if ($text == '「 👤 حساب کاربری 」') {
     $bot->sendChatAction($chat_id, 'typing');
-    $bot->sendMessage($from_id, "وضعیت حساب کاربر شما\n\nشناسه کاربری شما: {$user->chat_id}\n\nمحدودیت GPT-3.5 امروز : {$userLimits->gpt_3_limit} پیام\nمحدودیت GPT-4.o امروز : {$userLimits->gpt_4_limit} پیام");
+    $bot->sendMessage($from_id, $user_area);
     die;
 }

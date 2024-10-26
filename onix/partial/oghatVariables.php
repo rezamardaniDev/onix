@@ -1,5 +1,7 @@
 <?php
 
+# -------------- variable for oghat -------------- #
+
 $city         = $response->result->city;
 $shahr        = "شهر انتخاب شده :  <b>{$city}</b>\n\n";
 
