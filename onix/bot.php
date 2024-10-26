@@ -158,21 +158,24 @@ if ($text == '「 📊 ارز دیجیتال 」') {
     $bot->sendMessage($from_id, $botMessage, $backButton);
 }
 
-if ($text) {
-    $crypto_list = ['بیت کوین', 'تتر', 'تون کوین', 'تون', 'بیت', 'همستر', 'داگز', 'ترون', 'نات', 'نات کوین', 'فانتوم', 'اتریوم'];
-    if(in_array($text , $crypto_list)){
+if (in_array($text, $crypto_list) || in_array(explode(' ', $text, 2)[1], $crypto_list)) {
+    if (in_array($text, $crypto_list)) {
         $price = 1;
         $formatter[1] = $text;
-    }else {
+    } else {
         $formatter = explode(' ', $text, 2);
         $formatter[0] = $bot->convertFaToEn($formatter[0]);
- 
-        if(preg_match('/^[1-9]\d*/' , $formatter[0]) && in_array($formatter[1] , $crypto_list)){
+
+        if (preg_match('/^[1-9]\d*/', $formatter[0]) && in_array($formatter[1], $crypto_list)) {
             $price = $formatter[0];
-        }else{
-            die;
         }
     }
     require 'partial/crypto.php';
+    die;
+}
+
+if ($text == '「 👤 حساب کاربری 」') {
+    $bot->sendChatAction($chat_id, 'typing');
+    $bot->sendMessage($from_id, 'وضعیت حساب کاربری شما');
     die;
 }
