@@ -23,6 +23,7 @@ $karbordiKeyboard = json_encode([
         [['text' => '「 📡 اخبار روز 」'], ['text' => '「 ✉️ فال حافظ 」']],
         [['text' => '「 💵 نرخ ارز و طلا 」'],  ['text' => '「 📊 ارز دیجیتال 」']],
         [['text' => '「 ⁉️ دانستنی 」'], ['text' => '「 📜 سخن بزرگان 」']],
+        [['text'=> '']],
         [['text' => 'بازگشت']]
     ]
 ]);
@@ -158,6 +159,13 @@ $samsungKeyboard = json_encode([
 $appleKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
-        [['text' => 'IPHONE'] , ['text' => 'IPAD']],
+        [['text' => 'Iphone'] , ['text' => 'Ipad']],
+    ]
+]);
+
+$xiaomiKeyboard = json_encode([
+    'resize_keyboard' => true,
+    'keyboard' => [
+        [['text' => 'سری POCO'] , ['text' => 'سری redmi']],
     ]
 ]);
