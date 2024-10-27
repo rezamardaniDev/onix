@@ -158,9 +158,16 @@ class OneApi
         return json_decode($response);
     }
 
-    public function textToVocie($text)
+    public function textToVocieMan($text)
     {
         $url = "{$this->oneApiDomain}/tts/?token={$this->token}&action=microsoft&lang=fa-IR-FaridNeural&q={$text}";
+        $response = $this->getRequest($url);
+        return $response;
+    }
+
+    public function textToVocieWoMan($text)
+    {
+        $url = "{$this->oneApiDomain}/tts/?token={$this->token}&action=microsoft&lang=fa-IR-DilaraNeural&q={$text}";
         $response = $this->getRequest($url);
         return $response;
     }

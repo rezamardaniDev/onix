@@ -36,6 +36,16 @@ if ($text == '/start' || $text == 'بازگشت') {
     require 'modules/startBot.php';
 }
 
+if ($text == '「 📡 ابزار کاربردی 」'){
+    $bot->sendMessage($from_id , "یکی از ابزار های زیر را انتخاب کنید " , $karbordiKeyboard);
+    die;
+}
+
+if ($text == '「 💵 ابزار هوشمند 」'){
+    $bot->sendMessage($from_id , "یکی از ابزار های زیر را انتخاب کنید " , $hoshmandKeyboard);
+    die;
+}
+
 # -------------- include ai section -------------- #
 
 include 'modules/chatBotSection.php';
@@ -128,4 +138,3 @@ if ($text == '「 🎧 جستجوی موزیک 」' || $user->step == 'get-music
 if ($text == '「 🎙 متن به ویس」' || $user->step == 'text-voice') {
     require 'modules/textToVoice.php';
 }
-

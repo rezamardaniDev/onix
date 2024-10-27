@@ -26,7 +26,7 @@ $artist = $response->artist;
 $song_name = $response->song;
 
 $bot->sendChatAction($from_id, 'upload_document');
-$bot->sendAudio($from_id, $link, "{$artist} - {$song_name}", $mainKeyboard);
+$bot->sendAudio($from_id, $link, "{$artist} - {$song_name}", $hoshmandKeyboard);
 $userCursor->setLimit($from_id , 'search_music' , $userLimits->search_music - 1);
 $userCursor->setStep($from_id, 'home');
 die;
