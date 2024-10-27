@@ -26,7 +26,7 @@ if ($user->step == 'ai-select-category') {
     } else {
         die;
     }
-    $bot->sendMessage($from_id, 'ورژن شما انتخاب شد، هم اکنون میتوانید چت کنید: ', $backButton);
+    $bot->sendMessage($from_id, "ورژن شما انتخاب شد، هم اکنون میتوانید چت کنید\n\n اگر در آخر پاسخ خود یکی از علامت های زیر را بگذارید پاسخ متفاوت خواهد بود.\n\n! برای حالت خشن\n# برای حالت ملایم\n\nبرای مثال: لطفا خودت رو معرفی کن !", $backButton);
     $userCursor->setStep($from_id, 'chating');
     die;
 }
@@ -34,6 +34,23 @@ if ($user->step == 'ai-select-category') {
 # -------------- recive and send requests to chat bot -------------- #
 
 if ($user->step == 'chating') {
+    $status = explode(' ', $text);
+    $action = '';
+
+    switch (end($status)) {
+        case '!':
+            $action = 'با حالت خشم و ایموجی ';
+            break;
+        case '#':
+            $action = 'با حالت ملایم و ایموجی ';
+            break;
+        default:
+            $action = '';
+    }
+
+    $text .= $action;
+    $text = str_replace(['#', '!'], '', $text);
+
     if ($user->ai_type == 'gpt-3' && !$userLimits->gpt_3_limit >= 1) {
         $bot->sendMessage($from_id, 'اعتبار امروز شما برای استفاده از چت بات 3.5 به پایان رسید.', $aiKeyboard);
         die;

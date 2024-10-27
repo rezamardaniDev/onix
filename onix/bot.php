@@ -141,11 +141,7 @@ if ($text == '「 🎙 متن به ویس」' || $user->step == 'text-voice') {
 
 # -------------- translator button -------------- #
 
-if ($text == '「 🗣 مترجم متن 」') {
-    require 'modules/translator.php';
-    die;
-}
-
+require 'modules/translator.php';
 
 # -------------- weather section -------------- #
 
