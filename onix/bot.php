@@ -191,3 +191,19 @@ if ($user->step == 'cr-logo') {
     $userCursor->setStep($from_id, 'home');
     die;
 }
+
+if ($text == '「 🖼 عکس با هوش مصنوعی 」') {
+    $bot->sendChatAction($from_id, 'typing');
+    $bot->sendMessage($from_id, 'متن مورد نظر خود را برای ساخت تصویر به انگلیسی وارد کنید: ', $backButton);
+    $userCursor->setStep($from_id, 'cr-photo');
+    die;
+}
+
+if ($user->step == 'cr-photo') {
+    $bot->sendMessage($from_id, 'لطفا اندکی صبر کنید...');
+    $response = $apiRequest->aiPhoto($text);
+    $bot->sendChatAction($from_id, 'upload_photo');
+    $bot->sendPhoto($from_id, $response, 'تصویر شما آماده شد', $mainKeyboard);
+    $userCursor->setStep($from_id, 'home');
+    die;
+}

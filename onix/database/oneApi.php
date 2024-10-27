@@ -124,4 +124,14 @@ class OneApi
         $logo = "https://api.fast-creat.ir/logo/?apikey=6317851077:PQpi8V12DEJtw3K@Api_ManagerRoBot&type=logo&id={$randomLogo}&text={$name}";
         return $logo;
     }
+
+    public function aiPhoto($prompt)
+    {
+        $url = "https://api.fast-creat.ir/gpt/pic?apikey=6317851077:9sn8DBCSo0zIwly@Api_ManagerRoBot&text={$prompt}";
+        $response = $this->getRequest($url);
+        $photo = json_decode($response);
+        $link = $photo->result->image;
+        $correctedLink = str_replace("\\", "", $link);
+        return $correctedLink;
+    }
 }
