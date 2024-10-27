@@ -120,6 +120,13 @@ class OneApi
         return json_decode($response);
     }
 
+    public function translateToEn($text)
+    {
+        $url = "{$this->oneApiDomain}/translate/?token={$this->token}&action=google&lang=en&q=$text";
+        $response = $this->getRequest($url);
+        return json_decode($response)->result;
+    }
+
     public function makeLogo($name)
     {
         $randomLogo = mt_rand(1, 140);

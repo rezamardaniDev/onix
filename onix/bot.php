@@ -58,11 +58,11 @@ if ($text == '「 📡 اخبار روز 」') {
 
 # -------------- prices of gold and money -------------- #
 
-if ($text == '「 💵 نرخ ارز و طلا 」') {
+if ($text == '「 💵 نرخ ارز و طلا 」' || $text == 'نرخ ارز') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->getCurrency();
     require 'partial/currencyPrice.php';
-    $bot->sendMessage($from_id, "🔴 نرخ بازار ارز به صورت لحظه ای به شرح زیر می باشد:", json_encode($pricesKeyboard));
+    $bot->sendMessage($chat_id, "🔴 نرخ بازار ارز به صورت لحظه ای به شرح زیر می باشد:", json_encode($pricesKeyboard));
     die;
 }
 
@@ -194,13 +194,14 @@ if ($user->step == 'cr-logo') {
 
 if ($text == '「 🖼 عکس با هوش مصنوعی 」') {
     $bot->sendChatAction($from_id, 'typing');
-    $bot->sendMessage($from_id, 'متن مورد نظر خود را برای ساخت تصویر به انگلیسی وارد کنید: ', $backButton);
+    $bot->sendMessage($from_id, 'متن مورد نظر خود را برای ساخت تصویر وارد کنید: ', $backButton);
     $userCursor->setStep($from_id, 'cr-photo');
     die;
 }
 
 if ($user->step == 'cr-photo') {
     $bot->sendMessage($from_id, 'لطفا اندکی صبر کنید...');
+    $text = $apiRequest->translateToEn($text);
     $response = $apiRequest->aiPhoto($text);
     $bot->sendChatAction($from_id, 'upload_photo');
     $bot->sendPhoto($from_id, $response, 'تصویر شما آماده شد', $mainKeyboard);
@@ -221,13 +222,14 @@ if ($text == '「 📜 سخن بزرگان 」' || $data == 'sokhan') {
     die;
 }
 
-if ($text == 'جستجوی موزیک') {
-    $bot->sendMessage($from_id, "لطفا نام آهنگ مورد نظر را وارد کنید: \n\n مثال: عاشق دل شکسته معین", $backButton);
+if ($text == '「 🎧 جستجوی موزیک 」') {
+    $bot->sendMessage($from_id, "لطفا نام موزیک  مورد نظر تو ارسال کن: \n\nمثال:\nعاشق دل شکسته معین\nکجای این شهر", $backButton);
     $userCursor->setStep($from_id, 'get-music');
     die;
 }
 
 if ($user->step == 'get-music') {
+    $bot->sendMessage($from_id, 'لطفا اندکی صبر کنید...');
     $response = $apiRequest->radioJavan($text)->result->top[0];
     if (empty($response)) {
         $bot->sendMessage($from_id, 'موزیک مورد نظر یافت نشد');
@@ -238,6 +240,7 @@ if ($user->step == 'get-music') {
     $artist = $response->artist;
     $song_name = $response->song;
 
+    $bot->sendChatAction($from_id, 'upload_document');
     $bot->sendAudio($from_id, $link, "{$artist} - {$song_name}", $mainKeyboard);
     $userCursor->setStep($from_id, 'home');
     die;
