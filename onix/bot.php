@@ -133,11 +133,13 @@ if ($text == '「 🎧 جستجوی موزیک 」' || $user->step == 'get-music
     require 'modules/musicSearch.php';
 }
 
-# -------------- voice to text button -------------- #
+# -------------- text to voice button -------------- #
 
 if ($text == '「 🎙 متن به ویس」' || $user->step == 'text-voice') {
     require 'modules/textToVoice.php';
 }
+
+# -------------- translator button -------------- #
 
 if ($text == '「 🗣 مترجم متن 」') {
     $bot->sendMessage($from_id, 'لطفا نوع ترجمه را انتخاب کنید: ', $translateKeyboard);
@@ -175,25 +177,8 @@ if (preg_match('/^translate/', $user->step)) {
     }
 }
 
+# -------------- weather section -------------- #
+
 if (preg_match('/^هوا/', $text)) {
-    $response = $apiRequest->getWhater(explode(' ', $text, 2)[1]);
-
-    $country      = $response->result->country;
-    $state        = $response->result->state;
-    $weather_cond = $response->result->weather_conditions;
-    $degree       = $response->result->degree;
-    $speed        = $response->result->speed;
-    $humidity     = $response->result->humidity;
-
-    $botMessage = "
-🌎| کشور: $country
-📍| استان: $state
-☁️| وضعیت هوا: $weather_cond
-❄️| دمای هوا️: $degree
-🌪️| سرعت وزش باد️: $speed
-🚿| رطوبت هوا️: $humidity
-    ";
-
-    $bot->sendMessage($from_id, $botMessage);
-    die;
+    require 'modules/weather.php';
 }
