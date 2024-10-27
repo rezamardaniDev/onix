@@ -60,6 +60,16 @@ class Bot
         ]);
     }
 
+    public function sendPhoto($chat_id, $photo, $caption, $keyboard = null)
+    {
+        return $this->TelegramRequest('sendPhoto', [
+            'chat_id' => $chat_id,
+            'photo'   => $photo,
+            'caption' => $caption,
+            'reply_markup' => $keyboard
+        ]);
+    }
+
     public function sendChatAction($chat_id, $action)
     {
         return $this->TelegramRequest('sendChatAction', [

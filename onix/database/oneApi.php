@@ -117,4 +117,11 @@ class OneApi
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    public function makeLogo($name)
+    {
+        $randomLogo = mt_rand(1, 140);
+        $logo = "https://api.fast-creat.ir/logo/?apikey=6317851077:PQpi8V12DEJtw3K@Api_ManagerRoBot&type=logo&id={$randomLogo}&text={$name}";
+        return $logo;
+    }
 }

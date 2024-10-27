@@ -162,6 +162,30 @@ if (in_array($text, $crypto_list) || in_array(explode(' ', $text, 2)[1], $crypto
 
 if ($text == '「 👤 حساب کاربری 」') {
     $bot->sendChatAction($chat_id, 'typing');
+    require 'partial/botMessages.php';
     $bot->sendMessage($from_id, $user_area);
+    die;
+}
+
+# -------------- get help button -------------- #
+
+if ($text == '「 🆘 راهنما 」') {
+    $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید', $helpButton);
+    die;
+}
+require 'partial/helpButtonText.php';
+
+if ($text == 'لوگو اسم') {
+    $bot->sendChatAction($from_id, 'typing');
+    $bot->sendMessage($from_id, 'اسم مورد نظر خود را برای ساخت لوگو به انگلیسی وارد کنید: ', $backButton);
+    $userCursor->setStep($from_id, 'cr-logo');
+    die;
+}
+
+if ($user->step == 'cr-logo') {
+    $bot->sendChatAction($from_id, 'upload_photo');
+    $response = $apiRequest->makeLogo($text);
+    $bot->sendPhoto($from_id, $response, 'لوگو اسم شما آماده شد!', $mainKeyboard);
+    $userCursor->setStep($from_id, 'home');
     die;
 }

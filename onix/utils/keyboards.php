@@ -81,6 +81,16 @@ $jokeKeyboard = json_encode([
     ]
 ]);
 
+$helpButton = json_encode([
+    'resize_keyboard' => true,
+    'keyboard' => [
+        [['text' => 'چگونه ربات را به گروه اد کنم؟']],
+        [['text' => 'چگونه داخل گروه از ربات استفاده کنم؟']],
+        [['text' =>  'درخواست اسپانسری دارم؟']],
+        [['text' => 'بازگشت']]
+    ]
+]);
+
 # -------------- base for prices and inline keyboards -------------- #
 
 $pricesKeyboard = [
