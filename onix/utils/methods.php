@@ -70,6 +70,16 @@ class Bot
         ]);
     }
 
+    public function sendAudio($chat_id, $audio, $caption, $keyboard = null)
+    {
+        return $this->TelegramRequest('sendAudio', [
+            'chat_id' => $chat_id,
+            'audio'   => $audio,
+            'caption' => $caption,
+            'reply_markup' => $keyboard
+        ]);
+    }
+
     public function sendChatAction($chat_id, $action)
     {
         return $this->TelegramRequest('sendChatAction', [

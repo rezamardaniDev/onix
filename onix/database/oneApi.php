@@ -5,12 +5,14 @@ class OneApi
     private $token;
     private $gpt3;
     private $gpt4;
+    private $oneApiDomain = 'https://one-api.ir';
+    private $senatorApiDomain = 'https://api.fast-creat.ir';
 
 
     public function __construct($token)
     {
         $this->token = $token;
-        $this->gpt3 = 'https://api.one-api.ir/chatbot/v1/gpt3.5-turbo/';
+        $this->gpt3  = 'https://api.one-api.ir/chatbot/v1/gpt3.5-turbo/';
         $this->gpt4  = 'https://api.one-api.ir/chatbot/v1/gpt4o/';
     }
 
@@ -76,7 +78,7 @@ class OneApi
 
     public function getNews()
     {
-        $url = "https://one-api.ir/rss/?token={$this->token}&action=irinn";
+        $url = "{$this->oneApiDomain}/rss/?token={$this->token}&action=irinn";
         $response = $this->getRequest($url);
 
         $botText = "اخبار روز : \n\n";
@@ -90,7 +92,7 @@ class OneApi
 
     public function getCurrency()
     {
-        $url  = "https://one-api.ir/price/?token={$this->token}&action=bonbast";
+        $url  = "{$this->oneApiDomain}/price/?token={$this->token}&action=bonbast";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
@@ -99,21 +101,21 @@ class OneApi
 
     public function funnyService($parametr)
     {
-        $url = "https://one-api.ir/{$parametr}/?token={$this->token}";
+        $url = "{$this->oneApiDomain}/{$parametr}/?token={$this->token}";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
 
     public function oghatSharie($city)
     {
-        $url = "https://one-api.ir/owghat/?token={$this->token}&city={$city}&en_num=true";
+        $url = "{$this->oneApiDomain}/owghat/?token={$this->token}&city={$city}&en_num=true";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
 
     public function crypto()
     {
-        $url = "https://api.fast-creat.ir/nobitex/v2?apikey=6317851077:XblkuwZFLCgMayI@Api_ManagerRoBot";
+        $url = "{$this->senatorApiDomain}/nobitex/v2?apikey=6317851077:XblkuwZFLCgMayI@Api_ManagerRoBot";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
@@ -121,17 +123,31 @@ class OneApi
     public function makeLogo($name)
     {
         $randomLogo = mt_rand(1, 140);
-        $logo = "https://api.fast-creat.ir/logo/?apikey=6317851077:PQpi8V12DEJtw3K@Api_ManagerRoBot&type=logo&id={$randomLogo}&text={$name}";
+        $logo = "{$this->senatorApiDomain}/logo/?apikey=6317851077:PQpi8V12DEJtw3K@Api_ManagerRoBot&type=logo&id={$randomLogo}&text={$name}";
         return $logo;
     }
 
     public function aiPhoto($prompt)
     {
-        $url = "https://api.fast-creat.ir/gpt/pic?apikey=6317851077:9sn8DBCSo0zIwly@Api_ManagerRoBot&text={$prompt}";
+        $url = "{$this->senatorApiDomain}/gpt/pic?apikey=6317851077:9sn8DBCSo0zIwly@Api_ManagerRoBot&text={$prompt}";
         $response = $this->getRequest($url);
         $photo = json_decode($response);
         $link = $photo->result->image;
         $correctedLink = str_replace("\\", "", $link);
         return $correctedLink;
+    }
+
+    public function sokhan()
+    {
+        $url = "{$this->oneApiDomain}/sokhan/?token={$this->token}&action=random";
+        $response = $this->getRequest($url);
+        return json_decode($response);
+    }
+
+    public function radioJavan($name)
+    {
+        $url = "{$this->oneApiDomain}/radiojavan/?token={$this->token}&action=search&q={$name}";
+        $response = $this->getRequest($url);
+        return json_decode($response);
     }
 }

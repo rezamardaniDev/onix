@@ -207,3 +207,38 @@ if ($user->step == 'cr-photo') {
     $userCursor->setStep($from_id, 'home');
     die;
 }
+
+if ($text == '「 📜 سخن بزرگان 」' || $data == 'sokhan') {
+    $bot->sendChatAction($chat_id, 'typing');
+    $response = $apiRequest->sokhan();
+    $botMessage = $response->result->text;
+
+    if ($text) {
+        $bot->sendMessage($from_id, $botMessage, $sokhanKeyboard);
+    } else {
+        $bot->editMessage($from_id, $botMessage, $message_id, $sokhanKeyboard);
+    }
+    die;
+}
+
+if ($text == 'جستجوی موزیک') {
+    $bot->sendMessage($from_id, "لطفا نام آهنگ مورد نظر را وارد کنید: \n\n مثال: عاشق دل شکسته معین", $backButton);
+    $userCursor->setStep($from_id, 'get-music');
+    die;
+}
+
+if ($user->step == 'get-music') {
+    $response = $apiRequest->radioJavan($text)->result->top[0];
+    if (empty($response)) {
+        $bot->sendMessage($from_id, 'موزیک مورد نظر یافت نشد');
+        die;
+    }
+
+    $link = $response->link;
+    $artist = $response->artist;
+    $song_name = $response->song;
+
+    $bot->sendAudio($from_id, $link, "{$artist} - {$song_name}", $mainKeyboard);
+    $userCursor->setStep($from_id, 'home');
+    die;
+}
