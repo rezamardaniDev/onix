@@ -125,6 +125,7 @@ if ($user->step == 'get-oghat') {
 
     if ($response->status != 200) {
         $bot->sendMessage($from_id,  'خطایی در جستجوی شهر مورد نظر رخ داد!', $mainKeyboard);
+        $userCursor->setStep($from_id, 'home');
         die;
     }
 
