@@ -70,7 +70,7 @@ class Bot
         ]);
     }
 
-    public function sendAudio($chat_id, $audio, $caption, $keyboard = null)
+    public function sendAudio($chat_id, $audio, $caption = null, $keyboard = null)
     {
         return $this->TelegramRequest('sendAudio', [
             'chat_id' => $chat_id,

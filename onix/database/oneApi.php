@@ -185,4 +185,25 @@ class OneApi
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    public function getSoundCloudId($link)
+    {
+        $url = "{$this->oneApiDomain}/soundcloud/?token={$this->token}&action=getid&link={$link}";
+        $response = $this->getRequest($url);
+        return json_decode($response)->result->id;
+    }
+
+    public function getSoundCloudInfo($id)
+    {
+        $url = "{$this->oneApiDomain}/soundcloud/?token={$this->token}&action=track&id={$id}";
+        $response = $this->getRequest($url);
+        return json_decode($response);
+    }
+
+    public function getSoundCloudFile($id)
+    {
+        $url = "{$this->oneApiDomain}/soundcloud/?token={$this->token}&action=download&id={$id}";
+        $response = $this->getRequest($url);
+        return $response;
+    }
 }
