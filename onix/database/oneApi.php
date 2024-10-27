@@ -178,4 +178,11 @@ class OneApi
         $response = $this->getRequest($url);
         return $response;
     }
+
+    public function getWhater($city)
+    {
+        $url = "https://api.codesazan.ir/Weather?key=6317851077:RCXp017ylga@CodeSazan_APIManager_Bot&type=Weather&city={$city}";
+        $response = $this->getRequest($url);
+        return json_decode($response);
+    }
 }
