@@ -1,5 +1,21 @@
 <?php
 
+if($text == '「 📊 ارز دیجیتال 」'){
+    $botMessage = $crypto_text;
+    $bot->sendMessage($from_id, $botMessage, $backButton);
+    die;
+}
+if (in_array($text, $crypto_list)) {
+    $price = 1;
+    $formatter[1] = $text;
+} else {
+    $formatter = explode(' ', $text, 2);
+    $formatter[0] = $bot->convertFaToEn($formatter[0]);
+
+    if (preg_match('/^[1-9]\d*/', $formatter[0]) && in_array($formatter[1], $crypto_list)) {
+        $price = $formatter[0];
+    }
+}
 # -------------- response for crypto button -------------- #
 
 $bot->sendChatAction($chat_id, 'typing');
@@ -19,3 +35,4 @@ foreach ($response->result as $key => $value) {
         die;
     }
 }
+die;
