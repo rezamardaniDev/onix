@@ -36,13 +36,13 @@ if ($text == '/start' || $text == 'بازگشت') {
     require 'modules/startBot.php';
 }
 
-if ($text == '「 📡 ابزار کاربردی 」'){
-    $bot->sendMessage($from_id , "یکی از ابزار های زیر را انتخاب کنید " , $karbordiKeyboard);
+if ($text == '「 📡 ابزار کاربردی 」') {
+    $bot->sendMessage($from_id, "یکی از ابزار های زیر را انتخاب کنید ", $karbordiKeyboard);
     die;
 }
 
-if ($text == '「 💵 ابزار هوشمند 」'){
-    $bot->sendMessage($from_id , "یکی از ابزار های زیر را انتخاب کنید " , $hoshmandKeyboard);
+if ($text == '「 💵 ابزار هوشمند 」') {
+    $bot->sendMessage($from_id, "یکی از ابزار های زیر را انتخاب کنید ", $hoshmandKeyboard);
     die;
 }
 
@@ -137,4 +137,40 @@ if ($text == '「 🎧 جستجوی موزیک 」' || $user->step == 'get-music
 
 if ($text == '「 🎙 متن به ویس」' || $user->step == 'text-voice') {
     require 'modules/textToVoice.php';
+}
+
+if ($text == '「 🗣 مترجم متن 」') {
+    $bot->sendMessage($from_id, 'لطفا نوع ترجمه را انتخاب کنید: ', $translateKeyboard);
+    $userCursor->setStep($from_id, 'translator');
+    die;
+}
+
+if ($user->step == 'translator') {
+    if ($text == '「 🇮🇷 مترجم انگلیسی به فارسی 」') {
+        $bot->sendMessage($from_id, 'لطفا متن انگلیسی خود را وارد کنید: ', $backButton);
+        $userCursor->setStep($from_id, 'translate-en-fa');
+        die;
+    }
+
+    if ($text == '「 🏴󠁧󠁢󠁥󠁮󠁧󠁿 مترجم فارسی به انگلیسی 」') {
+        $bot->sendMessage($from_id, 'لطفا متن فارسی خود را وارد کنید: ', $backButton);
+        $userCursor->setStep($from_id, 'translate-fa-en');
+        die;
+    }
+}
+
+if (preg_match('/^translate/', $user->step)) {
+    if ($user->step == 'translate-en-fa') {
+        $response = $apiRequest->translateToFa($text);
+        $bot->sendMessage($from_id, $response, $translateKeyboard);
+        $userCursor->setStep($from_id, 'translator');
+        die;
+    }
+
+    if ($user->step == 'translate-fa-en') {
+        $response = $apiRequest->translateToEn($text);
+        $bot->sendMessage($from_id, $response, $translateKeyboard);
+        $userCursor->setStep($from_id, 'translator');
+        die;
+    }
 }
