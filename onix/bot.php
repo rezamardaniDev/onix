@@ -158,3 +158,28 @@ if ($text == '「 📻 دانلود ساندکلود 」' || $user->step == 'get
     require 'modules/soundCouldDl.php';
 }
 
+# -------------- phone price section -------------- #
+
+if ($text == '「 📱 قیمت گوشی 」'){
+    $bot->sendMessage($from_id , 'لطفا یکی از موارد زیر را انتخاب کنید: ', $phonePriceKeyboard);
+    $userCursor->setStep($from_id, 'phoneSelection');
+}
+
+if ($text == 'SAMSUNG' && $user->step == "phoneSelection"){
+    $bot->sendMessage($from_id , 'لطفا یکی از موارد زیر را انتخاب کنید: ' , $samsungKeyboard);
+    $userCursor->setStep($from_id, 'choosePhone');
+}
+
+if ($text == 'APPLE' && $user->step == "phoneSelection"){
+    $bot->sendMessage($from_id , 'لطفا یکی از موارد زیر را انتخاب کنید: ' , $appleKeyboard);
+    $userCursor->setStep($from_id, 'choosePhone');
+}
+
+if ($text == 'XIAOMI' && $user->step == "phoneSelection"){
+    $bot->sendMessage($from_id , 'لطفا یکی از موارد زیر را انتخاب کنید: ' , $xiaomiKeyboard);
+    $userCursor->setStep($from_id, 'choosePhone');
+}
+
+if ($user->step == "choosePhone"){
+    
+}

@@ -23,7 +23,7 @@ $karbordiKeyboard = json_encode([
         [['text' => '「 📡 اخبار روز 」'], ['text' => '「 ✉️ فال حافظ 」']],
         [['text' => '「 💵 نرخ ارز و طلا 」'],  ['text' => '「 📊 ارز دیجیتال 」']],
         [['text' => '「 ⁉️ دانستنی 」'], ['text' => '「 📜 سخن بزرگان 」']],
-        [['text' => '']],
+        [['text' => '「 📱 قیمت گوشی 」']],
         [['text' => 'بازگشت']]
     ]
 ]);
@@ -107,11 +107,15 @@ $jokeKeyboard = json_encode([
     ]
 ]);
 
+# -------------- Keyboard for sokhan Bozorgan -------------- #
+
 $sokhanKeyboard = json_encode([
     'inline_keyboard' => [
         [['text' => '➡️ | بعدی', 'callback_data' => 'sokhan']]
     ]
 ]);
+
+# -------------- Keyboard for help button -------------- #
 
 $helpButton = json_encode([
     'resize_keyboard' => true,
@@ -123,6 +127,8 @@ $helpButton = json_encode([
     ]
 ]);
 
+# -------------- Keyboard for translate button -------------- #
+
 $translateKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
@@ -131,6 +137,8 @@ $translateKeyboard = json_encode([
         [['text' => 'بازگشت']]
     ]
 ]);
+
+# -------------- Keyboard for downloader section-------------- #
 
 $downloaderKeyboard = json_encode([
     'resize_keyboard' => true,
@@ -149,31 +157,41 @@ $pricesKeyboard = [
 # -------------- phone price keyboard -------------- #
 
 $phonePriceKeyboard = json_encode([
-    'resize_keybaord' => true,
+    'resize_keyboard' => true,
     'keyboard' => [
         [['text' => 'SAMSUNG'], ['text' => 'APPLE']],
-        [['text' => 'NOKIA'], ['text' => 'XIAOMI']]
+        [['text' => 'NOKIA'], ['text' => 'XIAOMI']],
+        [['text' => 'بازگشت']]
     ]
 ]);
+
+# -------------- samsung keyboard -------------- #
 
 $samsungKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
         [['text' => 'سری A'], ['text' => 'سری S']],
         [['text' => 'سری J'], ['text' => 'سری NOTE']],
+        [['text' => 'بازگشت']]
     ]
 ]);
+
+# -------------- apple keyboard -------------- #
 
 $appleKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
         [['text' => 'Iphone'], ['text' => 'Ipad']],
+        [['text' => 'بازگشت']]
     ]
 ]);
+
+# -------------- xiaomi keyboard -------------- #
 
 $xiaomiKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
         [['text' => 'سری POCO'], ['text' => 'سری redmi']],
+        [['text' => 'بازگشت']]
     ]
 ]);
