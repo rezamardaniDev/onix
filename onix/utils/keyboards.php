@@ -171,7 +171,7 @@ $samsungKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
         [['text' => 'سری A'], ['text' => 'سری S']],
-        [['text' => 'سری J'], ['text' => 'سری NOTE']],
+        [['text' => 'سری Z'], ['text' => 'سری M']],
         [['text' => 'بازگشت']]
     ]
 ]);

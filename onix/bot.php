@@ -160,26 +160,64 @@ if ($text == '「 📻 دانلود ساندکلود 」' || $user->step == 'get
 
 # -------------- phone price section -------------- #
 
-if ($text == '「 📱 قیمت گوشی 」'){
-    $bot->sendMessage($from_id , 'لطفا یکی از موارد زیر را انتخاب کنید: ', $phonePriceKeyboard);
+if ($text == '「 📱 قیمت گوشی 」') {
+    $bot->sendMessage($from_id, "لطفا یکی از مدل های زیر را انتخاب کنید یا اسم مدل مد نظر خود را وارد کنید : ", $phonePriceKeyboard);
     $userCursor->setStep($from_id, 'phoneSelection');
 }
 
-if ($text == 'SAMSUNG' && $user->step == "phoneSelection"){
-    $bot->sendMessage($from_id , 'لطفا یکی از موارد زیر را انتخاب کنید: ' , $samsungKeyboard);
+if (in_array($text , ["SAMSUNG" , "APPLE" , "XIAOMI"]) && $user->step == "phoneSelection"){
+    $keyboard;
+    switch($text){
+        case "SAMSUNG":
+            $keyboard = $samsungKeyboard;
+            break;
+        case "APPLE" :
+            $keyboard = $appleKeyboard;
+            break;
+        case "XIAOMI":
+            $keyboard = $xiaomiKeyboard;
+            break;
+        default:
+            $keyboard = null;
+    }
+    $bot->sendMessage($from_id, "لطفا یکی از مدل های زیر را انتخاب کنید یا اسم مدل مد نظر خود را وارد کنید : ", $keyboard);
     $userCursor->setStep($from_id, 'choosePhone');
 }
 
-if ($text == 'APPLE' && $user->step == "phoneSelection"){
-    $bot->sendMessage($from_id , 'لطفا یکی از موارد زیر را انتخاب کنید: ' , $appleKeyboard);
-    $userCursor->setStep($from_id, 'choosePhone');
-}
-
-if ($text == 'XIAOMI' && $user->step == "phoneSelection"){
-    $bot->sendMessage($from_id , 'لطفا یکی از موارد زیر را انتخاب کنید: ' , $xiaomiKeyboard);
-    $userCursor->setStep($from_id, 'choosePhone');
-}
-
-if ($user->step == "choosePhone"){
-    
+if ($user->step == "choosePhone") {
+    $action = '';
+    switch ($text) {
+        case 'سری S':
+            $action = 'Samsung Galaxy S';
+            break;
+        case 'سری A':
+            $action = 'Samsung Galaxy A';
+            break;
+        case 'سری M':
+            $action = 'Samsung Galaxy M';
+            break;
+        case 'سری Z':
+            $action = 'Samsung Galaxy Z';
+            break;
+        case 'سری POCO':
+            $action = 'poco';
+            break;
+        case 'سری redmi':
+            $action = 'redmi';
+            break;
+        case 'NOKIA':
+            $action = 'nokia';
+            break;
+        case 'Iphone':
+            $action = 'Iphone';
+            break;
+        case 'Ipad':
+            $action = 'Ipad';
+            break;
+        default:
+            $action = "$text";
+    }
+    $response = $apiRequest->getPriceOfPhone($action);
+    $bot->sendMessage($from_id, $response);
+    die;
 }

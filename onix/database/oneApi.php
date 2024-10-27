@@ -206,4 +206,16 @@ class OneApi
         $response = $this->getRequest($url);
         return $response;
     }
+
+    public function getPriceOfPhone($tag)
+    {
+        $url = "{$this->oneApiDomain}/mobile/?token={$this->token}&action=search&q={$tag}";
+        $phoneList = json_decode($this->getRequest($url))->result;
+
+        $string = '';
+        for ($i = 0; $i <= 5; $i++) {
+            $string .= $phoneList[$i]->name . "\n" . $phoneList[$i]->price . "\n\n";
+        }
+        return $string;
+    }
 }
