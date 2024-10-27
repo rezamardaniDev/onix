@@ -157,4 +157,11 @@ class OneApi
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    public function textToVocie($text)
+    {
+        $url = "{$this->oneApiDomain}/tts/?token={$this->token}&action=microsoft&lang=fa-IR-FaridNeural&q={$text}";
+        $response = $this->getRequest($url);
+        return $response;
+    }
 }

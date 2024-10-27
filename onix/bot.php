@@ -177,6 +177,10 @@ if ($text == '「 🆘 راهنما 」') {
 require 'partial/helpButtonText.php';
 
 if ($text == '「 🎨 لوگو اسم 」') {
+    if($userLimits->logo_limit <= 0){
+        $bot->sendMessage($from_id , "تعداد ریکوست های امروز شما تمام شد ." , $mainKeyboard);
+        die;
+    }
     $bot->sendChatAction($from_id, 'typing');
     $bot->sendMessage($from_id, 'اسم مورد نظر خود را برای ساخت لوگو به انگلیسی وارد کنید: ', $backButton);
     $userCursor->setStep($from_id, 'cr-logo');
@@ -193,6 +197,10 @@ if ($user->step == 'cr-logo') {
 }
 
 if ($text == '「 🖼 عکس با هوش مصنوعی 」') {
+    if($userLimits->image_limit <= 0){
+        $bot->sendMessage($from_id , "تعداد ریکوست های امروز شما تمام شد ." , $mainKeyboard);
+        die;
+    }
     $bot->sendChatAction($from_id, 'typing');
     $bot->sendMessage($from_id, 'متن مورد نظر خود را برای ساخت تصویر وارد کنید: ', $backButton);
     $userCursor->setStep($from_id, 'cr-photo');
@@ -205,6 +213,7 @@ if ($user->step == 'cr-photo') {
     $response = $apiRequest->aiPhoto($text);
     $bot->sendChatAction($from_id, 'upload_photo');
     $bot->sendPhoto($from_id, $response, 'تصویر شما آماده شد', $mainKeyboard);
+    $userCursor->setLimit($from_id , 'image_limit' , $userLimits->image_limit - 1);
     $userCursor->setStep($from_id, 'home');
     die;
 }
@@ -223,12 +232,20 @@ if ($text == '「 📜 سخن بزرگان 」' || $data == 'sokhan') {
 }
 
 if ($text == '「 🎧 جستجوی موزیک 」') {
+    if($userLimits->search_music <= 0){
+        $bot->sendMessage($from_id , "تعداد ریکوست های امروز شما تمام شد ." , $mainKeyboard);
+        die;
+    }
     $bot->sendMessage($from_id, "لطفا نام موزیک  مورد نظر تو ارسال کن: \n\nمثال:\nعاشق دل شکسته معین\nکجای این شهر", $backButton);
     $userCursor->setStep($from_id, 'get-music');
     die;
 }
 
 if ($user->step == 'get-music') {
+    if($userLimits->search_music <= 0){
+        $bot->sendMessage($from_id , "تعداد ریکوست های امروز شما تمام شد ." , $mainKeyboard);
+        die;
+    }
     $bot->sendMessage($from_id, 'لطفا اندکی صبر کنید...');
     $response = $apiRequest->radioJavan($text)->result->top[0];
     if (empty($response)) {
@@ -242,6 +259,29 @@ if ($user->step == 'get-music') {
 
     $bot->sendChatAction($from_id, 'upload_document');
     $bot->sendAudio($from_id, $link, "{$artist} - {$song_name}", $mainKeyboard);
+    $userCursor->setLimit($from_id , 'search_music' , $userLimits->search_music - 1);
+    $userCursor->setStep($from_id, 'home');
+    die;
+}
+
+if ($text == 'متن به ویس') {
+    if($userLimits->text_to_voice > 1){
+        $bot->sendMessage($from_id, 'متن مورد نظر خود را وارد کنید: ');
+        $userCursor->setStep($from_id, 'text-voice');
+    }else{
+        $bot->sendMessage($from_id , "تعداد ریکوست های امروز شما تمام شد ." , $mainKeyboard);
+    }
+    die;
+}
+
+if ($user->step == 'text-voice') {
+    $response  = $apiRequest->textToVocie($text);
+    $bot->sendChatAction($from_id, 'sending music');
+    $userCursor->setLimit($from_id , 'text_to_voice' , $userLimits->text_to_voice - 1);
+    $oggFile = 'tts.ogg';
+    file_put_contents($oggFile, file_get_contents($response));
+
+    $bot->sendAudio($from_id, 'tts.ogg', 'با صدای مرد', $mainKeyboard);
     $userCursor->setStep($from_id, 'home');
     die;
 }

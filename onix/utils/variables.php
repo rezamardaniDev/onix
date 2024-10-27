@@ -6,6 +6,7 @@ if (isset($update->message)) {
     $text        = $message->text;
     $from_id     = $message->from->id;
     $first_name  = $message->from->first_name;
+    $user_name   = $message->from->username;
     $chat_id     = $message->chat->id;
     $first_name  = htmlspecialchars($message->from->first_name, ENT_QUOTES, 'UTF-8');
     $message_id  = $update->message->message_id;
