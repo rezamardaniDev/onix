@@ -28,15 +28,14 @@ class Bot
         return json_decode($response);
     }
 
-    public function sendMessage($chat_id, $text, $keyboard = null, $mrk = 'HTML', $message_id = null)
+    public function sendMessage($chat_id, $text, $keyboard = null, $mrk = 'HTML')
     {
         $params = [
             'chat_id' => $chat_id,
             'text' => $text,
             'parse_mode' => $mrk,
             'disable_web_page_preview' => true,
-            'reply_markup' => $keyboard,
-            'reply_to_message_id' => $message_id
+            'reply_markup' => $keyboard
         ];
         return $this->TelegramRequest('sendMessage', $params);
     }

@@ -1,5 +1,7 @@
 <?php
 
+$bot->sendChatAction($chat_id, 'typing');
+
 $response = $apiRequest->getWhater(explode(' ', $text, 2)[1]);
 
 if ($response->status != 200) {
@@ -23,5 +25,5 @@ $botMessage = "
 🚿| رطوبت هوا️: $humidity
 ";
 
-$bot->sendMessage($chat_id, $botMessage, message_id: $message_id);
+$bot->sendMessage($chat_id, $botMessage);
 die;

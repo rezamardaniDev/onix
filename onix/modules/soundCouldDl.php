@@ -5,7 +5,7 @@ if ($text == '「 📻 دانلود ساندکلود 」'){
         $bot->sendMessage($from_id, 'شما اعتبار کافی برای این بخش را ندارید.');
         die;
     }
-    $bot->sendMessage($from_id, 'لینک ساندس کلود رو بفرست عشقم: ', $backButton);
+    $bot->sendMessage($from_id,'لطفا لینک موزیک را ارسال کنید: ', $backButton);
     $userCursor->setStep($from_id, 'get-sound-cloud');
     die;
 }else{

@@ -32,7 +32,7 @@ require 'utils/variables.php';
 
 # -------------- Main Codes -------------- #
 
-if ($text == '/start' || $text == 'بازگشت') {
+if (($text == '/start' || $text == 'بازگشت') && $type != "supergroup") {
     require 'modules/startBot.php';
 }
 
@@ -58,7 +58,7 @@ if ($text == '「 📡 اخبار روز 」') {
 
 # -------------- prices of gold and money -------------- #
 
-if ($text == '「 💵 نرخ ارز و طلا 」' || $text == 'نرخ ارز') {
+if ($text == '「 💵 نرخ ارز و طلا 」' || $text == 'ارز') {
     require 'modules/goldPrice.php';
 }
 
@@ -146,7 +146,6 @@ require 'modules/translator.php';
 # -------------- weather section -------------- #
 
 if (preg_match('/^هوا/', $text)) {
-    $bot->sendChatAction($chat_id, 'typing');
     require 'modules/weather.php';
 }
 
@@ -166,13 +165,13 @@ if ($text == '「 📱 قیمت گوشی 」') {
     $userCursor->setStep($from_id, 'phoneSelection');
 }
 
-if (in_array($text , ["SAMSUNG" , "APPLE" , "XIAOMI"]) && $user->step == "phoneSelection"){
+if (in_array($text, ["SAMSUNG", "APPLE", "XIAOMI"]) && $user->step == "phoneSelection") {
     $keyboard;
-    switch($text){
+    switch ($text) {
         case "SAMSUNG":
             $keyboard = $samsungKeyboard;
             break;
-        case "APPLE" :
+        case "APPLE":
             $keyboard = $appleKeyboard;
             break;
         case "XIAOMI":
@@ -183,6 +182,7 @@ if (in_array($text , ["SAMSUNG" , "APPLE" , "XIAOMI"]) && $user->step == "phoneS
     }
     $bot->sendMessage($from_id, "لطفا یکی از مدل های زیر را انتخاب کنید یا اسم مدل مد نظر خود را وارد کنید : ", $keyboard);
     $userCursor->setStep($from_id, 'choosePhone');
+    die;
 }
 
 if ($user->step == "choosePhone") {
@@ -222,3 +222,5 @@ if ($user->step == "choosePhone") {
     $bot->sendMessage($from_id, $response);
     die;
 }
+
+require 'partial/groupCommands.php';
