@@ -244,4 +244,25 @@ class OneApi
         }
         return $string;
     }
+
+    public function getYoutubeId($link)
+    {
+        $url = "{$this->oneApiDomain}/youtube/?token={$this->token}&action=getvideoid&link={$link}";
+        $response = $this->getRequest($url);
+        return json_decode($response)->result;
+    }
+
+    public function getYoutubeDownloadId($id)
+    {
+        $url = "https://youtube.one-api.ir/?token={$this->token}&action=fullvideo&id={$id}";
+        $response = $this->getRequest($url);
+        return json_decode($response)->result->formats;
+    }
+
+    public function getYoutubeFile($id)
+    {
+        $url = "https://youtube.one-api.ir/?token={$this->token}&action=download&id={$id}";
+        $response = $this->getRequest($url);
+        return json_decode($response)->result->link;
+    }
 }
