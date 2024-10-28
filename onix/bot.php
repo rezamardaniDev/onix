@@ -58,7 +58,7 @@ if ($text == '「 📡 اخبار روز 」') {
 
 # -------------- prices of gold and money -------------- #
 
-if ($text == '「 💵 نرخ ارز و طلا 」' || $text == 'ارز') {
+if ($text == '「 💵 نرخ ارز و طلا 」') {
     require 'modules/goldPrice.php';
 }
 
