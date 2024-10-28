@@ -31,6 +31,11 @@ $apiRequest = new OneApi(RAMZINE);
 require 'utils/variables.php';
 
 # -------------- Main Codes -------------- #
+if ($update) {
+    if ($update->message->from->first_name == 'Telegram') {
+        $bot->sendMessage($update->message->chat->id, 'کامنت اول توسط Onix تسخیر شد', message_id: $message_id);
+    }
+}
 
 
 if (($text == '/start' || $text == 'بازگشت') && $type != "supergroup") {
