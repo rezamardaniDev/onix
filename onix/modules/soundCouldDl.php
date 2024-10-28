@@ -26,6 +26,8 @@ if ($text == '「 📻 دانلود ساندکلود 」'){
     $bot->sendAudio($from_id, "https://fara-it.ir/onix/{$audioFile}", $soundName, $downloaderKeyboard);
     $userCursor->setLimit($from_id, 'dl_soundcloud', $userLimits->dl_soundcloud - 1);
     unlink($audioFile);
+    $userCursor->setLimit($from_id , 'dl_soundcloud' , $userLimits->dl_soundcloud - 1);
+
 
     die;
 }

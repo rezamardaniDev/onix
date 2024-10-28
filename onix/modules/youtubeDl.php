@@ -1,6 +1,9 @@
 <?php
 
 if ($text == '「 ▶️ دانلود یوتوب 」') {
+    if ($userLimits->dl_youtube < 1){
+        $bot->sendMessage($from_id , "اعتبار امروز شما به پایان رسیده است " , $backButton);
+    }
     $bot->sendMessage($from_id, 'لینک ویدئو رو بفرست: ', $backButton);
     $userCursor->setStep($from_id, 'yt-dl');
     die;
@@ -34,6 +37,7 @@ if ($text == '「 ▶️ دانلود یوتوب 」') {
         ]
     ]));
     $userCursor->setStep($from_id, 'home');
+    $userCursor->setLimit($from_id , 'dl_youtube' , $userLimits->dl_youtube - 1);
     $bot->sendMessage($from_id, 'به منو دانلودر بازگشتید', $downloaderKeyboard);
     die;
 }
