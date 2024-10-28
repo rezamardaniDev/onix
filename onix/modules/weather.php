@@ -2,6 +2,11 @@
 
 $response = $apiRequest->getWhater(explode(' ', $text, 2)[1]);
 
+if ($response->status != 200) {
+    $bot->sendMessage($chat_id, 'شهر مورد نظر یافت نشد!');
+    die;
+}
+
 $country      = $response->result->country;
 $state        = $response->result->state;
 $weather_cond = $response->result->weather_conditions;
@@ -18,5 +23,5 @@ $botMessage = "
 🚿| رطوبت هوا️: $humidity
 ";
 
-$bot->sendMessage($from_id, $botMessage);
+$bot->sendMessage($chat_id, $botMessage, message_id: $message_id);
 die;

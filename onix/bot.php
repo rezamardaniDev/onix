@@ -146,6 +146,7 @@ require 'modules/translator.php';
 # -------------- weather section -------------- #
 
 if (preg_match('/^هوا/', $text)) {
+    $bot->sendChatAction($chat_id, 'typing');
     require 'modules/weather.php';
 }
 
