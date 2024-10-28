@@ -31,7 +31,7 @@ foreach ($response->result as $key => $value) {
 ┊
 └IRT: {$irr} تومان";
 
-        $bot->sendMessage($chat_id, $botMessage);
+        $bot->sendMessage($chat_id, $botMessage, message_id:$message_id);
         die;
     }
 }

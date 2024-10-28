@@ -7,7 +7,7 @@ if (preg_match('/^اوقات/', $text)) { {
         $response = $apiRequest->oghatSharie($text);
 
         if ($response->status != 200) {
-            $bot->sendMessage($chat_id,  'خطایی در جستجوی شهر مورد نظر رخ داد!');
+            $bot->sendMessage($chat_id,  'خطایی در جستجوی شهر مورد نظر رخ داد!',  message_id: $message_id);
             $userCursor->setStep($chat_id, 'home');
             die;
         }

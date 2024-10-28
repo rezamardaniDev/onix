@@ -8,7 +8,7 @@ $bot->sendChatAction($chat_id, 'typing');
 $response = $apiRequest->getWhater(explode(' ', $text, 2)[1]);
 
 if ($response->status != 200) {
-    $bot->sendMessage($chat_id, 'شهر مورد نظر یافت نشد!');
+    $bot->sendMessage($chat_id, 'شهر مورد نظر یافت نشد!', message_id:$message_id);
     die;
 }
 
