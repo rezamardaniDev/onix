@@ -54,7 +54,7 @@ class OneApi
     }
 
     # -------------- method for all get requests -------------- #
-
+    
     public function getRequest($url)
     {
         $curl = curl_init();

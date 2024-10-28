@@ -38,13 +38,11 @@ if (($text == '/start' || $text == 'بازگشت') && $type != "supergroup") {
 }
 
 if ($text == '「 📡 ابزار کاربردی 」') {
-    $userCursor->setStep($from_id, "karbordiKeyboard");
     $bot->sendMessage($from_id, "یکی از ابزار های زیر را انتخاب کنید ", $karbordiKeyboard);
     die;
 }
 
 if ($text == '「 💵 ابزار هوشمند 」') {
-    $userCursor->setStep($from_id, "hoshmadKeyboard");
     $bot->sendMessage($from_id, "یکی از ابزار های زیر را انتخاب کنید ", $hoshmandKeyboard);
     die;
 }
@@ -144,7 +142,7 @@ if ($text == '「 🎙 متن به ویس」' || $user->step == 'text-voice') {
 
 # -------------- weather section -------------- #
 
-if (preg_match('/^هوا/', $text)) {
+if (preg_match('/^هوا/', $text) || $text == '「 🌦 آب و  هوا 」') {
     require 'modules/weather.php';
 }
 
@@ -157,38 +155,8 @@ if ($text == '「 📻 دانلود ساندکلود 」' || $user->step == 'get
     require 'modules/soundCouldDl.php';
 }
 
-if ($text == 'دانلود') {
-    $bot->sendMessage($from_id, 'لینک ویدئو رو بفرست: ', $backButton);
-    $userCursor->setStep($from_id, 'yt-dl');
-    die;
-}
-
-if ($user->step == 'yt-dl') {
-    $bot->sendChatAction($from_id, 'typing');
-    $bot->sendMessage($from_id, '<b>درحال بررسی لینک ...</b>');
-
-    $response = $apiRequest->getYoutubeId($text);
-    $getDownloadID = $apiRequest->getYoutubeDownloadId($response);
-
-    $link_360 = $getDownloadID[6]->id;
-    $link_480 = $getDownloadID[7]->id;
-    $link_720 = $getDownloadID[8]->id;
-
-    $bot->editMessage($from_id, '<b>درحال ساخت لینک های دانلود ...</b>', $message_id + 1);
-
-    $getLink360 = $apiRequest->getYoutubeFile($link_360);
-    $getLink480 = $apiRequest->getYoutubeFile($link_480);
-    $getLink720 = $apiRequest->getYoutubeFile($link_720);
-
-    $bot->editMessage($from_id, "برای دانلود کافیست روی لینک مرتبط کلیک کنید: \n\nلینک های دانلود بعد از 5 ساعت منقضی خواهند شد.", $message_id + 1, json_encode([
-        'inline_keyboard' => [
-            [['text' => 'دانلود کیفیت 360', 'url' => $getLink360]],
-            [['text' => 'دانلود کیفیت 480', 'url' => $getLink480]],
-            [['text' => 'دانلود کیفیت 720', 'url' => $getLink720]]
-        ]
-    ]));
-    $bot->sendMessage($from_id, 'به منو دانلودر بازگشتید', $downloaderKeyboard);
-    die;
+if ($text == '「 ▶️ دانلود یوتوب 」' || $user->step == 'yt-dl') {
+    require 'modules/youtubeDl.php';
 }
 
 # -------------- translator button -------------- #

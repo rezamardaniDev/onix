@@ -1,5 +1,8 @@
 <?php
-
+if ($text == '「 🌦 آب و  هوا 」') {
+    $bot->sendMessage($from_id, "برای استفاده از این قابلیت در گروه یا پیوی به صورت زیر عمل کنید\n\nهوا + نام شهر\nبرای مثال: هوا شیراز", $backButton);
+    die;
+}
 $bot->sendChatAction($chat_id, 'typing');
 
 $response = $apiRequest->getWhater(explode(' ', $text, 2)[1]);
@@ -25,5 +28,5 @@ $botMessage = "
 🚿| رطوبت هوا️: $humidity
 ";
 
-$bot->sendMessage($chat_id, $botMessage);
+$bot->sendMessage($chat_id, $botMessage, message_id: $message_id);
 die;

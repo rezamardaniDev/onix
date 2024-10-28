@@ -5,7 +5,7 @@ if ($text == '「 📱 قیمت گوشی 」') {
     $userCursor->setStep($from_id, 'phoneSelection');
 }
 
-if (in_array($text, ["SAMSUNG", "APPLE", "XIAOMI"]) && $user->step == "phoneSelection") {
+if (in_array($text, ["SAMSUNG", "APPLE", "XIAOMI" , "NOKIA"]) && $user->step == "phoneSelection") {
     $keyboard;
     switch ($text) {
         case "SAMSUNG":
@@ -17,6 +17,10 @@ if (in_array($text, ["SAMSUNG", "APPLE", "XIAOMI"]) && $user->step == "phoneSele
         case "XIAOMI":
             $keyboard = $xiaomiKeyboard;
             break;
+        case "NOKIA":
+            $response = $apiRequest->getPriceOfPhone("nokia");
+            $bot->sendMessage($from_id, $response);
+            die;
         default:
             $keyboard = null;
     }
@@ -45,9 +49,6 @@ if ($user->step == "choosePhone") {
             break;
         case 'سری redmi':
             $action = 'redmi';
-            break;
-        case 'NOKIA':
-            $action = 'nokia';
             break;
         case 'Iphone':
             $action = 'Iphone';
