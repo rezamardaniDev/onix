@@ -1,5 +1,14 @@
 <?php
 
+if ($type == "supergroup"){
+    $action = explode(" " , $text , 2);
+    if ($action[0] == "اونیکس"){
+        $chatResponse = $apiRequest->sendTextToGpt($action[1], $user->ai_type);
+        $bot->sendMessage($chat_id, $chatResponse);
+    }
+    die;
+}
+
 # -------------- response for ChatBot button -------------- #
 
 if ($text == '「 👨‍💻 چت با هوش مصنوعی 」') {
