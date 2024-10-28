@@ -53,7 +53,7 @@ if ($text == 'دانستنی') {
 }
 
 if ($text == 'جوک') {
-    $bot->sendChatAction($from_id, 'typing');
+    $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->funnyService('joke');
     $botMessage = $response->result;
     $bot->sendMessage($chat_id, $botMessage, message_id: $message_id);
