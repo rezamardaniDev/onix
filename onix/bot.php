@@ -32,16 +32,19 @@ require 'utils/variables.php';
 
 # -------------- Main Codes -------------- #
 
+
 if (($text == '/start' || $text == 'بازگشت') && $type != "supergroup") {
     require 'modules/startBot.php';
 }
 
 if ($text == '「 📡 ابزار کاربردی 」') {
+    $userCursor->setStep($from_id , "karbordiKeyboard");
     $bot->sendMessage($from_id, "یکی از ابزار های زیر را انتخاب کنید ", $karbordiKeyboard);
     die;
 }
 
 if ($text == '「 💵 ابزار هوشمند 」') {
+    $userCursor->setStep($from_id , "hoshmadKeyboard");
     $bot->sendMessage($from_id, "یکی از ابزار های زیر را انتخاب کنید ", $hoshmandKeyboard);
     die;
 }

@@ -106,6 +106,8 @@ class OneApi
         return json_decode($response);
     }
 
+    # -------------- method for oghat sharie  -------------- #
+
     public function oghatSharie($city)
     {
         $url = "{$this->oneApiDomain}/owghat/?token={$this->token}&city={$city}&en_num=true";
@@ -113,12 +115,16 @@ class OneApi
         return json_decode($response);
     }
 
+    # -------------- method for crypto section  -------------- #
+
     public function crypto()
     {
         $url = "{$this->senatorApiDomain}/nobitex/v2?apikey=6317851077:XblkuwZFLCgMayI@Api_ManagerRoBot";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    # -------------- method for translating text  -------------- #
 
     public function translateToEn($text)
     {
@@ -134,12 +140,16 @@ class OneApi
         return json_decode($response)->result;
     }
 
+    # -------------- method for logo creation  -------------- #
+
     public function makeLogo($name)
     {
         $randomLogo = mt_rand(1, 140);
         $logo = "{$this->senatorApiDomain}/logo/?apikey=6317851077:PQpi8V12DEJtw3K@Api_ManagerRoBot&type=logo&id={$randomLogo}&text={$name}";
         return $logo;
     }
+
+    # -------------- method for Image creation  -------------- #
 
     public function aiPhoto($prompt)
     {
@@ -151,6 +161,8 @@ class OneApi
         return $correctedLink;
     }
 
+    # -------------- method for sokhan bozorgan  -------------- #
+
     public function sokhan()
     {
         $url = "{$this->oneApiDomain}/sokhan/?token={$this->token}&action=random";
@@ -158,12 +170,16 @@ class OneApi
         return json_decode($response);
     }
 
+    # -------------- radioJavan method  -------------- #
+
     public function radioJavan($name)
     {
         $url = "{$this->oneApiDomain}/radiojavan/?token={$this->token}&action=search&q={$name}";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    # -------------- radioJavan method  -------------- #
 
     public function textToVocieMan($text)
     {
@@ -179,12 +195,16 @@ class OneApi
         return $response;
     }
 
+    # -------------- method for getting weather  -------------- #
+
     public function getWhater($city)
     {
         $url = "https://api.codesazan.ir/Weather?key=6317851077:RCXp017ylga@CodeSazan_APIManager_Bot&type=Weather&city={$city}";
         $response = $this->getRequest($url);
         return json_decode($response);
     }
+
+    # -------------- method for getting music id -------------- #
 
     public function getSoundCloudId($link)
     {
@@ -193,6 +213,8 @@ class OneApi
         return json_decode($response)->result->id;
     }
 
+    # -------------- method for getting music information -------------- #
+
     public function getSoundCloudInfo($id)
     {
         $url = "{$this->oneApiDomain}/soundcloud/?token={$this->token}&action=track&id={$id}";
@@ -200,12 +222,16 @@ class OneApi
         return json_decode($response);
     }
 
+    # -------------- method for downloading music -------------- #
+
     public function getSoundCloudFile($id)
     {
         $url = "{$this->oneApiDomain}/soundcloud/?token={$this->token}&action=download&id={$id}";
         $response = $this->getRequest($url);
         return $response;
     }
+
+    # -------------- method for getting phone Price -------------- #
 
     public function getPriceOfPhone($tag)
     {
