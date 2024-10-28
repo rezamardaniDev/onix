@@ -41,7 +41,7 @@ class Bot
         return $this->TelegramRequest('sendMessage', $params);
     }
 
-    public function editMessage($chat_id, $text, $message_id, $keyboard = null, $mrk = 'html')
+    public function editMessage($chat_id, $text, $message_id, $keyboard = null, $mrk = 'HTML')
     {
         $params = [
             'chat_id' => $chat_id,
@@ -77,6 +77,7 @@ class Bot
             'chat_id' => $chat_id,
             'video'   => $photo,
             'caption' => $caption,
+            'parse_mode' => 'HTML',
             'reply_markup' => $keyboard
         ]);
     }

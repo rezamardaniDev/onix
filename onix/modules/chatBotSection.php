@@ -1,11 +1,10 @@
 <?php
 
-if ($type == "supergroup"){
-    $action = explode(" " , $text , 2);
-    if ($action[0] == "اونیکس"){
-        $chatResponse = $apiRequest->sendTextToGpt($action[1], $user->ai_type);
-        $bot->sendMessage($chat_id, $chatResponse);
-    }
+$action = explode(" ", $text, 2);
+if ($type == "supergroup" && ($action[0] == "اونیکس" || $action[0] == "انیکس")) {
+    $bot->sendChatAction($chat_id, 'typing');
+    $chatResponse = $apiRequest->sendTextToGpt($action[1], 'gpt-3');
+    $bot->sendMessage($chat_id, $chatResponse,mrk:'Markdown' ,message_id:$message_id);
     die;
 }
 

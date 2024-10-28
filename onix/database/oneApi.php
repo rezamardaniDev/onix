@@ -54,7 +54,7 @@ class OneApi
     }
 
     # -------------- method for all get requests -------------- #
-    
+
     public function getRequest($url)
     {
         $curl = curl_init();
@@ -264,5 +264,12 @@ class OneApi
         $url = "https://youtube.one-api.ir/?token={$this->token}&action=download&id={$id}";
         $response = $this->getRequest($url);
         return json_decode($response)->result->link;
+    }
+
+    public function instaDownloader($link)
+    {
+        $response = $this->postRequest("https://api.one-api.ir/instagram/v1/post/?shortcode={$link}", ['shortcode' => $link], ["one-api-token: {$this->token}"]);
+        $link = json_decode($response)->result;
+        return $link;
     }
 }
