@@ -159,6 +159,21 @@ if ($text == '「 ▶️ دانلود یوتوب 」' || $user->step == 'yt-dl')
     require 'modules/youtubeDl.php';
 }
 
+if ($text == 'اینستا') {
+    $bot->sendMessage($from_id, 'لینک ویدئو یا ریلز مورد نظر را ارسال کنید: ');
+    $userCursor->setStep($from_id, 'insta');
+    die;
+}
+
+if ($user->step == 'insta') {
+    $shortLink = explode('/', $text)[4];
+    $bot->sendChatAction($from_id, 'upload_document');
+    $res = $apiRequest->postRequest("https://api.one-api.ir/instagram/v1/post/?shortcode={$shortLink}", ['shortcode' => $shortLink], ["one-api-token: 947925:670026b59af4f"]);
+    $link = json_decode($res)->result->media[0]->url;
+    $bot->sendVideo($from_id, $link);
+    die;
+}
+
 # -------------- translator button -------------- #
 
 require 'modules/translator.php';

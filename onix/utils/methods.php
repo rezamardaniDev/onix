@@ -71,6 +71,16 @@ class Bot
         ]);
     }
 
+    public function sendVideo($chat_id, $photo, $caption = null, $keyboard = null)
+    {
+        return $this->TelegramRequest('sendVideo', [
+            'chat_id' => $chat_id,
+            'video'   => $photo,
+            'caption' => $caption,
+            'reply_markup' => $keyboard
+        ]);
+    }
+
     public function sendAudio($chat_id, $audio, $caption = null, $keyboard = null)
     {
         return $this->TelegramRequest('sendAudio', [
