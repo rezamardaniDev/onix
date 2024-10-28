@@ -178,6 +178,12 @@ if ($user->step == 'insta') {
     die;
 }
 
+if ($text == 'پنل ادمین' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'به پنل مدیریت خوش آمدید', $adminPanelKeyboard);
+    $userCursor->setStep($from_id, 'admin-panel');
+    die;
+}
+
 # -------------- translator button -------------- #
 
 require 'modules/translator.php';
