@@ -3,6 +3,21 @@
 $action = explode(" ", $text, 2);
 if ($type == "supergroup" && ($action[0] == "اونیکس" || $action[0] == "انیکس")) {
     $bot->sendChatAction($chat_id, 'typing');
+    $status = explode(' ', $action[1]);
+    $section = '';
+
+    switch (end($status)) {
+        case '!':
+            $section = 'با حالت خشم و ایموجی ';
+            break;
+        case '#':
+            $section = 'با حالت ملایم و ایموجی ';
+            break;
+        default:
+            $section = '';
+    }
+
+    $action[1] .= $section;
     $chatResponse = $apiRequest->sendTextToGpt($action[1], 'gpt-3');
     $bot->sendMessage($chat_id, $chatResponse,mrk:'Markdown' ,message_id:$message_id);
     die;
