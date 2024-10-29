@@ -33,7 +33,12 @@ require 'utils/variables.php';
 # -------------- Main Codes -------------- #
 if ($update) {
     if ($update->message->from->first_name == 'Telegram') {
-        $bot->sendMessage($update->message->chat->id, 'کامنت اول توسط Onix تسخیر شد', message_id: $message_id);
+        $botMessage = "
+به کامنتای هم دیگه احترام بزارید .
+
+« توهین و بی احترامی به هم ممنوع ، نظرات آزاد »
+        ";
+        $bot->sendMessage($update->message->chat->id, $botMessage, message_id: $message_id);
     }
 }
 
