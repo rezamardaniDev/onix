@@ -11,8 +11,14 @@ if (isset($update->message)) {
     $type        = $message->chat->type;
     $first_name  = htmlspecialchars($message->from->first_name, ENT_QUOTES, 'UTF-8');
     $message_id  = $update->message->message_id;
+    $bot_join    = $update->message->new_chat_participant->username;
 }
 
+if (isset($update->my_chat_member)){
+    $chat_id     = $update->my_chat_member->chat->id;
+    $bot_admin   = $update->my_chat_member->new_chat_member->user->username;
+    $bot_status   = $update->my_chat_member->new_chat_member->status;
+}
 # -------------- Callback Updates -------------- #
 
 if (isset($update->callback_query)) {
@@ -26,3 +32,4 @@ if (isset($update->callback_query)) {
 
 $user = $userCursor->getUser($from_id);
 $userLimits = $userCursor->getLimits($from_id);
+$group = $groupCursor->getGroup($chat_id);

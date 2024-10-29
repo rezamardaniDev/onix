@@ -16,6 +16,7 @@ require 'config/config.php';
 require 'utils/methods.php';
 require 'database/connector.php';
 require 'database/usersMethods.php';
+require 'database/groupsMethods.php';
 require 'utils/keyboards.php';
 require 'database/oneApi.php';
 require 'partial/botMessages.php';
@@ -24,7 +25,9 @@ require 'partial/botMessages.php';
 
 $bot = new Bot(API_KEY);
 $userCursor = new UserConnection();
+$groupCursor = new GroupConnection();
 $apiRequest = new OneApi(RAMZINE);
+
 
 # -------------- Include variables -------------- #
 
@@ -32,14 +35,7 @@ require 'utils/variables.php';
 
 # -------------- Main Codes -------------- #
 if ($update) {
-    if ($update->message->from->first_name == 'Telegram') {
-        $botMessage = "
-به کامنتای هم دیگه احترام بزارید .
-
-« توهین و بی احترامی به هم ممنوع ، نظرات آزاد »
-        ";
-        $bot->sendMessage($update->message->chat->id, $botMessage, message_id: $message_id);
-    }
+    require 'partial/updateMessage.php';
 }
 
 
@@ -156,36 +152,29 @@ if (preg_match('/^هوا/', $text) || $text == '「 🌦 آب و  هوا 」') {
     require 'modules/weather.php';
 }
 
+# -------------- downloader section -------------- #
+
 if ($text == '「 📥 دانلودر ها」') {
     $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $downloaderKeyboard);
     die;
 }
 
+# -------------- soundcloud downloader -------------- #
+
 if ($text == '「 📻 دانلود ساندکلود 」' || $user->step == 'get-sound-cloud') {
     require 'modules/soundCouldDl.php';
 }
+
+# -------------- youtube downloader -------------- #
 
 if ($text == '「 ▶️ دانلود یوتوب 」' || $user->step == 'yt-dl') {
     require 'modules/youtubeDl.php';
 }
 
-if ($text == '「 🔮 دانلود اینستاگرام 」') {
-    $bot->sendMessage($from_id, 'لینک ویدئو یا ریلز مورد نظر را ارسال کنید: ', $backButton);
-    $userCursor->setStep($from_id, 'insta');
-    die;
-}
+# -------------- instagram downloader -------------- #
 
-if ($user->step == 'insta') {
-    $shortLink = explode('/', $text)[4];
-    $response = $apiRequest->instaDownloader($shortLink);
-
-    $link = $response->media[0]->url;
-    $caption = $response->caption . "\n\n<b>🦜 Download by @OnyxAiRoBot</b>";
-
-    $bot->sendChatAction($from_id, 'upload_document');
-    $bot->sendVideo($from_id, $link, $caption);
-
-    die;
+if ($text == '「 🔮 دانلود اینستاگرام 」' || $user->step == 'insta') {
+    require 'modules/instagramDl.php';
 }
 
 if ($text == 'پنل ادمین' && $user->is_admin) {
