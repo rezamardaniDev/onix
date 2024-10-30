@@ -45,4 +45,25 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("UPDATE `tb_limits` SET $filed = ? WHERE `chat_id` = ? ");
         $stmt->execute([$number, $chat_id]);
     }
+
+    public function addNewForceMessage($words)
+    {
+        $stmt = $this->db->prepare("INSERT INTO `tb_messages` (`question`, `answer`) VALUES (?, ?)");
+        $stmt->execute($words);
+    }
+
+    public function getForceMessage($word)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM `tb_messages` WHERE `question` LIKE ?");
+        $stmt->execute(['%' . $word . '%']);
+        $results = $stmt->fetchAll();
+        $answers = array_column($results, 'answer');
+        return !empty($answers) ? $answers[array_rand($answers)] : null;
+    }
+
+    public function deleteForceMessage($word)
+    {
+        $stmt = $this->db->prepare("DELETE FROM `tb_messages` WHERE `question` = '$word' ");
+        $stmt->execute([$word]);
+    }
 }

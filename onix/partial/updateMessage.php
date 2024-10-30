@@ -1,8 +1,12 @@
 <?php
 
+if ($type == 'supergroup' && $getWord &&  $r_user_name == "onixToolsBot") {
+    $bot->sendMessage($chat_id, $getWord, message_id: $message_id);
+}
+
+# -------------- send message when add bot to group -------------- #
 
 if ($bot_join == 'onixToolsBot') {
-
     if (!$group) {
         $groupCursor->addNewGroup($chat_id);
     }
@@ -31,7 +35,7 @@ if ($bot_admin == "onixToolsBot" && $bot_status == "administrator") {
     ```
     چت با هوش مصنوعی ChatGpt 3.5 Turbo
     ارز های دیجیتال 
-    اوقات شرعی 
+    اوقات شرعی  
     اخبار و...
     ```";
 

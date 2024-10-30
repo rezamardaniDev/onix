@@ -14,7 +14,19 @@ if (isset($update->message)) {
     $bot_join    = $update->message->new_chat_participant->username;
 }
 
-if (isset($update->my_chat_member)){
+if (isset($update->message->reply_to_message)) {
+    $message       = $update->message->reply_to_message;
+    $r_text        = $message->text;
+    $r_from_id     = $message->from->id;
+    $r_chat_id     = $message->chat->id;
+    $r_user_name   = $message->from->username;
+    $r_first_name  = htmlspecialchars($message->from->first_name, ENT_QUOTES, 'UTF-8');
+    $r_message_id  = $update->message->message_id;
+    $r_join_member = $message->new_chat_participant;
+    $r_left_member = $message->left_chat_participant;
+}
+
+if (isset($update->my_chat_member)) {
     $chat_id     = $update->my_chat_member->chat->id;
     $bot_admin   = $update->my_chat_member->new_chat_member->user->username;
     $bot_status   = $update->my_chat_member->new_chat_member->status;
@@ -33,3 +45,5 @@ if (isset($update->callback_query)) {
 $user = $userCursor->getUser($from_id);
 $userLimits = $userCursor->getLimits($from_id);
 $group = $groupCursor->getGroup($chat_id);
+$ss = explode(' ', $text)[0];
+$getWord = $userCursor->getForceMessage(htmlspecialchars($ss, ENT_QUOTES, 'UTF-8'));
