@@ -36,7 +36,7 @@ foreach ($response->result as $key => $value) {
  ┊
  └Changes per day: {$dayChange}  🔺🔻";
 
-        $bot->sendMessage($chat_id, $botMessage, message_id: $message_id);
+        $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard:$channelViewKeyboard);
         die;
     }
 }
