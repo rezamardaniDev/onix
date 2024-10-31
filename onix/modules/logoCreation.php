@@ -14,6 +14,7 @@ if($text == '「 🎨 لوگو اسم 」'){
     $response = $apiRequest->makeLogo($text);
     $bot->sendChatAction($from_id, 'upload_photo');
     $bot->sendPhoto($from_id, $response, 'لوگو اسم شما آماده شد!', $hoshmandKeyboard);
+    $userCursor->setLimit($from_id , 'logo_limit' , $userLimits->logo_limit - 1);
     $userCursor->setStep($from_id, 'home');
     die;
 }
