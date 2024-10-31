@@ -30,6 +30,8 @@ if (in_array($text, ["SAMSUNG", "APPLE", "XIAOMI" , "NOKIA"]) && $user->step == 
 }
 
 if ($user->step == "choosePhone") {
+    $bot->sendChatAction($chat_id, 'typing');
+
     $action = '';
     switch ($text) {
         case 'سری S':
