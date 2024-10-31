@@ -19,7 +19,7 @@ if ($type == "supergroup" && ($action[0] == "اونیکس" || $action[0] == "ا�
 
     $action[1] .= $section;
     $chatResponse = $apiRequest->sendTextToGpt($action[1], 'gpt-3');
-    $bot->sendMessage($chat_id, $chatResponse,mrk:'Markdown' ,message_id:$message_id);
+    $bot->sendMessage($chat_id, $chatResponse,mrk:'Markdown' ,message_id:$message_id, keyboard:$channelViewKeyboard);
     die;
 }
 

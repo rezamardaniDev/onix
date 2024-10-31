@@ -208,3 +208,9 @@ $xiaomiKeyboard = json_encode([
         [['text' => 'بازگشت']]
     ]
 ]);
+
+$channelViewKeyboard = json_encode([
+    'inline_keyboard' => [
+        [['text' => '𝗢𝗻𝘆𝘅𝗧𝗲𝗮𝗺 🦜', 'url' => 'https://t.me/OnyxAiTeam']]
+    ]
+]);
