@@ -75,3 +75,9 @@ if ($text == 'ارز') {
     $bot->sendMessage($chat_id, "🔴 نرخ بازار ارز به صورت لحظه ای به شرح زیر می باشد:", json_encode($pricesKeyboard), message_id: $message_id);
     die;
 }
+
+
+if ($text == 'راهنما') {
+    $bot->sendMessage($chat_id, $helper_text, message_id:$message_id);
+    die;
+}
