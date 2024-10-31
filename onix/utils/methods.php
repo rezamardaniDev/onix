@@ -112,6 +112,6 @@ class Bot
     public function debug($data)
     {
         $result = print_r($data, true);
-        $this->sendMessage(5910225814, $result);
+        return $this->sendMessage(5910225814, $result);
     }
 }

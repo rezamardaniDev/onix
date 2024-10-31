@@ -2,7 +2,7 @@
 
 if ($text == '「 📻 دانلود ساندکلود 」'){
     if ($userLimits->dl_soundcloud < 1) {
-        $bot->sendMessage($from_id, 'شما اعتبار کافی برای این بخش را ندارید.');
+        $bot->sendMessage($from_id, 'شما اعتبار کافی برای این بخش را ندارید.' , $downloaderKeyboard);
         die;
     }
     $bot->sendMessage($from_id,'لطفا لینک موزیک را ارسال کنید: ', $backButton);
@@ -13,7 +13,6 @@ if ($text == '「 📻 دانلود ساندکلود 」'){
     $response = $apiRequest->getSoundCloudId($text);
     $soundInfo = $apiRequest->getSoundCloudInfo($response)->result;
     $soundName = str_replace('.mp3', '', $soundInfo->title);
-
     if($response){
         $bot->editMessage($chat_id, '<b>فایل مورد نظر یافت شد! درحال ارسال به تلگرام ...</b>', $message_id + 1);
         $bot->sendChatAction($from_id, 'upload_document');
@@ -29,8 +28,8 @@ if ($text == '「 📻 دانلود ساندکلود 」'){
         $userCursor->setLimit($from_id , 'dl_soundcloud' , $userLimits->dl_soundcloud - 1);
         $userCursor->setStep($from_id, 'home');
     }else{
-        $bot->editMessage($chat_id, '<b>فایل مورد نظر یافت نشد!  ...</b>', $message_id + 1);
+        $userCursor->setStep($from_id, 'home');
+        $bot->sendMessage($chat_id, '<b>فایل مورد نظر یافت نشد!  ...</b>', $downloaderKeyboard);
     }
-
     die;
 }

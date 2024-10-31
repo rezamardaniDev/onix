@@ -78,6 +78,12 @@ if ($text == 'ارز') {
 
 
 if ($text == 'راهنما') {
-    $bot->sendMessage($chat_id, $helper_text, message_id:$message_id);
+    $bot->sendMessage($chat_id, $helper_text, message_id: $message_id, keyboard: json_encode([
+        'inline_keyboard' => [
+            [['text' =>  '+ افزودن ربات به گروه +', 'url' => 'https://telegram.me/onixToolsBot?startgroup=start']],
+            [['text' => 'بستن راهنما', 'callback_data' => "del_" . ($message_id + 1)]]
+        ]
+    ]));
     die;
 }
+ 

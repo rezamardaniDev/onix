@@ -1,7 +1,12 @@
 <?php
 
-if ($type == 'supergroup' && $getWord &&  $r_user_name == "onixToolsBot") {
+if ($text && $type == 'supergroup' && $getWord &&  $r_user_name == "onixToolsBot") {
     $bot->sendMessage($chat_id, $getWord, message_id: $message_id);
+}
+
+if (preg_match('/del_/', $data)) {
+    $bot->deleteMessages($chat_id, explode('_', $data)[1]);
+    die;
 }
 
 # -------------- send message when add bot to group -------------- #

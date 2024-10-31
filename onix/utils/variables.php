@@ -29,13 +29,14 @@ if (isset($update->message->reply_to_message)) {
 if (isset($update->my_chat_member)) {
     $chat_id     = $update->my_chat_member->chat->id;
     $bot_admin   = $update->my_chat_member->new_chat_member->user->username;
-    $bot_status   = $update->my_chat_member->new_chat_member->status;
+    $bot_status  = $update->my_chat_member->new_chat_member->status;
 }
 # -------------- Callback Updates -------------- #
 
 if (isset($update->callback_query)) {
     $callback_id = $update->callback_query->id;
     $from_id     = $update->callback_query->from->id;
+    $chat_id     = $update->callback_query->message->chat->id;
     $data        = $update->callback_query->data;
     $query_id    = $update->callback_query->id;
     $type        = $update->callback_query->message->chat->type;
