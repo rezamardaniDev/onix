@@ -20,6 +20,16 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("UPDATE `tb_users` SET `step` = ? WHERE `chat_id` = ?");
         $stmt->execute([$input, $chat_id]);
     }
+    # ----------------- method  for setting the admin ----------------- #
+    public function setAdmin($chat_id){
+        $stmt = $this->db->prepare("UPDATE `tb_users` SET `is_admin` = 1 WHERE `chat_id` = ?");
+        $stmt->execute([$chat_id]);
+    }
+    # ----------------- method for deleting and admin ------------------ #
+    public function deleteAdmin($chat_id){
+        $stmt = $this->db->prepare("UPDATE `tb_users` SET `is_admin` = 0 WHERE `chat_id` = ?");
+        $stmt->execute([$chat_id]);
+    }
     # ----------------- method for setting the Ai type in database ------------------ #
     public function setAiType($chat_id, $input)
     {
