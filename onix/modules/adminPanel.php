@@ -30,3 +30,14 @@ if ($user->step == 'delete-admins') {
     $userCursor->setStep($from_id, 'admin-panel');
     die;
 }
+
+if ($text == 'پیام همگانی' && $user->is_admin){
+    $bot->sendMessage($from_id , "پیام را وارد کنید : " , $backToAdmin);
+    $userCursor->setStep($from_id , "send_public_message");
+}
+
+if ($user->step == "send_public_message"){
+    $userCursor->setPublicMessage($from_id , $text);
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id , "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود" , $adminPanelKeyboard);
+}

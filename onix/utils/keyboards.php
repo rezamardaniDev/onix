@@ -68,7 +68,7 @@ $aiKeyboard = json_encode([
 $adminPanelKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
-        [['text' => 'همگانی'], ['text' => 'آمار']],
+        [['text' => 'پیام همگانی'], ['text' => 'آمار']],
         [['text' => 'کاربران'], ['text' => 'تنظیمات']],
         [['text' => 'کانال ها']],
         [['text' => 'حذف ادمین'], ['text' => 'افزودن ادمین']],

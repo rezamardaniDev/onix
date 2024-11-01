@@ -76,4 +76,9 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("DELETE FROM `tb_messages` WHERE `question` = '$word' ");
         $stmt->execute([$word]);
     }
+
+    public function setPublicMessage($chat_id , $text){
+        $stmt = $this->db->prepare("INSERT INTO `tb_public_message` (`chat_id` , `text`) VALUES (? , ?)");
+        $stmt->execute([$chat_id , $text]);
+    }
 }
