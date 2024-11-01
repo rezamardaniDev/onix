@@ -176,12 +176,6 @@ if ($text == '「 🔮 دانلود اینستاگرام 」' || $user->step == 
     require 'modules/instagramDl.php';
 }
 
-if ($text == 'پنل ادمین' && $user->is_admin) {
-    $bot->sendMessage($from_id, 'به پنل مدیریت خوش آمدید', $adminPanelKeyboard);
-    $userCursor->setStep($from_id, 'admin-panel');
-    die;
-}
-
 if ($text == 'پاسخ سریع') {
     $bot->sendMessage($from_id, 'لطفا کلمه مورد نظر را در خط اول و پاسخ آن را در خط دوم وارد کنید: ');
     $userCursor->setStep($from_id, 'add-force-message');
@@ -223,3 +217,5 @@ require 'modules/phonePrice.php';
 # -------------- group command section -------------- #
 
 require 'partial/groupCommands.php';
+
+require 'modules/adminPanel.php';

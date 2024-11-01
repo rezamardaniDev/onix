@@ -71,6 +71,7 @@ $adminPanelKeyboard = json_encode([
         [['text' => 'همگانی'], ['text' => 'آمار']],
         [['text' => 'کاربران'], ['text' => 'تنظیمات']],
         [['text' => 'کانال ها']],
+        [['text' => 'حذف ادمین'], ['text' => 'افزودن ادمین']],
         [['text' => 'بازگشت']]
     ]
 ]);
@@ -212,5 +213,12 @@ $xiaomiKeyboard = json_encode([
 $channelViewKeyboard = json_encode([
     'inline_keyboard' => [
         [['text' => '𝗢𝗻𝘆𝘅𝗧𝗲𝗮𝗺 🦜', 'url' => 'https://t.me/OnyxAiTeam']]
+    ]
+]);
+
+$backToAdmin = json_encode([
+    'resize_keyboard' => true,
+    'keyboard' => [
+        [['text' => 'بازگشت  به ادمین پنل']]
     ]
 ]);
