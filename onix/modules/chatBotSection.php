@@ -56,7 +56,7 @@ if ($user->step == 'ai-select-category') {
 
 # -------------- recive and send requests to chat bot -------------- #
 
-if ($user->step == 'chating') {
+if ($user->step == 'chating' && $type != 'supergroup') {
     $status = explode(' ', $text);
     $action = '';
 

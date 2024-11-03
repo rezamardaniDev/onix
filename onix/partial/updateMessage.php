@@ -15,10 +15,14 @@ if ($bot_join == 'onixToolsBot') {
     if (!$group) {
         $groupCursor->addNewGroup($chat_id);
     }
-    $botMessage = "• ربات با موفقیت به گروه شما اضافه شد!
+    $botMessage = "
+• ربات با موفقیت به گروه شما اضافه شد!
 • حال لازم است ربات را ادمین کامل گروه نمایید
 
-• تا فرآیند نصب و پیکربندی انجام شود";
+• تا فرآیند نصب و پیکربندی انجام شود
+
+⚠️ توجه : در صورتی که ربات را ادمین کردید این پیام را نادیده بگیرید !
+    ";
     $bot->sendMessage($chat_id, $botMessage);
     die;
 }
@@ -44,7 +48,7 @@ if ($bot_admin == "onixToolsBot" && $bot_status == "administrator") {
     اخبار و...
     ```";
 
-    $bot->sendMessage($chat_id, $botMessage, mrk: 'Markdown');
+    $bot->sendMessage($chat_id, $botMessage, mrk: 'Markdown' , keyboard:$startChannelKeyboard);
     $groupCursor->setActive($chat_id, 1);
     die;
 }
