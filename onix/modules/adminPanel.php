@@ -1,6 +1,6 @@
 <?php
 
-if (($text == 'پنل ادمین' || $text == 'بازگشت  به ادمین پنل') && $user->is_admin) {
+if (($text == 'پنل ادمین' || $text == 'بازگشت به ادمین پنل') && $user->is_admin) {
     $bot->sendMessage($from_id, 'به پنل مدیریت خوش آمدید', $adminPanelKeyboard);
     $userCursor->setStep($from_id, 'admin-panel');
     die;

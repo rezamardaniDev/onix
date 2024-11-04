@@ -215,7 +215,7 @@ $startChannelKeyboard = json_encode([
 $backToAdmin = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
-        [['text' => 'بازگشت  به ادمین پنل']]
+        [['text' => 'بازگشت به ادمین پنل']]
     ]
 ]);
 
@@ -226,7 +226,7 @@ $usersSectionButton = json_encode([
     'keyboard' => [
         [['text' => 'جستجوی کاربر']],
         [['text' => 'مسدود سازی کاربر'], ['text' => 'رفع مسدودیت کاربر']],
-        [['text' => 'بازگشت  به ادمین پنل']]
+        [['text' => 'بازگشت به ادمین پنل']]
     ]
 ]);
 
@@ -234,6 +234,6 @@ $sendToAllKeyboard = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
         [['text' => ' پیام همگانی گروه ها'], ['text' => 'پیام همگانی کاربران']],
-        [['text' => 'بازگشت  به ادمین پنل']]
+        [['text' => 'بازگشت به ادمین پنل']]
     ]
 ]);
