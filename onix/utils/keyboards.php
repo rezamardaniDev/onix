@@ -76,17 +76,6 @@ $adminPanelKeyboard = json_encode([
     ]
 ]);
 
-# -------------- User section keyboard -------------- #
-
-$userSectionKeyboard = json_encode([
-    'resize_keyboard' => true,
-    'keyboard' => [
-        [['text' => 'بلاک'], ['text' => 'آنبلاک']],
-        [['text' => 'جست وجو'], ['text' => 'افزودن موجودی']],
-        [['text' => 'بازگشت']]
-    ]
-]);
-
 # -------------- Back button keyboard -------------- #
 
 $backButton = json_encode([
@@ -226,6 +215,17 @@ $startChannelKeyboard = json_encode([
 $backToAdmin = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
+        [['text' => 'بازگشت  به ادمین پنل']]
+    ]
+]);
+
+# -------------- User section keyboard -------------- #
+
+$usersSectionButton = json_encode([
+    'resize_keyboard' => true,
+    'keyboard' => [
+        [['text' => 'جستجوی کاربر']],
+        [['text' => 'مسدود سازی کاربر'], ['text' => 'رفع مسدودیت کاربر']],
         [['text' => 'بازگشت  به ادمین پنل']]
     ]
 ]);

@@ -189,3 +189,32 @@ require 'modules/phonePrice.php';
 require 'partial/groupCommands.php';
 
 require 'modules/adminPanel.php';
+
+if ($text == 'کاربران' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'لطفا یکی گزینه های زیر را انتخاب کنید: ', $usersSectionButton);
+    die;
+}
+
+if ($text == 'جستجوی کاربر' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'آیدی عددی فرد مورد نظر را وارد کنید: ', $backToAdmin);
+    $userCursor->setStep($from_id, 'search-user');
+    die;
+}
+
+if ($user->step ==  'search-user') {
+
+    $getUserInformation = $userCursor->getUser($text);
+    $getLimits = $userCursor->getLimits($text);
+
+    $botMessage = "
+<b> 💭 | حساب کاربری شما در ربات ما 
+
+📃 | نام شما : {$getUserInformation->chat_id}
+📝 | یوزرنیم شما : {$getUserInformation->is_admin}
+🆔 | شناسه کاربری شما : {$getUserInformation->is_ban}
+</b> ";
+
+    $bot->sendMessage($from_id, $botMessage);
+
+    die;
+}
