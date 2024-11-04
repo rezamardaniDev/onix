@@ -229,3 +229,11 @@ $usersSectionButton = json_encode([
         [['text' => 'بازگشت  به ادمین پنل']]
     ]
 ]);
+
+$sendToAllKeyboard = json_encode([
+    'resize_keyboard' => true,
+    'keyboard' => [
+        [['text' => ' پیام همگانی گروه ها'], ['text' => 'پیام همگانی کاربران']],
+        [['text' => 'بازگشت  به ادمین پنل']]
+    ]
+]);

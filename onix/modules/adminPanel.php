@@ -25,7 +25,7 @@ if ($text == 'آمار' && $user->is_admin) {
 - تعداد گروه های ربات : {$groupCount} گروه
 </b>
     ";
-    $bot->sendMessage($from_id, $botMessage, message_id:$message_id);
+    $bot->sendMessage($from_id, $botMessage, message_id: $message_id);
     die;
 }
 
@@ -63,14 +63,32 @@ if ($user->step == 'delete-admins') {
 }
 
 if ($text == 'پیام همگانی' && $user->is_admin) {
-    $bot->sendMessage($from_id, "پیام را وارد کنید : ", $backToAdmin);
-    $userCursor->setStep($from_id, "send_public_message");
+    $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $sendToAllKeyboard);
+    die;
 }
 
-if ($user->step == "send_public_message") {
-    $userCursor->setPublicMessage($from_id, $text);
+if ($text == 'پیام همگانی کاربران' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'متن پیام را وارد کنید: ', $backToAdmin);
+    $userCursor->setStep($from_id, 'send_public_message_users');
+    die;
+}
+
+if ($user->step ==  'send_public_message_users') {
+    $userCursor->setPublicMessageUsers($from_id, $text);
     $userCursor->setStep($from_id, 'admin-panel');
     $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
+}
+
+if ($text == 'پیام همگانی گروه ها' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'متن پیام را وارد کنید: ', $backToAdmin);
+    $userCursor->setStep($from_id, 'send_public_message_groups');
+    die;
+}
+
+if ($user->step ==  'send_public_message_groups') {
+    $userCursor->setPublicMessageGroups($from_id, $text);
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای گروه ها ارسال می شود", $adminPanelKeyboard);
 }
 
 if ($text == 'پاسخ سریع') {

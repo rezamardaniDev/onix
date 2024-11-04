@@ -1,5 +1,10 @@
 <?php
 
+if($user->is_ban == 1){
+    $bot->sendMessage($from_id, '🚫 شما از ربات مسدود شدید.');
+    die;
+}
+
 if ($text && $type == 'supergroup' && $getWord &&  $r_user_name == "onixToolsBot") {
     $bot->sendMessage($chat_id, $getWord, message_id: $message_id);
 }

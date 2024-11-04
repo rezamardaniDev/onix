@@ -79,9 +79,15 @@ class UserConnection extends Connection
         $stmt->execute([$word]);
     }
 
-    public function setPublicMessage($chat_id, $text)
+    public function setPublicMessageUsers($chat_id, $text)
     {
-        $stmt = $this->db->prepare("INSERT INTO `tb_public_message` (`chat_id` , `text`) VALUES (? , ?)");
+        $stmt = $this->db->prepare("INSERT INTO `tb_public_message_users` (`chat_id` , `text`) VALUES (? , ?)");
+        $stmt->execute([$chat_id, $text]);
+    }
+
+    public function setPublicMessageGroups($chat_id, $text)
+    {
+        $stmt = $this->db->prepare("INSERT INTO `tb_public_message_groups` (`chat_id` , `text`) VALUES (? , ?)");
         $stmt->execute([$chat_id, $text]);
     }
 
@@ -99,5 +105,18 @@ class UserConnection extends Connection
         $stmt->execute();
         $result = $stmt->fetch();
         return $result->total;
+    }
+
+
+    public function banUser($chat_id)
+    {
+        $stmt = $this->db->prepare("UPDATE `tb_users` SET `is_ban` = 1 WHERE `chat_id` = ?");
+        $stmt->execute([$chat_id]);
+    }
+    # ----------------- method for deleting and admin ------------------ #
+    public function unBanUser($chat_id)
+    {
+        $stmt = $this->db->prepare("UPDATE `tb_users` SET `is_ban` = 0 WHERE `chat_id` = ?");
+        $stmt->execute([$chat_id]);
     }
 }

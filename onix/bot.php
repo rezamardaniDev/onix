@@ -214,7 +214,21 @@ if ($user->step ==  'search-user') {
 🆔 | شناسه کاربری شما : {$getUserInformation->is_ban}
 </b> ";
 
-    $bot->sendMessage($from_id, $botMessage);
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, $botMessage, $usersSectionButton);
+    die;
+}
 
+if ($text == 'مسدود سازی کاربر' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'شناسه کاربر مورد نظر را برای مسدود کردن ارسال کنید: ', $backToAdmin);
+    $userCursor->setStep($from_id, 'ban-user');
+    die;
+}
+
+if ($user->step == 'ban-user') {
+    $userCursor->banUser($text);
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, 'کاربر مورد نظر از ربات بن شد', $usersSectionButton);
+    $bot->sendMessage($text, 'حساب کاربری شما توسط ربات مسدود گردید');
     die;
 }
