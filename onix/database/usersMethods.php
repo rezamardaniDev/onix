@@ -21,12 +21,14 @@ class UserConnection extends Connection
         $stmt->execute([$input, $chat_id]);
     }
     # ----------------- method  for setting the admin ----------------- #
-    public function setAdmin($chat_id){
+    public function setAdmin($chat_id)
+    {
         $stmt = $this->db->prepare("UPDATE `tb_users` SET `is_admin` = 1 WHERE `chat_id` = ?");
         $stmt->execute([$chat_id]);
     }
     # ----------------- method for deleting and admin ------------------ #
-    public function deleteAdmin($chat_id){
+    public function deleteAdmin($chat_id)
+    {
         $stmt = $this->db->prepare("UPDATE `tb_users` SET `is_admin` = 0 WHERE `chat_id` = ?");
         $stmt->execute([$chat_id]);
     }
@@ -77,8 +79,25 @@ class UserConnection extends Connection
         $stmt->execute([$word]);
     }
 
-    public function setPublicMessage($chat_id , $text){
+    public function setPublicMessage($chat_id, $text)
+    {
         $stmt = $this->db->prepare("INSERT INTO `tb_public_message` (`chat_id` , `text`) VALUES (? , ?)");
-        $stmt->execute([$chat_id , $text]);
+        $stmt->execute([$chat_id, $text]);
+    }
+
+    public function getBotState()
+    {
+        $stmt = $this->db->query("SELECT COUNT(*) AS `total` FROM `tb_users`");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result->total;
+    }
+
+    public function getGroupState()
+    {
+        $stmt = $this->db->query("SELECT COUNT(*) AS `total` FROM `tb_groups`");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result->total;
     }
 }

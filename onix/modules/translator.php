@@ -21,7 +21,7 @@ if ($text == '「 🗣 مترجم متن 」' || $user->step == 'translator') {
 }
 
 
-if (preg_match('/^translate/', $user->step)) {
+if (strpos($user->step, 'translate') === 0) {
     if ($user->step == 'translate-en-fa') {
         $response = $apiRequest->translateToFa($text);
         $bot->sendMessage($from_id, $response, $translateKeyboard);

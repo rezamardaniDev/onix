@@ -12,6 +12,23 @@ if ($text == 'افزودن ادمین' && $user->is_admin) {
     die;
 }
 
+if ($text == 'آمار' && $user->is_admin) {
+    $userCount  = $userCursor->getBotState();
+    $groupCount = $userCursor->getGroupState();
+
+    $bot->sendChatAction($chat_id, 'typing');
+
+    $botMessage = "
+<b>آمار ربات تا این لحظه به شرح زیر است:
+
+- تعداد کاربران ربات : {$userCount} نفر
+- تعداد گروه های ربات : {$groupCount} گروه
+</b>
+    ";
+    $bot->sendMessage($from_id, $botMessage, message_id:$message_id);
+    die;
+}
+
 if ($user->step == 'add-admins') {
     $checkExistsUser = $userCursor->getUser($text);
     if (!$checkExistsUser) {
@@ -54,4 +71,34 @@ if ($user->step == "send_public_message") {
     $userCursor->setPublicMessage($from_id, $text);
     $userCursor->setStep($from_id, 'admin-panel');
     $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
+}
+
+if ($text == 'پاسخ سریع') {
+    $bot->sendMessage($from_id, 'لطفا کلمه مورد نظر را در خط اول و پاسخ آن را در خط دوم وارد کنید: ');
+    $userCursor->setStep($from_id, 'add-force-message');
+    die;
+}
+
+if ($user->step == 'add-force-message') {
+    $cutter = explode("\n", $text);
+    if (count($cutter) == 2) {
+        $userCursor->addNewForceMessage($cutter);
+        $bot->sendMessage($from_id, 'جمله و پاسخ شما ذخیره شد.', $mainKeyboard2);
+        $userCursor->setStep($from_id, 'home');
+    } else {
+        $bot->sendMessage($from_id, 'مقادیر اشتباه است!');
+    }
+    die;
+}
+
+if ($text == 'حذف پاسخ سریع') {
+    $bot->sendMessage($from_id, 'کلمه ای که میخواهید پاک شود را بده');
+    $userCursor->setStep($from_id, 'delete-force-message');
+    die;
+}
+
+if ($user->step ==  'delete-force-message') {
+    $userCursor->deleteForceMessage($text);
+    $bot->sendMessage($chat_id, 'کلمه حذف شد', message_id: $message_id);
+    die;
 }

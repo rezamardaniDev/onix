@@ -176,36 +176,6 @@ if ($text == '「 🔮 دانلود اینستاگرام 」' || $user->step == 
     require 'modules/instagramDl.php';
 }
 
-if ($text == 'پاسخ سریع') {
-    $bot->sendMessage($from_id, 'لطفا کلمه مورد نظر را در خط اول و پاسخ آن را در خط دوم وارد کنید: ');
-    $userCursor->setStep($from_id, 'add-force-message');
-    die;
-}
-
-if ($user->step == 'add-force-message') {
-    $cutter = explode("\n", $text);
-    if (count($cutter) == 2) {
-        $userCursor->addNewForceMessage($cutter);
-        $bot->sendMessage($from_id, 'جمله و پاسخ شما ذخیره شد.', $mainKeyboard2);
-        $userCursor->setStep($from_id, 'home');
-    } else {
-        $bot->sendMessage($from_id, 'مقادیر اشتباه است!');
-    }
-    die;
-}
-
-if ($text == 'حذف پاسخ سریع') {
-    $bot->sendMessage($from_id, 'کلمه ای که میخواهید پاک شود را بده');
-    $userCursor->setStep($from_id, 'delete-force-message');
-    die;
-}
-
-if ($user->step ==  'delete-force-message') {
-    $userCursor->deleteForceMessage($text);
-    $bot->sendMessage($chat_id, 'کلمه حذف شد', message_id: $message_id);
-    die;
-}
-
 # -------------- translator button -------------- #
 
 require 'modules/translator.php';
