@@ -237,3 +237,14 @@ $sendToAllKeyboard = json_encode([
         [['text' => 'بازگشت به ادمین پنل']]
     ]
 ]);
+
+
+$setChannelsButton = $sendToAllKeyboard = json_encode([
+    'resize_keyboard' => true,
+    'keyboard' => [
+        [['text' => 'افزودن جوین اجباری گپ'], ['text' => 'حذف جوین اجباری گپ']],
+        [['text' => 'افزودن جوین اجباری ربات'], ['text' => 'حذف جوین اجباری ربات']],
+        [['text' => 'افزودن دکمه تبلیغاتی'], ['text' => 'حذف دکمه تبلیغاتی']],
+        [['text' => 'بازگشت به ادمین پنل']]
+    ]
+]);

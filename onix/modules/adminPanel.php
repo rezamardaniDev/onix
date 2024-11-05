@@ -179,3 +179,8 @@ if ($user->step == 'unban-user') {
     $bot->sendMessage($text, 'حساب کاربری شما توسط رفع مسدودیت شد');
     die;
 }
+
+if ($text == 'کانال ها' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $setChannelsButton);
+    die;
+}
