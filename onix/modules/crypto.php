@@ -12,7 +12,6 @@ if (in_array($text, $crypto_list)) {
     $formatter = explode(' ', $text, 2);
     $formatter[0] = $bot->convertFaToEn($formatter[0]);
     $price = $formatter[0];
-    $bot->sendMessage($from_id, $price);
 }
 # -------------- response for crypto button -------------- #
 

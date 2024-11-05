@@ -38,7 +38,7 @@ if ($update) {
     require 'partial/updateMessage.php';
 }
 
-if (($text == '/start' || $text == 'بازگشت') && $type != "supergroup") {
+if (($text == '/start' || $text == '🔙 بازگشت') && $type != "supergroup") {
     require 'modules/startBot.php';
 }
 

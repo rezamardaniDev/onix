@@ -6,13 +6,13 @@ if (($text == 'پنل ادمین' || $text == 'بازگشت به ادمین پن
     die;
 }
 
-if ($text == 'افزودن ادمین' && $user->is_admin) {
+if ($text == '🔺 - افزودن ادمین' && $user->is_admin) {
     $bot->sendMessage($from_id, 'لطفا شناسه کاربر مورد نظر را وارد کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'add-admins');
     die;
 }
 
-if ($text == 'آمار' && $user->is_admin) {
+if ($text == '📊 - آمار ربات' && $user->is_admin) {
     $userCount  = $userCursor->getBotState();
     $groupCount = $userCursor->getGroupState();
 
@@ -43,7 +43,7 @@ if ($user->step == 'add-admins') {
 }
 
 
-if ($text == 'حذف ادمین' && $user->is_admin) {
+if ($text == '🔻 - حذف ادمین' && $user->is_admin) {
     $bot->sendMessage($from_id, 'لطفا شناسه کاربر مورد نظر را وارد کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'delete-admins');
     die;
@@ -62,12 +62,12 @@ if ($user->step == 'delete-admins') {
     die;
 }
 
-if ($text == 'پیام همگانی' && $user->is_admin) {
+if ($text == '✍🏻 - پیام همگانی' && $user->is_admin) {
     $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $sendToAllKeyboard);
     die;
 }
 
-if ($text == 'پیام همگانی کاربران' && $user->is_admin) {
+if ($text == '👥 -  پیام همگانی به کاربران' && $user->is_admin) {
     $bot->sendMessage($from_id, 'متن پیام را وارد کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'send_public_message_users');
     die;
@@ -79,7 +79,7 @@ if ($user->step ==  'send_public_message_users') {
     $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
 }
 
-if ($text == 'پیام همگانی گروه ها' && $user->is_admin) {
+if ($text == '🤝 -  پیام همگانی به گروه ها' && $user->is_admin) {
     $bot->sendMessage($from_id, 'متن پیام را وارد کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'send_public_message_groups');
     die;
@@ -91,7 +91,7 @@ if ($user->step ==  'send_public_message_groups') {
     $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای گروه ها ارسال می شود", $adminPanelKeyboard);
 }
 
-if ($text == 'پاسخ سریع') {
+if ($text ==  '🔔 - افزودن پاسخ سریع' && $user->is_admin) {
     $bot->sendMessage($from_id, 'لطفا کلمه مورد نظر را در خط اول و پاسخ آن را در خط دوم وارد کنید: ');
     $userCursor->setStep($from_id, 'add-force-message');
     die;
@@ -109,7 +109,7 @@ if ($user->step == 'add-force-message') {
     die;
 }
 
-if ($text == 'حذف پاسخ سریع') {
+if ($text == '🔕 - حذف پاسخ سریع'  && $user->is_admin) {
     $bot->sendMessage($from_id, 'کلمه ای که میخواهید پاک شود را بده');
     $userCursor->setStep($from_id, 'delete-force-message');
     die;
@@ -121,12 +121,12 @@ if ($user->step ==  'delete-force-message') {
     die;
 }
 
-if ($text == 'کاربران' && $user->is_admin) {
+if ($text == '👥 - مدیریت کاربران' && $user->is_admin) {
     $bot->sendMessage($from_id, 'لطفا یکی گزینه های زیر را انتخاب کنید: ', $usersSectionButton);
     die;
 }
 
-if ($text == 'جستجوی کاربر' && $user->is_admin) {
+if ($text == '🔎 - جستجوی کاربر' && $user->is_admin) {
     $bot->sendMessage($from_id, 'آیدی عددی فرد مورد نظر را وارد کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'search-user');
     die;
@@ -140,9 +140,9 @@ if ($user->step ==  'search-user') {
     $botMessage = "
 <b> 💭 | حساب کاربری شما در ربات ما 
 
-📃 | نام شما : {$getUserInformation->chat_id}
-📝 | یوزرنیم شما : {$getUserInformation->is_admin}
-🆔 | شناسه کاربری شما : {$getUserInformation->is_ban}
+📃 | شناسه کاربر : {$getUserInformation->chat_id}
+📝 | وضعیت ادمینی : {$getUserInformation->is_admin}
+🆔 | وضعیت بن : {$getUserInformation->is_ban}
 </b> ";
 
     $userCursor->setStep($from_id, 'admin-panel');
@@ -150,7 +150,7 @@ if ($user->step ==  'search-user') {
     die;
 }
 
-if ($text == 'مسدود سازی کاربر' && $user->is_admin) {
+if ($text ==  '🚫 - مسدود سازی کاربر' && $user->is_admin) {
     $bot->sendMessage($from_id, 'شناسه کاربر مورد نظر را برای مسدود کردن ارسال کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'ban-user');
     die;
@@ -165,7 +165,7 @@ if ($user->step == 'ban-user') {
     die;
 }
 
-if ($text == 'رفع مسدودیت کاربر' && $user->is_admin) {
+if ($text ==  '❇️ - رفع مسدودیت کاربر' && $user->is_admin) {
     $bot->sendMessage($from_id, 'شناسه کاربر مورد نظر را برای رفع مسدودیت ارسال کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'unban-user');
     die;
@@ -180,7 +180,7 @@ if ($user->step == 'unban-user') {
     die;
 }
 
-if ($text == 'کانال ها' && $user->is_admin) {
+if ($text == '📣 تنظیم کانال ها' && $user->is_admin) {
     $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $setChannelsButton);
     die;
 }
