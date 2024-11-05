@@ -120,3 +120,46 @@ if ($user->step ==  'delete-force-message') {
     $bot->sendMessage($chat_id, 'کلمه حذف شد', message_id: $message_id);
     die;
 }
+
+if ($text == 'کاربران' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'لطفا یکی گزینه های زیر را انتخاب کنید: ', $usersSectionButton);
+    die;
+}
+
+if ($text == 'جستجوی کاربر' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'آیدی عددی فرد مورد نظر را وارد کنید: ', $backToAdmin);
+    $userCursor->setStep($from_id, 'search-user');
+    die;
+}
+
+if ($user->step ==  'search-user') {
+
+    $getUserInformation = $userCursor->getUser($text);
+    $getLimits = $userCursor->getLimits($text);
+
+    $botMessage = "
+<b> 💭 | حساب کاربری شما در ربات ما 
+
+📃 | نام شما : {$getUserInformation->chat_id}
+📝 | یوزرنیم شما : {$getUserInformation->is_admin}
+🆔 | شناسه کاربری شما : {$getUserInformation->is_ban}
+</b> ";
+
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, $botMessage, $usersSectionButton);
+    die;
+}
+
+if ($text == 'مسدود سازی کاربر' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'شناسه کاربر مورد نظر را برای مسدود کردن ارسال کنید: ', $backToAdmin);
+    $userCursor->setStep($from_id, 'ban-user');
+    die;
+}
+
+if ($user->step == 'ban-user') {
+    $userCursor->banUser($text);
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, 'کاربر مورد نظر از ربات بن شد', $usersSectionButton);
+    $bot->sendMessage($text, 'حساب کاربری شما توسط ربات مسدود گردید');
+    die;
+}

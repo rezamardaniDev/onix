@@ -11,10 +11,8 @@ if (in_array($text, $crypto_list)) {
 } else {
     $formatter = explode(' ', $text, 2);
     $formatter[0] = $bot->convertFaToEn($formatter[0]);
-
-    if (preg_match('/^[1-9]\d*/', $formatter[0]) && in_array($formatter[1], $crypto_list)) {
-        $price = $formatter[0];
-    }
+    $price = $formatter[0];
+    $bot->sendMessage($from_id, $price);
 }
 # -------------- response for crypto button -------------- #
 
@@ -24,7 +22,7 @@ foreach ($response->result as $key => $value) {
     if (str_contains($value->name, $formatter[1])) {
 
         $dollar = floatval($value->usdt) * floatval($price);
-        $rial = print_r(number_format(floatval($value->irr) * floatval($price)), true);
+        $rial = print_r(number_format(floatval($value->irr) * $price), true);
         $dayChange = $value->dayChange;
 
         $botMessage = "
@@ -36,7 +34,7 @@ foreach ($response->result as $key => $value) {
  ┊
  └Changes per day: {$dayChange}  🔺🔻";
 
-        $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard:$channelViewKeyboard);
+        $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $channelViewKeyboard);
         die;
     }
 }

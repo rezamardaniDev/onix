@@ -1,38 +1,37 @@
 <?php
 
-if (preg_match('/^اوقات/', $text)) { {
-        $text = explode(' ', $text, 2)[1];
+if (strpos($text, 'اوقات') === 0) {
+    $text = explode(' ', $text, 2)[1];
 
-        $bot->sendChatAction($chat_id, 'typing');
-        $response = $apiRequest->oghatSharie($text);
+    $bot->sendChatAction($chat_id, 'typing');
+    $response = $apiRequest->oghatSharie($text);
 
-        if ($response->status != 200) {
-            $bot->sendMessage($chat_id,  'خطایی در جستجوی شهر مورد نظر رخ داد!',  message_id: $message_id);
-            $userCursor->setStep($chat_id, 'home');
-            die;
-        }
-
-        require 'partial/oghatVariables.php';
-
-        $botMessage = $shahr . $sob . $tloe . $zohr . $ghrob . $mghreb . $nimeShab;
-        $bot->sendMessage($chat_id, $botMessage,  message_id: $message_id, keyboard:$channelViewKeyboard);
+    if ($response->status != 200) {
+        $bot->sendMessage($chat_id,  'خطایی در جستجوی شهر مورد نظر رخ داد!',  message_id: $message_id);
+        $userCursor->setStep($chat_id, 'home');
         die;
     }
-}
 
-if (preg_match('/^ترجمه به انگلیسی/', $text)) {
-    $bot->sendChatAction($chat_id, 'typing');
-    $sentence = substr($text, 30);
-    $response = $apiRequest->translateToEn($sentence);
-    $bot->sendMessage($chat_id, $response,  message_id: $message_id, keyboard:$channelViewKeyboard);
+    require 'partial/oghatVariables.php';
+
+    $botMessage = $shahr . $sob . $tloe . $zohr . $ghrob . $mghreb . $nimeShab;
+    $bot->sendMessage($chat_id, $botMessage,  message_id: $message_id, keyboard: $channelViewKeyboard);
     die;
 }
 
-if (preg_match('/^ترجمه به فارسی/', $text)) {
+if (strpos($text, 'ترجمه به انگلیسی') === 0) {
+    $bot->sendChatAction($chat_id, 'typing');
+    $sentence = substr($text, 30);
+    $response = $apiRequest->translateToEn($sentence);
+    $bot->sendMessage($chat_id, $response,  message_id: $message_id, keyboard: $channelViewKeyboard);
+    die;
+}
+
+if (strpos($text, 'ترجمه به فارسی') === 0) {
     $bot->sendChatAction($chat_id, 'typing');
     $sentence = substr($text, 27);
     $response = $apiRequest->translateToFa($sentence);
-    $bot->sendMessage($chat_id, $response, message_id: $message_id, keyboard:$channelViewKeyboard);
+    $bot->sendMessage($chat_id, $response, message_id: $message_id, keyboard: $channelViewKeyboard);
     die;
 }
 
@@ -40,7 +39,7 @@ if ($text == 'سخن بزرگان') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->sokhan();
     $botMessage = $response->result->text;
-    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard:$channelViewKeyboard);
+    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $channelViewKeyboard);
     die;
 }
 
@@ -48,7 +47,7 @@ if ($text == 'دانستنی') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->funnyService('danestani');
     $botMessage = $response->result->Content;
-    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard:$channelViewKeyboard);
+    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $channelViewKeyboard);
     die;
 }
 
@@ -56,7 +55,7 @@ if ($text == 'جوک') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->funnyService('joke');
     $botMessage = $response->result;
-    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard:$channelViewKeyboard);
+    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $channelViewKeyboard);
     die;
 }
 
@@ -64,7 +63,7 @@ if ($text == 'فال') {
     $bot->sendChatAction($chat_id, 'typing');
     $response = $apiRequest->funnyService('hafez');
     $botMessage = '<b>' . "{$response->result->TITLE}" . '</b>' . "\n\n {$response->result->RHYME}\n\n {$response->result->MEANING}\n\nشماره: {$response->result->SHOMARE}";
-    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard:$channelViewKeyboard);
+    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $channelViewKeyboard);
     die;
 }
 
@@ -87,4 +86,3 @@ if ($text == 'راهنما') {
     ]));
     die;
 }
- 

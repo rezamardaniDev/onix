@@ -102,12 +102,13 @@ class Bot
 
     function convertFaToEn($number)
     {
-        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '.'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
         $changed = str_replace($persianNumbers, $englishNumbers, $number);
 
         return $changed;
     }
+
 
     public function debug($data)
     {
