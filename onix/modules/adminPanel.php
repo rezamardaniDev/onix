@@ -184,3 +184,31 @@ if ($text == 'کانال ها' && $user->is_admin) {
     $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $setChannelsButton);
     die;
 }
+
+if ($text == 'افزودن جوین اجباری گپ' && $user->is_admin) {
+    $bot->sendMessage($from_id, "یوزرنیم کانال مورد نظر را بدون @ وارد کنید:\nربات در کانال مورد نظر باید ادمین باشد.", $backToAdmin);
+    $userCursor->setStep($from_id, 'set;group;lock');
+    die;
+}
+
+if ($user->step == 'set;group;lock') {
+    $userCursor->setChannel($text, 'group');
+    $userCursor->setStep($from_id, 'admin-panel');
+
+    $bot->sendMessage($from_id, 'کانال مورد نظر ذخیره شد.', $setChannelsButton);
+    die;
+}
+
+if ($text == 'حذف جوین اجباری گپ' && $user->is_admin) {
+    $bot->sendMessage($from_id, "یوزرنیم کانال مورد نظر را بدون @ وارد کنید:", $backToAdmin);
+    $userCursor->setStep($from_id, 'del;group;lock');
+    die;
+}
+
+if ($user->step == 'del;group;lock') {
+    $userCursor->deleteChannel($text);
+    $userCursor->setStep($from_id, 'admin-panel');
+
+    $bot->sendMessage($from_id, 'کانال مورد نظر حذف شد.', $setChannelsButton);
+    die;
+}

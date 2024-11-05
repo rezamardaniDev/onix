@@ -119,4 +119,16 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("UPDATE `tb_users` SET `is_ban` = 0 WHERE `chat_id` = ?");
         $stmt->execute([$chat_id]);
     }
+
+    public function setChannel($username, $type)
+    {
+        $stmt = $this->db->prepare("INSERT INTO `tb_lock_channels` (`username`, `type`) VALUES (?, ?)");
+        $stmt->execute([$username, $type]);
+    }
+
+    public function deleteChannel($username)
+    {
+        $stmt = $this->db->prepare("DELETE FROM `tb_lock_channels` WHERE `username` = ?");
+        $stmt->execute([$username]);
+    }
 }
