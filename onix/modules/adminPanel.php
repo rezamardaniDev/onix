@@ -159,7 +159,23 @@ if ($text == 'مسدود سازی کاربر' && $user->is_admin) {
 if ($user->step == 'ban-user') {
     $userCursor->banUser($text);
     $userCursor->setStep($from_id, 'admin-panel');
+
     $bot->sendMessage($from_id, 'کاربر مورد نظر از ربات بن شد', $usersSectionButton);
     $bot->sendMessage($text, 'حساب کاربری شما توسط ربات مسدود گردید');
+    die;
+}
+
+if ($text == 'رفع مسدودیت کاربر' && $user->is_admin) {
+    $bot->sendMessage($from_id, 'شناسه کاربر مورد نظر را برای رفع مسدودیت ارسال کنید: ', $backToAdmin);
+    $userCursor->setStep($from_id, 'unban-user');
+    die;
+}
+
+if ($user->step == 'unban-user') {
+    $userCursor->unBanUser($text);
+    $userCursor->setStep($from_id, 'admin-panel');
+
+    $bot->sendMessage($from_id,  'حساب کاربری فرد مورد نظر رفع انسداد گردید.', $usersSectionButton);
+    $bot->sendMessage($text, 'حساب کاربری شما توسط رفع مسدودیت شد');
     die;
 }
