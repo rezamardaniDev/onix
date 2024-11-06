@@ -219,3 +219,38 @@ if ($user->step == 'del;private;lock') {
     $bot->sendMessage($from_id, 'کانال مورد نظر حذف شد.', $setChannelsButton);
     die;
 }
+
+if ($text == 'افزودن کانال تبلیغاتی' && $user->is_admin) {
+    $bot->sendMessage($from_id, "یوزرنیم کانال مورد نظر را بدون @ وارد کنید:\nربات در کانال مورد نظر باید ادمین باشد.", $backToAdmin);
+    $userCursor->setStep($from_id, 'set;sponsor;lock');
+    die;
+}
+
+if ($user->step == 'set;sponsor;lock') {
+    $userCursor->setChannel($text, 'sponsor');
+    $userCursor->setStep($from_id, 'admin-panel');
+
+    $bot->sendMessage($from_id, 'کانال مورد نظر ذخیره شد.', $setChannelsButton);
+    die;
+}
+
+if ($text == 'حذف کانال تبلیغاتی' && $user->is_admin) {
+    $botMessage = "یوزرنیم کانال مورد نظر را بدون @ وارد کنید \n";
+    $result = $userCursor->getChannel("sponsor");
+    if ($result) {
+        foreach ($result as $key => $value) {
+            $botMessage .= "\n" . $value->username;
+        }
+    }
+    $bot->sendMessage($from_id, $botMessage, $backToAdmin);
+    $userCursor->setStep($from_id, 'del;sponsor;lock');
+    die;
+}
+
+if ($user->step == 'del;sponsor;lock') {
+    $userCursor->deleteChannel($text);
+    $userCursor->setStep($from_id, 'admin-panel');
+
+    $bot->sendMessage($from_id, 'کانال مورد نظر حذف شد.', $setChannelsButton);
+    die;
+}
