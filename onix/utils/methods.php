@@ -109,6 +109,12 @@ class Bot
         return $changed;
     }
 
+    public function getChatMember($chat_id , $user_id){
+        return $this->TelegramRequest('getChatMember', [
+            'chat_id' => $chat_id,
+            'user_id'   => $user_id
+        ]);
+    }
 
     public function debug($data)
     {

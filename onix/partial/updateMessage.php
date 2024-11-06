@@ -1,5 +1,6 @@
 <?php
 
+
 if($user->is_ban == 1){
     $bot->sendMessage($from_id, '🚫 شما از ربات مسدود شدید.');
     die;

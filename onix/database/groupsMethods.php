@@ -27,4 +27,35 @@ class GroupConnection extends Connection
         $stmt = $this->db->prepare("UPDATE `tb_groups` SET `is_active` = ? WHERE `chat_id` = ? ");
         $stmt->execute([$number , $chat_id]);
     }
+
+
+    public function getPrivateChnnels(){
+        $stmt = $this->db->prepare("SELECT `username` FROM `tb_lock_channels` WHERE `type` = 'private'");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getSponsor(){
+        $stmt = $this->db->prepare("SELECT `username` FROM `tb_lock_channels` WHERE `type` = 'sponsor'");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getLockGroup(){
+        $stmt = $this->db->prepare("SELECT `username` FROM `tb_lock_channels` WHERE `type` = 'group'");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getChannels($type){
+        $stmt = $this->db->prepare("SELECT `username` FROM `tb_lock_channels` WHERE `type` = ?");
+        $stmt->execute([$type]);
+        return $stmt->fetchAll();
+    }
+
+    public function setLockChannel($chat_id , $type){
+        $stmt = $this->db->prepare("INSERT INTO `tb_lock_channels` WHERE  `chat_id` = ? and `type` = ?");
+        $stmt->execute([$chat_id , $type]);
+    }
+
 }

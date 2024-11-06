@@ -1,6 +1,6 @@
 <?php
 
-if (($text == 'پنل ادمین' || $text == 'بازگشت به ادمین پنل') && $user->is_admin) {
+if (($text == 'پنل ادمین' || $text == '🔙 بازگشت به ادمین پنل') && $user->is_admin) {
     $bot->sendMessage($from_id, 'به پنل مدیریت خوش آمدید', $adminPanelKeyboard);
     $userCursor->setStep($from_id, 'admin-panel');
     die;
@@ -185,27 +185,34 @@ if ($text == '📣 تنظیم کانال ها' && $user->is_admin) {
     die;
 }
 
-if ($text == 'افزودن جوین اجباری گپ' && $user->is_admin) {
+if ($text == 'افزودن اسپانسری ربات' && $user->is_admin) {
     $bot->sendMessage($from_id, "یوزرنیم کانال مورد نظر را بدون @ وارد کنید:\nربات در کانال مورد نظر باید ادمین باشد.", $backToAdmin);
-    $userCursor->setStep($from_id, 'set;group;lock');
+    $userCursor->setStep($from_id, 'set;private;lock');
     die;
 }
 
-if ($user->step == 'set;group;lock') {
-    $userCursor->setChannel($text, 'group');
+if ($user->step == 'set;private;lock') {
+    $userCursor->setChannel($text, 'private');
     $userCursor->setStep($from_id, 'admin-panel');
 
     $bot->sendMessage($from_id, 'کانال مورد نظر ذخیره شد.', $setChannelsButton);
     die;
 }
 
-if ($text == 'حذف جوین اجباری گپ' && $user->is_admin) {
-    $bot->sendMessage($from_id, "یوزرنیم کانال مورد نظر را بدون @ وارد کنید:", $backToAdmin);
-    $userCursor->setStep($from_id, 'del;group;lock');
+if ($text == 'حذف اسپانسری ربات' && $user->is_admin) {
+    $botMessage = "یوزرنیم کانال مورد نظر را بدون @ وارد کنید \n";
+    $result = $userCursor->getChannel("private");
+    if ($result) {
+        foreach ($result as $key => $value) {
+            $botMessage .= "\n" . $value->username;
+        }
+    }
+    $bot->sendMessage($from_id, $botMessage, $backToAdmin);
+    $userCursor->setStep($from_id, 'del;private;lock');
     die;
 }
 
-if ($user->step == 'del;group;lock') {
+if ($user->step == 'del;private;lock') {
     $userCursor->deleteChannel($text);
     $userCursor->setStep($from_id, 'admin-panel');
 

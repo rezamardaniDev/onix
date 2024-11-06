@@ -131,4 +131,12 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("DELETE FROM `tb_lock_channels` WHERE `username` = ?");
         $stmt->execute([$username]);
     }
+
+    public function getChannel($type)
+    {
+        $stmt = $this->db->prepare("SELECT `username` FROM `tb_lock_channels` WHERE `type` = ?");
+        $stmt->execute([$type]);
+        return  $stmt->fetchAll();
+    }
+
 }

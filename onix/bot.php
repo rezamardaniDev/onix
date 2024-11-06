@@ -34,6 +34,21 @@ $apiRequest = new OneApi(RAMZINE);
 require 'utils/variables.php';
 
 # -------------- Main Codes -------------- #
+
+if (!$user->is_admin){
+    if ($type == 'supergroup'){
+    
+        $commands = ['انیکس' , 'اونیکس' , 'ارز' , 'اوقات' , 'جوک' , 'سخن بزرگان' , 'دانستنی' , 'فال' , 'راهنما' , 'ترجمه به انگلیسی' , 'ترجمه به فارسی'];
+        foreach ($commands as $value) {
+            if ((strpos($text, $value) === 0)){
+                require 'partial/forceJoin.php';
+            }
+        }
+    }else{
+        require 'partial/forceJoin.php';
+    }
+}
+
 if ($update) {
     require 'partial/updateMessage.php';
 }
@@ -189,4 +204,3 @@ require 'modules/phonePrice.php';
 require 'partial/groupCommands.php';
 
 require 'modules/adminPanel.php';
-

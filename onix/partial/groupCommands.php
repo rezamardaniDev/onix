@@ -75,7 +75,6 @@ if ($text == 'ارز') {
     die;
 }
 
-
 if ($text == 'راهنما') {
     $bot->sendMessage($chat_id, $helper_text, message_id: $message_id, keyboard: json_encode([
         'inline_keyboard' => [
