@@ -70,7 +70,7 @@ $adminPanelKeyboard = json_encode([
     'keyboard' => [
         [['text' => '✍🏻 - پیام همگانی'], ['text' => '📊 - آمار ربات']],
         [['text' => '👥 - مدیریت کاربران'], ['text' => '⚙️ - تنظیمات']],
-        [['text' => '📣 تنظیم کانال ها']],
+        [['text' => '✍🏻 - فروارد همگانی'], ['text' => '📣 تنظیم کانال ها']],
         [['text' => '🔻 - حذف ادمین'], ['text' => '🔺 - افزودن ادمین ']],
         [['text' => '🔕 - حذف پاسخ سریع'], ['text' => '🔔 - افزودن پاسخ سریع']],
         [['text' => '🔙 بازگشت']]
@@ -200,11 +200,11 @@ $xiaomiKeyboard = json_encode([
     ]
 ]);
 
-$channelViewKeyboard = json_encode([
-    'inline_keyboard' => [
-        [['text' => '𝗢𝗻𝘆𝘅𝗧𝗲𝗮𝗺 🦜', 'url' => 'https://t.me/OnyxAiTeam']]
-    ]
-]);
+// $channelViewKeyboard = json_encode([
+//     'inline_keyboard' => [
+//         [['text' => '𝗢𝗻𝘆𝘅𝗧𝗲𝗮𝗺 🦜', 'url' => 'https://t.me/OnyxAiTeam']]
+//     ]
+// ]);
 
 $startChannelKeyboard = json_encode([
     'inline_keyboard' => [
@@ -239,6 +239,13 @@ $sendToAllKeyboard = json_encode([
     ]
 ]);
 
+$forwardToAllKeyboard = json_encode([
+    'resize_keyboard' => true,
+    'keyboard' => [
+        [['text' => '🤝 -  فروارد همگانی به گروه ها'], ['text' => '👥 -  فروارد همگانی به کاربران']],
+        [['text' => '🔙 بازگشت به ادمین پنل']]
+    ]
+]);
 
 $setChannelsButton = json_encode([
     'resize_keyboard' => true,
@@ -248,3 +255,17 @@ $setChannelsButton = json_encode([
         [['text' => '🔙 بازگشت به ادمین پنل']]
     ]
 ]);
+
+$channelViewKeyboard = [
+    'inline_keyboard' => []
+];
+
+$sample = [];
+$result = $userCursor->getChannel('sponsor'); 
+
+foreach ($result as $value) {
+    $sample[] = [['text' => $value->username, 'url' => "https://t.me/{$value->username}"]];
+}
+
+$channelViewKeyboard['inline_keyboard'] = $sample;
+$channelViewKeyboard = json_encode($channelViewKeyboard);

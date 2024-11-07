@@ -28,5 +28,9 @@ $botMessage = "
 🚿| رطوبت هوا️: $humidity
 ";
 
-$bot->sendMessage($chat_id, $botMessage, message_id: $message_id);
+if ($type == "supergroup"){
+    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id , keyboard:$channelViewKeyboard);
+}else{
+    $bot->sendMessage($chat_id, $botMessage, message_id: $message_id);
+}
 die;

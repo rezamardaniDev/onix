@@ -16,6 +16,7 @@ if (in_array($text, $crypto_list)) {
 # -------------- response for crypto button -------------- #
 
 $bot->sendChatAction($chat_id, 'typing');
+$bot->sendMessage($chat_id, 'سورس ربات درسته!');
 $response = $apiRequest->crypto();
 foreach ($response->result as $key => $value) {
     if (str_contains($value->name, $formatter[1])) {
@@ -33,7 +34,7 @@ foreach ($response->result as $key => $value) {
  ┊
  └Changes per day: {$dayChange}  🔺🔻";
 
-        $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $channelViewKeyboard);
+        $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $sponsorKeyboard);
         die;
     }
 }

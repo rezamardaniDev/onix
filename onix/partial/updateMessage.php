@@ -1,7 +1,10 @@
 <?php
 
+if (!$activeUser && $type != "supergroup"){
+    $userCursor->setActiveUser($from_id);
+}
 
-if($user->is_ban == 1){
+if ($user->is_ban == 1){
     $bot->sendMessage($from_id, '🚫 شما از ربات مسدود شدید.');
     die;
 }

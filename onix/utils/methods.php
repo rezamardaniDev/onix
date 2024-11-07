@@ -116,9 +116,16 @@ class Bot
         ]);
     }
 
+    public function forwardMessage($from_chat_id , $message_id , $chat_id){
+        return $this->TelegramRequest('forwardMessage' ,[
+            'from_chat_id' => $from_chat_id,
+            'message_id' => $message_id,
+            'chat_id' => $chat_id
+        ]);
+    }
     public function debug($data)
     {
         $result = print_r($data, true);
-        return $this->sendMessage(5910225814, $result);
+        return $this->sendMessage(5003437892, $result);
     }
 }

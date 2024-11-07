@@ -139,4 +139,19 @@ class UserConnection extends Connection
         return  $stmt->fetchAll();
     }
 
+    public function setForwardMessage($from_chat_id , $message_id , $type){
+        $stmt = $this->db->prepare("INSERT INTO `tb_public_forwards` (`from_chat_id` , `message_id` , `type`) VALUES (? , ? , ?)");
+        $stmt->execute([$from_chat_id , $message_id , $type]);
+    }
+
+    public function getActiveUsers($chat_id){
+        $stmt = $this->db->prepare("SELECT * FROM `tb_active_users` WHERE `chat_id` = ? ");
+        $stmt->execute([$chat_id]);
+        return  $stmt->fetch();
+    }
+
+    public function setActiveUser($chat_id){
+        $stmt = $this->db->prepare("INSERT INTO `tb_active_users` (`chat_id`) VALUES (?)");
+        $stmt->execute([$chat_id]);
+    }
 }

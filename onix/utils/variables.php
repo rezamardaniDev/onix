@@ -48,3 +48,5 @@ $userLimits = $userCursor->getLimits($from_id);
 $group = $groupCursor->getGroup($chat_id);
 $ss = explode(' ', $text)[0];
 $getWord = $userCursor->getForceMessage(htmlspecialchars($ss, ENT_QUOTES, 'UTF-8'));
+
+$activeUser = $userCursor->getActiveUsers($from_id);

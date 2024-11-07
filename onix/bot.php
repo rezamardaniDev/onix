@@ -17,7 +17,6 @@ require 'utils/methods.php';
 require 'database/connector.php';
 require 'database/usersMethods.php';
 require 'database/groupsMethods.php';
-require 'utils/keyboards.php';
 require 'database/oneApi.php';
 require 'partial/botMessages.php';
 
@@ -31,20 +30,21 @@ $apiRequest = new OneApi(RAMZINE);
 
 # -------------- Include variables -------------- #
 
+require 'utils/keyboards.php';
 require 'utils/variables.php';
 
 # -------------- Main Codes -------------- #
 
-if (!$user->is_admin){
-    if ($type == 'supergroup'){
-    
-        $commands = ['انیکس' , 'اونیکس' , 'ارز' , 'اوقات' , 'جوک' , 'سخن بزرگان' , 'دانستنی' , 'فال' , 'راهنما' , 'ترجمه به انگلیسی' , 'ترجمه به فارسی'];
+if (!$user->is_admin) {
+    if ($type == 'supergroup') {
+
+        $commands = ['انیکس', 'اونیکس', 'ارز', 'اوقات', 'جوک', 'سخن بزرگان', 'دانستنی', 'فال', 'راهنما', 'ترجمه به انگلیسی', 'ترجمه به فارسی'];
         foreach ($commands as $value) {
-            if ((strpos($text, $value) === 0)){
+            if ((strpos($text, $value) === 0)) {
                 require 'partial/forceJoin.php';
             }
         }
-    }else{
+    } else {
         require 'partial/forceJoin.php';
     }
 }
@@ -203,4 +203,39 @@ require 'modules/phonePrice.php';
 
 require 'partial/groupCommands.php';
 
+# -------------- admin panel section -------------- #
+
 require 'modules/adminPanel.php';
+
+if ($user->is_admin && $text == "✍🏻 - فروارد همگانی") {
+    $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $forwardToAllKeyboard);
+    die;
+}
+
+if ($user->is_admin && $text == '🤝 -  فروارد همگانی به گروه ها') {
+    $bot->sendMessage($from_id, 'پیام خود را برای ربات فروارد کنید :', $backToAdmin);
+    $userCursor->setStep($from_id, 'forward_public_message_group');
+    die;
+}
+
+
+
+if ($user->step ==  'forward_public_message_group') {
+    $userCursor->setForwardMessage($from_id , $message_id , 'groups');
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
+}
+
+
+if ($user->is_admin && $text == '👥 -  فروارد همگانی به کاربران') {
+    $bot->sendMessage($from_id, 'پیام خود را برای ربات فروارد کنید :', $backToAdmin);
+    $userCursor->setStep($from_id, 'forward_public_message_users');
+    die;
+}
+
+
+if ($user->step ==  'forward_public_message_users') {
+    $userCursor->setForwardMessage($from_id , $message_id , 'users');
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
+}
