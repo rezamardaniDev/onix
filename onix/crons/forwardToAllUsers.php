@@ -27,6 +27,7 @@ class PublicMessage extends Connection
 
         }
         $this->setSendMessage($result1->id);
+        $bot->sendMessage($result1->chat_id, 'پیام شما با موفقیت به تمام اعضای ربات ارسال گردید.');
     }
 }
 $pb = new PublicMessage();

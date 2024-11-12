@@ -221,7 +221,7 @@ if ($user->is_admin && $text == '🤝 -  فروارد همگانی به گروه
 
 
 if ($user->step ==  'forward_public_message_group') {
-    $userCursor->setForwardMessage($from_id , $message_id , 'groups');
+    $userCursor->setForwardMessage($chat_id, $from_id, $message_id, 'groups');
     $userCursor->setStep($from_id, 'admin-panel');
     $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
 }
@@ -235,7 +235,7 @@ if ($user->is_admin && $text == '👥 -  فروارد همگانی به کارب
 
 
 if ($user->step ==  'forward_public_message_users') {
-    $userCursor->setForwardMessage($from_id , $message_id , 'users');
+    $userCursor->setForwardMessage($chat_id, $from_id, $message_id, 'users');
     $userCursor->setStep($from_id, 'admin-panel');
     $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
 }
