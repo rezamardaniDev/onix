@@ -67,7 +67,7 @@ if ($text == '✍🏻 - پیام همگانی' && $user->is_admin) {
     die;
 }
 
-if ($text == '👥 -  پیام همگانی به کاربران' && $user->is_admin) {
+if ($text == '👥 -  پیام به کاربران' && $user->is_admin) {
     $bot->sendMessage($from_id, 'متن پیام را وارد کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'send_public_message_users');
     die;
@@ -79,7 +79,7 @@ if ($user->step ==  'send_public_message_users') {
     $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
 }
 
-if ($text == '🤝 -  پیام همگانی به گروه ها' && $user->is_admin) {
+if ($text == '🤝 -  پیام به گروه ها' && $user->is_admin) {
     $bot->sendMessage($from_id, 'متن پیام را وارد کنید: ', $backToAdmin);
     $userCursor->setStep($from_id, 'send_public_message_groups');
     die;
@@ -90,6 +90,41 @@ if ($user->step ==  'send_public_message_groups') {
     $userCursor->setStep($from_id, 'admin-panel');
     $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای گروه ها ارسال می شود", $adminPanelKeyboard);
 }
+
+
+if ($user->is_admin && $text == "📬 - فروارد همگانی") {
+    $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $forwardToAllKeyboard);
+    die;
+}
+
+if ($user->is_admin && $text == '🤝 -  فروارد به گروه ها') {
+    $bot->sendMessage($from_id, 'پیام خود را برای ربات فروارد کنید :', $backToAdmin);
+    $userCursor->setStep($from_id, 'forward_public_message_group');
+    die;
+}
+
+
+
+if ($user->step ==  'forward_public_message_group') {
+    $userCursor->setForwardMessage($chat_id, $from_id, $message_id, 'groups');
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
+}
+
+
+if ($user->is_admin && $text == '👥 -  فروارد به کاربران') {
+    $bot->sendMessage($from_id, 'پیام خود را برای ربات فروارد کنید :', $backToAdmin);
+    $userCursor->setStep($from_id, 'forward_public_message_users');
+    die;
+}
+
+
+if ($user->step ==  'forward_public_message_users') {
+    $userCursor->setForwardMessage($chat_id, $from_id, $message_id, 'users');
+    $userCursor->setStep($from_id, 'admin-panel');
+    $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
+}
+
 
 if ($text ==  '🔔 - افزودن پاسخ سریع' && $user->is_admin) {
     $bot->sendMessage($from_id, 'لطفا کلمه مورد نظر را در خط اول و پاسخ آن را در خط دوم وارد کنید: ');

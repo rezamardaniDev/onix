@@ -206,36 +206,3 @@ require 'partial/groupCommands.php';
 # -------------- admin panel section -------------- #
 
 require 'modules/adminPanel.php';
-
-if ($user->is_admin && $text == "✍🏻 - فروارد همگانی") {
-    $bot->sendMessage($from_id, 'لطفا یکی از گزینه های زیر را انتخاب کنید: ', $forwardToAllKeyboard);
-    die;
-}
-
-if ($user->is_admin && $text == '🤝 -  فروارد همگانی به گروه ها') {
-    $bot->sendMessage($from_id, 'پیام خود را برای ربات فروارد کنید :', $backToAdmin);
-    $userCursor->setStep($from_id, 'forward_public_message_group');
-    die;
-}
-
-
-
-if ($user->step ==  'forward_public_message_group') {
-    $userCursor->setForwardMessage($chat_id, $from_id, $message_id, 'groups');
-    $userCursor->setStep($from_id, 'admin-panel');
-    $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
-}
-
-
-if ($user->is_admin && $text == '👥 -  فروارد همگانی به کاربران') {
-    $bot->sendMessage($from_id, 'پیام خود را برای ربات فروارد کنید :', $backToAdmin);
-    $userCursor->setStep($from_id, 'forward_public_message_users');
-    die;
-}
-
-
-if ($user->step ==  'forward_public_message_users') {
-    $userCursor->setForwardMessage($chat_id, $from_id, $message_id, 'users');
-    $userCursor->setStep($from_id, 'admin-panel');
-    $bot->sendMessage($from_id, "پیام شما در دیتابیس ذخیره شد و در اولین فرصت برای کاربران ارسال می شود", $adminPanelKeyboard);
-}
