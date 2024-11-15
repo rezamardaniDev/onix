@@ -1,15 +1,29 @@
 <?php
 
-if (!$activeUser && $type != "supergroup"){
+
+if (!$user->is_admin) {
+    if ($type == 'supergroup') {
+        $commands = ['انیکس', 'اونیکس', 'ارز', 'اوقات', 'جوک', 'سخن بزرگان', 'دانستنی', 'فال', 'راهنما', 'ترجمه به انگلیسی', 'ترجمه به فارسی'];
+        foreach ($commands as $value) {
+            if ((strpos($text, $value) === 0) || array_key_exists(explode(' ', $text)[0], $cryptoItems) || array_key_exists(explode(' ', $text)[1], $cryptoItems)) {
+                require 'partial/forceJoinGp.php';
+            }
+        }
+    } else {
+        require 'partial/forceJoinPv.php';
+    }
+}
+
+if (!$activeUser && $type != "supergroup") {
     $userCursor->setActiveUser($from_id);
 }
 
-if ($user->is_ban == 1){
+if ($user->is_ban == 1) {
     $bot->sendMessage($from_id, '🚫 شما از ربات مسدود شدید.');
     die;
 }
 
-if ($text && $type == 'supergroup' && $getWord &&  $r_user_name == "onixToolsBot") {
+if ($text && $type == 'supergroup' && $getWord) {
     $bot->sendMessage($chat_id, $getWord, message_id: $message_id);
 }
 
@@ -33,6 +47,7 @@ if ($bot_join == 'onixToolsBot') {
 ⚠️ توجه : در صورتی که ربات را ادمین کردید این پیام را نادیده بگیرید !
     ";
     $bot->sendMessage($chat_id, $botMessage);
+    $bot->sendMessage($from_id, 'ربات در یک گروه ارسال شد');
     die;
 }
 
@@ -43,7 +58,6 @@ if ($bot_admin == "onixToolsBot" && $bot_status == "administrator") {
         $groupCursor->addNewGroup($chat_id);
     }
 
-    $groupCursor->setActive($chat_id, 1);
     $botMessage = "
     *✅ اونیکس 🦜, با موفقیت در گروه نصب شد!
     
@@ -57,7 +71,7 @@ if ($bot_admin == "onixToolsBot" && $bot_status == "administrator") {
     اخبار و...
     ```";
 
-    $bot->sendMessage($chat_id, $botMessage, mrk: 'Markdown' , keyboard:$startChannelKeyboard);
+    $bot->sendMessage($chat_id, $botMessage, mrk: 'Markdown', keyboard: $startChannelKeyboard);
     $groupCursor->setActive($chat_id, 1);
     die;
 }

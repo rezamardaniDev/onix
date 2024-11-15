@@ -11,10 +11,19 @@ if ($text == '「 🖼 عکس با هوش مصنوعی 」') {
     die;
 } else {
     $bot->sendMessage($from_id, 'لطفا اندکی صبر کنید...');
-    $text = $apiRequest->translateToEn($text);
     $response = $apiRequest->aiPhoto($text);
+
+    if (!$response) {
+        $bot->sendMessage($from_id, 'پاسخی دریافت نشد', mrk: 'Markdown');
+        die;
+    }
+
     $bot->sendChatAction($from_id, 'upload_photo');
-    $bot->sendPhoto($from_id, $response, 'تصویر شما آماده شد', $hoshmandKeyboard);
+
+    foreach ($response as $photo) {
+        $bot->sendPhoto($from_id, $photo, 'تصویر شما آماده شد' . "\n\n<b>🦜 Download by @OnyxAiRoBot</b>", $hoshmandKeyboard);
+    }
+
     $userCursor->setLimit($from_id, 'image_limit', $userLimits->image_limit - 1);
     $userCursor->setStep($from_id, 'home');
     die;

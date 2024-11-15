@@ -62,6 +62,12 @@ if ($user->step == "choosePhone") {
             $action = "$text";
     }
     $response = $apiRequest->getPriceOfPhone($action);
+
+    if (!$response) {
+        $bot->sendMessage($from_id, 'پاسخی دریافت نشد', mrk: 'Markdown');
+        die;
+    }
+
     $bot->sendMessage($from_id, $response);
     die;
 }

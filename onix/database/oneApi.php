@@ -7,6 +7,7 @@ class OneApi
     private $gpt4;
     private $oneApiDomain = 'https://one-api.ir';
     private $senatorApiDomain = 'https://api.fast-creat.ir';
+    private $hajiLicense = "yVuvnU4xxq0PZbdP0xBQ6UjvXM2dTSfllCsbRvg";
 
 
     public function __construct($token)
@@ -124,6 +125,15 @@ class OneApi
         return json_decode($response);
     }
 
+    public function arzDigital($tag)
+    {
+        $url = "https://haji-api.ir/bitpin/?search={$tag}&license={$this->hajiLicense}";
+        $response = $this->getRequest($url);
+        $data = json_decode($response)->result;
+        return $data;
+    }
+
+
     # -------------- method for translating text  -------------- #
 
     public function translateToEn($text)
@@ -144,21 +154,20 @@ class OneApi
 
     public function makeLogo($name)
     {
-        $randomLogo = mt_rand(1, 140);
-        $logo = "{$this->senatorApiDomain}/logo/?apikey=6317851077:PQpi8V12DEJtw3K@Api_ManagerRoBot&type=logo&id={$randomLogo}&text={$name}";
-        return $logo;
+        $url = "https://api3.haji-api.ir/majid/ai/ephoto/random?text={$name}&license={$this->hajiLicense}";
+        $response = $this->getRequest($url);
+        return json_decode($response)->result;
     }
 
     # -------------- method for Image creation  -------------- #
 
     public function aiPhoto($prompt)
     {
-        $url = "{$this->senatorApiDomain}/gpt/pic?apikey=6317851077:9sn8DBCSo0zIwly@Api_ManagerRoBot&text={$prompt}";
+        $url = "https://api3.haji-api.ir/majid/ai/image/draw?p={$prompt}&license={$this->hajiLicense}";
         $response = $this->getRequest($url);
         $photo = json_decode($response);
-        $link = $photo->result->image;
-        $correctedLink = str_replace("\\", "", $link);
-        return $correctedLink;
+        $link = $photo->result;
+        return $link;
     }
 
     # -------------- method for sokhan bozorgan  -------------- #
@@ -183,16 +192,16 @@ class OneApi
 
     public function textToVocieMan($text)
     {
-        $url = "{$this->oneApiDomain}/tts/?token={$this->token}&action=microsoft&lang=fa-IR-FaridNeural&q={$text}";
+        $url = "https://api3.haji-api.ir/majid/tools/tts?text={$text}&Character=FaridNeural&license={$this->hajiLicense}";
         $response = $this->getRequest($url);
-        return $response;
+        return json_decode($response)->result->url;
     }
 
     public function textToVocieWoMan($text)
     {
-        $url = "{$this->oneApiDomain}/tts/?token={$this->token}&action=microsoft&lang=fa-IR-DilaraNeural&q={$text}";
+        $url = "https://api3.haji-api.ir/majid/tools/tts?text={$text}&Character=DilaraNeural&license={$this->hajiLicense}";
         $response = $this->getRequest($url);
-        return $response;
+        return json_decode($response)->result->url;
     }
 
     # -------------- method for getting weather  -------------- #
@@ -271,5 +280,12 @@ class OneApi
         $response = $this->postRequest("https://api.one-api.ir/instagram/v1/post/?shortcode={$link}", ['shortcode' => $link], ["one-api-token: {$this->token}"]);
         $link = json_decode($response)->result;
         return $link;
+    }
+
+    public function reserveBus($time, $mabda, $maghsad)
+    {
+        $url = "https://haji-api.ir/bus-ticket/?time={$time}&maghsad={$maghsad}&mabda={$mabda}&license={$this->hajiLicense}";
+        $response = $this->getRequest($url);
+        return json_decode($response)->buses;
     }
 }

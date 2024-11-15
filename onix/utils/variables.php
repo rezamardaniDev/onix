@@ -43,6 +43,8 @@ if (isset($update->callback_query)) {
     $message_id  = $update->callback_query->message->message_id;
 }
 
+$logChannelId = ''; # channel for send report if bot join the new group
+
 $user = $userCursor->getUser($from_id);
 $userLimits = $userCursor->getLimits($from_id);
 $group = $groupCursor->getGroup($chat_id);

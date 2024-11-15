@@ -1,6 +1,7 @@
 <?php
 
 include '../database/connector.php';
+include '../database/usersMethods.php';
 
 
 class Resets extends Connection
@@ -14,3 +15,5 @@ class Resets extends Connection
 
 $resetCursor = new Resets();
 $resetCursor->resetLimits();
+$userCursor = new UserConnection();
+$userCursor->deleteDailyUsers();

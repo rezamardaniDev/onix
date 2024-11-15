@@ -15,6 +15,7 @@ if ($text == '🔺 - افزودن ادمین' && $user->is_admin) {
 if ($text == '📊 - آمار ربات' && $user->is_admin) {
     $userCount  = $userCursor->getBotState();
     $groupCount = $userCursor->getGroupState();
+    $activeUsers = $userCursor->getDailyUsers();
 
     $bot->sendChatAction($chat_id, 'typing');
 
@@ -23,6 +24,7 @@ if ($text == '📊 - آمار ربات' && $user->is_admin) {
 
 - تعداد کاربران ربات : {$userCount} نفر
 - تعداد گروه های ربات : {$groupCount} گروه
+- کاربران فعال امروز : {$activeUsers}
 </b>
     ";
     $bot->sendMessage($from_id, $botMessage, message_id: $message_id);

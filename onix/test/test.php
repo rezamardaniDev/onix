@@ -1,4 +1,10 @@
 <?php
 
-$new = file_get_contents('https://api.fast-creat.ir/nobitex/v2?apikey=6317851077:XblkuwZFLCgMayI@Api_ManagerRoBot');
-echo $new;
+$tt = time() + 0.6;
+
+
+if ($tt < $time()) {
+    var_dump('error');
+} else {
+    var_dump($tt);
+}

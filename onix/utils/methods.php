@@ -67,6 +67,7 @@ class Bot
             'chat_id' => $chat_id,
             'photo'   => $photo,
             'caption' => $caption,
+            'parse_mode' => 'HTML',
             'reply_markup' => $keyboard
         ]);
     }
@@ -88,6 +89,7 @@ class Bot
             'chat_id' => $chat_id,
             'audio'   => $audio,
             'caption' => $caption,
+            'parse_mode' => 'HTML',
             'reply_markup' => $keyboard
         ]);
     }

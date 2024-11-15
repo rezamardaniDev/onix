@@ -32,23 +32,9 @@ $apiRequest = new OneApi(RAMZINE);
 
 require 'utils/keyboards.php';
 require 'utils/variables.php';
+require 'partial/security.php';
 
 # -------------- Main Codes -------------- #
-
-if (!$user->is_admin) {
-    if ($type == 'supergroup') {
-
-        $commands = ['انیکس', 'اونیکس', 'ارز', 'اوقات', 'جوک', 'سخن بزرگان', 'دانستنی', 'فال', 'راهنما', 'ترجمه به انگلیسی', 'ترجمه به فارسی'];
-        foreach ($commands as $value) {
-            if ((strpos($text, $value) === 0)) {
-                require 'partial/forceJoin.php';
-            }
-        }
-    } else {
-        require 'partial/forceJoin.php';
-    }
-}
-
 if ($update) {
     require 'partial/updateMessage.php';
 }
@@ -108,8 +94,13 @@ if ($text == '「 🕌 اوقات شرعی 」' || $user->step == 'get-oghat') {
 }
 
 # -------------- get crypto price -------------- #
+if($text == '「 📊 ارز دیجیتال 」'){
+    $bot->sendMessage($from_id, $crypto_text, $backButton);
+    die;
+}
 
-if ($text == '「 📊 ارز دیجیتال 」' || in_array($text, $crypto_list) || in_array(explode(' ', $text, 2)[1], $crypto_list)) {
+if (array_key_exists(explode(' ', $text)[0], $cryptoItems) || array_key_exists(explode(' ', $text)[1], $cryptoItems)) {
+    $bot->sendChatAction($chat_id, 'typing');
     require 'modules/crypto.php';
 }
 
@@ -206,3 +197,33 @@ require 'partial/groupCommands.php';
 # -------------- admin panel section -------------- #
 
 require 'modules/adminPanel.php';
+
+if (preg_match('/^اتوبوس/', $text)) {
+    $specter = explode("\n", $text);
+    $day = str_replace('/', '-', $specter[3]);
+    $bot->sendMessage($chat_id, 'درحال جستجو تمام اتوبوس ها ...', message_id: $message_id);
+    $response = $apiRequest->reserveBus($day, $specter[1], $specter[2]);
+
+    if (!$response) {
+        $bot->sendMessage($chat_id, 'اتوبوسی یافت نشد!', message_id: $message_id);
+        die;
+    }
+
+    $bot_message = "اتوبوس های یافت شده در تاریخ انتخابی: \n";
+    for ($i = 0; $i < min(8, count($response)); $i++) {
+        $price = number_format($bus->price / 10);
+        $bus = $response[$i];
+        $bot_message .= "
+-- -- -- --
+🏢 - شرکت: {$bus->company->name}  
+🚌 - نوع اتوبوس: {$bus->busType}   
+💰 - قیمت بلیط: {$price} تومان
+⏰ - زمان حرکت: {$bus->departureTime}   
+🪑 - ظرفیت خالی: {$bus->availableSeats} نفر
+        ";
+    }
+    $bot_message .= "\n\n- اطلاعات فوق از سامانه سفر 724 دریافت شده است.";
+    $bot->sendChatAction($chat_id, 'typing');
+    $bot->sendMessage($chat_id, $bot_message, message_id: $message_id);
+    die;
+}

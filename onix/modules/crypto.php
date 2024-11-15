@@ -1,41 +1,40 @@
 <?php
 
-if ($text == '「 📊 ارز دیجیتال 」') {
-    $botMessage = $crypto_text;
-    $bot->sendMessage($from_id, $botMessage, $backButton);
+$spector = explode(' ', $text);
+
+if (count($spector) == 2) {
+    $amount = $bot->convertFaToEn($spector[0]);
+    $cryptoName = $spector[1];
+} else {
+    $amount = 1;
+    $cryptoName = $spector[0];
+}
+$response = $apiRequest->arzDigital($cryptoItems[$cryptoName]);
+
+if (!$response) {
+    $bot->sendMessage($from_id, 'پاسخی دریافت نشد', mrk: 'Markdown');
     die;
 }
-if (in_array($text, $crypto_list)) {
-    $price = 1;
-    $formatter[1] = $text;
+
+$title = $response[0]->currency1->title;
+$titleFa = $response[0]->currency1->title_fa;
+if (count($spector) == 2) {
+    $priceRial = number_format($amount * intval($response[0]->price)) . ' تومان';
 } else {
-    $formatter = explode(' ', $text, 2);
-    $formatter[0] = $bot->convertFaToEn($formatter[0]);
-    $price = $formatter[0];
+    $priceRial = number_format(intval($response[0]->price)) . ' تومان';
 }
-# -------------- response for crypto button -------------- #
+$priceRial = number_format($amount * intval($response[0]->price)) . ' تومان';
+$priceDollar = $response[1]->price  ?? $amount;
+$change =  $response[0]->price_info->change;
 
-$bot->sendChatAction($chat_id, 'typing');
-$bot->sendMessage($chat_id, 'سورس ربات درسته!');
-$response = $apiRequest->crypto();
-foreach ($response->result as $key => $value) {
-    if (str_contains($value->name, $formatter[1])) {
-
-        $dollar = floatval($value->usdt) * floatval($price);
-        $rial = print_r(number_format(floatval($value->irr) * $price), true);
-        $dayChange = $value->dayChange;
-
-        $botMessage = "
-┌💱 {$price} {$key} :
+$botMessage = "
+┌<b>💱 {$amount} {$title} </b>
  ┊
- ├Dollar: \${$dollar}
+ ├Dollar: \${$priceDollar} دلار
  ┊
- ├IRT: {$rial} تومان
+ ├IRT: {$priceRial}
  ┊
- └Changes per day: {$dayChange}  🔺🔻";
+ └Changes per day: {$change} 🔺🔻
+";
 
-        $bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $sponsorKeyboard);
-        die;
-    }
-}
-die;
+$bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard:$channelViewKeyboard);

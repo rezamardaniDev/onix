@@ -157,4 +157,18 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("INSERT INTO `tb_active_users` (`chat_id`) VALUES (?)");
         $stmt->execute([$chat_id]);
     }
+
+    public function getDailyUsers()
+    {
+        $stmt = $this->db->query("SELECT COUNT(*) AS `total` FROM `tb_active_users`");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result->total;
+    }
+
+    public function deleteDailyUsers()
+    {
+        $stmt = $this->db->prepare("DELETE FROM `tb_active_users`");
+        $stmt->execute();
+    }
 }
