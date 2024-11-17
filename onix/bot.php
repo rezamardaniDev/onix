@@ -41,6 +41,13 @@ require 'partial/security.php';
 
 # -------------- Main Codes -------------- #
 if ($update) {
+    $userCursor->setSpamTime($from_id);
+    $lastTime = strtotime($user->spam);
+    $currentTime = time();
+    if ($lastTime + 1 >= $currentTime){
+        $bot->deleteMessages($chat_id , $message_id);
+        die;
+    }
     require 'partial/updateMessage.php';
 }
 

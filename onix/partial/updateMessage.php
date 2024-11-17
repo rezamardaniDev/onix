@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 if (!$user->is_admin) {
     if ($type == 'supergroup') {
         $commands = ['انیکس', 'اونیکس', 'ارز', 'اوقات', 'جوک', 'سخن بزرگان', 'دانستنی', 'فال', 'راهنما', 'ترجمه به انگلیسی', 'ترجمه به فارسی'];

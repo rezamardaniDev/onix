@@ -18,13 +18,23 @@ if (!$response) {
 
 $title = $response[0]->currency1->title;
 $titleFa = $response[0]->currency1->title_fa;
+
 if (count($spector) == 2) {
     $priceRial = number_format($amount * intval($response[0]->price)) . ' تومان';
+    if($response[1]->price){
+        $priceDollar = $response[1]->price * $amount;
+    }else{
+        $priceDollar = $amount;
+    }
 } else {
     $priceRial = number_format(intval($response[0]->price)) . ' تومان';
+    if($response[1]->price){
+        $priceDollar = $response[1]->price * $amount;
+    }else{
+        $priceDollar = $amount;
+    }
 }
 $priceRial = number_format($amount * intval($response[0]->price)) . ' تومان';
-$priceDollar = $response[1]->price  ?? $amount;
 $change =  $response[0]->price_info->change;
 
 $botMessage = "
@@ -37,4 +47,4 @@ $botMessage = "
  └Changes per day: {$change} 🔺🔻
 ";
 
-$bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard:$channelViewKeyboard);
+$bot->sendMessage($chat_id, $botMessage, message_id: $message_id, keyboard: $channelViewKeyboard);

@@ -170,4 +170,9 @@ class UserConnection extends Connection
         $stmt = $this->db->prepare("DELETE FROM `tb_active_users`");
         $stmt->execute();
     }
+
+    public function setSpamTime($chat_id){
+        $stmt = $this->db->prepare("UPDATE `tb_users` SET `spam` = CURRENT_TIMESTAMP WHERE `chat_id` = ?");
+        $stmt->execute([$chat_id]);
+    }
 }
