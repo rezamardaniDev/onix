@@ -21,6 +21,7 @@ if ($text == '「 📻 دانلود ساندکلود 」') {
         $audioFile = "{$soundName}.mp3";
 
         file_put_contents($audioFile, $getFile);
+        $bot->deleteMessages($from_id, $message_id + 1);
         $bot->sendAudio($from_id, "https://fara-it.ir/onix/{$audioFile}", $soundName  . "\n\n<b>🦜 Download by @OnyxAiRoBot</b>", $downloaderKeyboard);
         unlink($audioFile);
         $userCursor->setLimit($from_id, 'dl_soundcloud', $userLimits->dl_soundcloud - 1);

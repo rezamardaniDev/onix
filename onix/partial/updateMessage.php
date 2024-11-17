@@ -1,5 +1,6 @@
 <?php
 
+use function PHPSTORM_META\type;
 
 if (!$user->is_admin) {
     if ($type == 'supergroup') {
@@ -23,8 +24,12 @@ if ($user->is_ban == 1) {
     die;
 }
 
-if ($text && $type == 'supergroup' && $getWord) {
-    $bot->sendMessage($chat_id, $getWord, message_id: $message_id);
+if ($text && $type == 'supergroup') {
+    foreach ($getWord as $word) {
+        if ($text == $word->question) {
+            $bot->sendMessage($chat_id, $word->answer, message_id: $message_id);
+        }
+    }
 }
 
 if (preg_match('/del_/', $data)) {
@@ -32,9 +37,16 @@ if (preg_match('/del_/', $data)) {
     die;
 }
 
+if($type == 'supergroup'){
+      if (!$group) {
+        $groupCursor->addNewGroup($chat_id);
+    }
+}
+
 # -------------- send message when add bot to group -------------- #
 
 if ($bot_join == 'onixToolsBot') {
+    $bot->sendMessage($from_id, $bot_join);
     if (!$group) {
         $groupCursor->addNewGroup($chat_id);
     }
@@ -46,8 +58,8 @@ if ($bot_join == 'onixToolsBot') {
 
 ⚠️ توجه : در صورتی که ربات را ادمین کردید این پیام را نادیده بگیرید !
     ";
-    $bot->sendMessage($chat_id, $botMessage);
-    $bot->sendMessage($from_id, 'ربات در یک گروه ارسال شد');
+    $bot->sendMessage($chat_id, $botMessage, $startChannelKeyboard);
+    $bot->sendMessage($logChannelId, "ربات در یک گروه جدید اضافه شد!\n\nنام گروه: {$group_title}\nشناسه گروه: {$group_id}\nلینک گروه: {$group_uname}");
     die;
 }
 
@@ -58,6 +70,7 @@ if ($bot_admin == "onixToolsBot" && $bot_status == "administrator") {
         $groupCursor->addNewGroup($chat_id);
     }
 
+    $groupCursor->setActive($chat_id, 1);
     $botMessage = "
     *✅ اونیکس 🦜, با موفقیت در گروه نصب شد!
     

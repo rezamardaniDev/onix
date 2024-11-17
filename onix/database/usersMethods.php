@@ -64,13 +64,12 @@ class UserConnection extends Connection
         $stmt->execute($words);
     }
 
-    public function getForceMessage($word)
+    public function getForceMessage()
     {
-        $stmt = $this->db->prepare("SELECT * FROM `tb_messages` WHERE `question` LIKE ?");
-        $stmt->execute(['%' . $word . '%']);
+        $stmt = $this->db->prepare("SELECT * FROM tb_messages");
+        $stmt->execute();
         $results = $stmt->fetchAll();
-        $answers = array_column($results, 'answer');
-        return !empty($answers) ? $answers[array_rand($answers)] : null;
+        return $results;
     }
 
     public function deleteForceMessage($word)

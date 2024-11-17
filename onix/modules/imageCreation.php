@@ -19,6 +19,7 @@ if ($text == '「 🖼 عکس با هوش مصنوعی 」') {
     }
 
     $bot->sendChatAction($from_id, 'upload_photo');
+    $bot->deleteMessages($from_id, $message_id + 1);
 
     foreach ($response as $photo) {
         $bot->sendPhoto($from_id, $photo, 'تصویر شما آماده شد' . "\n\n<b>🦜 Download by @OnyxAiRoBot</b>", $hoshmandKeyboard);

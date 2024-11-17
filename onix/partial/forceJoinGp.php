@@ -5,12 +5,12 @@ $inlineKeyboard = [
 ];
 $result = $userCursor->getChannel('group');
 $sample = [];
+$counter = 1;
 
 foreach ($result as $key => $value) {
     $status = $bot->getChatMember('@' . $value->username, $from_id);
-    $counter = 1;
     if ($status->result->status == "left" || $status->result->status == "kicked") {
-        $sample[] = [['text' => "کانال شماره ({$counter})", 'url' => "https://t.me/{$value->username}"]];
+        $sample[] = [['text' =>  "عضویت و ورود به کانال ({$counter}) 📣", 'url' => "https://t.me/{$value->username}"]];
     }
     $counter++;
 }

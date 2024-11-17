@@ -2,8 +2,13 @@
 
 # -------------- Display Error -------------- #
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+
+error_reporting(0);
+ini_set('display_errors', 0);
+ini_set('log_errors', 0);
+
 date_default_timezone_set("Asia/Tehran");
 
 # -------------- Get Update From Telegram -------------- #
@@ -94,7 +99,7 @@ if ($text == '「 🕌 اوقات شرعی 」' || $user->step == 'get-oghat') {
 }
 
 # -------------- get crypto price -------------- #
-if($text == '「 📊 ارز دیجیتال 」'){
+if ($text == '「 📊 ارز دیجیتال 」') {
     $bot->sendMessage($from_id, $crypto_text, $backButton);
     die;
 }
@@ -209,10 +214,12 @@ if (preg_match('/^اتوبوس/', $text)) {
         die;
     }
 
-    $bot_message = "اتوبوس های یافت شده در تاریخ انتخابی: \n";
+    $bot_message = "اتوبوس های یافت شده در تاریخ انتخابی از {$specter[1]} به {$specter[2]} : \n";
     for ($i = 0; $i < min(8, count($response)); $i++) {
         $price = number_format($bus->price / 10);
         $bus = $response[$i];
+        $bot->sendChatAction($chat_id, 'typing');
+        $bot->deleteMessages($chat_id, $message_id + 1);
         $bot_message .= "
 -- -- -- --
 🏢 - شرکت: {$bus->company->name}  

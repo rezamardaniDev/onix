@@ -1,10 +1,10 @@
 <?php
+$message = "سلام اونیکس چه خبر عزیز";
+$searchPhrase = "چه خبر";
 
-$tt = time() + 0.6;
-
-
-if ($tt < $time()) {
-    var_dump('error');
+if (strpos($message, $searchPhrase) !== false) {
+    echo "true";
 } else {
-    var_dump($tt);
+    echo "false";
 }
+?>

@@ -21,6 +21,7 @@ if ($text == '「 🔮 دانلود اینستاگرام 」') {
     $caption = $response->caption . "\n\n<b>🦜 Download by @OnyxAiRoBot</b>";
 
     $bot->sendChatAction($from_id, 'upload_document');
+    $bot->deleteMessages($from_id, $message_id + 1);
     $bot->sendVideo($from_id, $link, $caption, $downloaderKeyboard);
     $userCursor->setStep($from_id, 'home');
     die;

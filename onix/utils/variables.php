@@ -12,6 +12,10 @@ if (isset($update->message)) {
     $first_name  = htmlspecialchars($message->from->first_name, ENT_QUOTES, 'UTF-8');
     $message_id  = $update->message->message_id;
     $bot_join    = $update->message->new_chat_participant->username;
+
+    $group_id    = $update->message->chat->id;
+    $group_title = $update->message->chat->title;
+    $group_uname = $update->message->chat->username ?? 'ندارد';
 }
 
 if (isset($update->message->reply_to_message)) {
@@ -43,12 +47,11 @@ if (isset($update->callback_query)) {
     $message_id  = $update->callback_query->message->message_id;
 }
 
-$logChannelId = ''; # channel for send report if bot join the new group
+$logChannelId = '-1002307806234';
 
 $user = $userCursor->getUser($from_id);
 $userLimits = $userCursor->getLimits($from_id);
 $group = $groupCursor->getGroup($chat_id);
-$ss = explode(' ', $text)[0];
-$getWord = $userCursor->getForceMessage(htmlspecialchars($ss, ENT_QUOTES, 'UTF-8'));
+$getWord = $userCursor->getForceMessage();
 
 $activeUser = $userCursor->getActiveUsers($from_id);

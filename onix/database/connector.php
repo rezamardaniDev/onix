@@ -12,7 +12,13 @@ class Connection
     ];
     public function __construct()
     {
-        $this->db = new PDO("mysql:host={$this->hostname};dbname={$this->database};charset=UTF8", $this->username, $this->password, $this->options);
-        echo 'Db Connected!';
+        try {
+            $this->db = new PDO("mysql:host={$this->hostname};dbname={$this->database};charset=UTF8", $this->username, $this->password, $this->options);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 }
+
+$conn = new Connection();
+

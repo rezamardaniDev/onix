@@ -251,6 +251,7 @@ $setChannelsButton = json_encode([
     'resize_keyboard' => true,
     'keyboard' => [
         [['text' => 'حذف اسپانسری ربات'], ['text' => 'افزودن اسپانسری ربات']],
+        [['text' => 'حذف اسپانسری گروه'], ['text' => 'افزودن اسپانسری گروه']],
         [['text' => 'حذف کانال تبلیغاتی'], ['text' => 'افزودن کانال تبلیغاتی']],
         [['text' => '🔙 بازگشت به ادمین پنل']]
     ]
@@ -261,10 +262,10 @@ $channelViewKeyboard = [
 ];
 
 $sample = [];
-$result = $userCursor->getChannel('sponsor'); 
+$result = $userCursor->getChannel('sponsor');
 
 foreach ($result as $value) {
-    $sample[] = [['text' => $value->username, 'url' => "https://t.me/{$value->username}"]];
+    $sample[] = [['text' =>  "کانال اسپانسر ({$value->username}) 📣", 'url' => "https://t.me/{$value->username}"]];
 }
 
 $channelViewKeyboard['inline_keyboard'] = $sample;

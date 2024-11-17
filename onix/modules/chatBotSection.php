@@ -105,7 +105,7 @@ if ($user->step == 'chating' && $type != 'supergroup') {
     }
 
     $chatResponse = $chatResponse . $string;
-    $bot->sendMessage($from_id, $chatResponse, mrk: 'Markdown');
+    $bot->sendMessage($from_id, $chatResponse, mrk: 'Markdown', keyboard:$channelViewKeyboard);
 
     die;
 }

@@ -15,6 +15,8 @@ $sekee   = number_format($name->emami1);
 // # -------------- creating inline keyboards for price section -------------- #
 
 $sample = [];
+$result = $userCursor->getChannel('sponsor');
+
 $sample[] = [['text' => "{$dollar} تومان ", 'callback_data' => '0'], ['text' => "دلار آمریکا 🇺🇸", 'callback_data' => '0']];
 $sample[] = [['text' => "{$euro} تومان ", 'callback_data' => '0'], ['text' => "یورو اروپا 🇪🇺", 'callback_data' => '0']];
 $sample[] = [['text' => "{$pond} تومان ", 'callback_data' => '0'], ['text' => "پوند انگلیس 🏴󠁧󠁢󠁥󠁮󠁧󠁿󠁧󠁢󠁥󠁮󠁧󠁿", 'callback_data' => '0']];
@@ -24,5 +26,8 @@ $sample[] = [['text' => 'نرخ سکه و طلا به شرح زیر می باش�
 
 $sample[] = [['text' => "{$gerami} تومان ", 'callback_data' => '0'], ['text' => "هر گرم طلا", 'callback_data' => '0']];
 $sample[] = [['text' => "{$sekee} تومان ", 'callback_data' => '0'], ['text' => "سکه بهار آزادی", 'callback_data' => '0']];
+foreach ($result as $value) {
+    $sample[] = [['text' =>  "کانال اسپانسر ({$value->username}) 📣", 'url' => "https://t.me/{$value->username}"]];
+}
 
 $pricesKeyboard['inline_keyboard'] = $sample;

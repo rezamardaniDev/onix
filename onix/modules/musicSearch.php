@@ -1,8 +1,8 @@
 <?php
 
-if($text == '「 🎧 جستجوی موزیک 」'){
-    if($userLimits->search_music <= 0){
-        $bot->sendMessage($from_id , "تعداد ریکوست های امروز شما تمام شد ." , $mainKeyboard);
+if ($text == '「 🎧 جستجوی موزیک 」') {
+    if ($userLimits->search_music <= 0) {
+        $bot->sendMessage($from_id, "تعداد ریکوست های امروز شما تمام شد .", $mainKeyboard);
         die;
     }
     $bot->sendMessage($from_id, "لطفا نام موزیک  مورد نظر تو ارسال کن: \n\nمثال:\nعاشق دل شکسته معین\nکجای این شهر", $backButton);
@@ -10,8 +10,8 @@ if($text == '「 🎧 جستجوی موزیک 」'){
     die;
 }
 
-if($userLimits->search_music <= 0){
-    $bot->sendMessage($from_id , "تعداد ریکوست های امروز شما تمام شد ." , $mainKeyboard);
+if ($userLimits->search_music <= 0) {
+    $bot->sendMessage($from_id, "تعداد ریکوست های امروز شما تمام شد .", $mainKeyboard);
     die;
 }
 $bot->sendMessage($from_id, 'لطفا اندکی صبر کنید...');
@@ -26,7 +26,8 @@ $artist = $response->artist;
 $song_name = $response->song;
 
 $bot->sendChatAction($from_id, 'upload_document');
-$bot->sendAudio($from_id, $link, "{$artist} - {$song_name}", $hoshmandKeyboard);
-$userCursor->setLimit($from_id , 'search_music' , $userLimits->search_music - 1);
+$bot->deleteMessages($from_id, $message_id + 1);
+$bot->sendAudio($from_id, $link, "{$artist} - {$song_name}" . "\n\n<b>🦜 Download by @OnyxAiRoBot</b>", $hoshmandKeyboard);
+$userCursor->setLimit($from_id, 'search_music', $userLimits->search_music - 1);
 $userCursor->setStep($from_id, 'home');
 die;

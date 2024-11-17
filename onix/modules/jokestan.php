@@ -1,7 +1,7 @@
 <?php
 
 $bot->sendChatAction($from_id, 'typing');
-$response = $apiRequest->funnyService('joke');7
+$response = $apiRequest->funnyService('joke');
 
 if (!$response) {
     $bot->sendMessage($from_id, 'پاسخی دریافت نشد', mrk: 'Markdown');
